@@ -1,5 +1,5 @@
 package it.books.app.model;
 
-public class Collections {
+public class BookCollection {
 
 }
