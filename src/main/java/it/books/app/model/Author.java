@@ -37,7 +37,7 @@ public class Author {
     @Column(name = "nationality", nullable = false, columnDefinition = "varchar(30)")
     private String nationality;
 
-    @Column(name = "bio", columnDefinition = "tinytext")
+    @Column(name = "bio", columnDefinition = "text(2000)")
     private String bio;
 
     @Column(name = "website", columnDefinition = "mediumtext")

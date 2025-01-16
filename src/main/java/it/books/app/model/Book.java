@@ -56,7 +56,7 @@ public class Book {
     @JoinColumn(name = "id_publisher", nullable = false)
     private Publisher publisher;
 
-    @Column(name = "description", columnDefinition = "mediumtext")
+    @Column(name = "description", columnDefinition = "text(2000)")
     private String description;
 
     @Column(name = "cover_url", columnDefinition = "mediumtext")
