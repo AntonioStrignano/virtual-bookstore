@@ -47,6 +47,9 @@ public class Publisher {
     @OneToMany(mappedBy = "publisher")
     private List<Book> books;
 
+    @OneToMany(mappedBy = "publisher")
+    private List<BookCollection> bookCollections;
+
     // ----------------------------
     // ----- GETTERS & SETTERS ----
     // ----------------------------
@@ -128,6 +131,14 @@ public class Publisher {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    public List<BookCollection> getBookCollections() {
+        return bookCollections;
+    }
+
+    public void setBookCollections(List<BookCollection> bookCollections) {
+        this.bookCollections = bookCollections;
     }
 
 }
