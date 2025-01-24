@@ -10,3 +10,29 @@ User Reviews and Ratings: Allow users to rate books and write reviews. This will
 Payment Integration: Add integration with payment gateways (e.g., Stripe, PayPal) to make the purchase process more realistic.
 
 Techstack: Spring boot, Spring Security, Spring Data JPA 
+
+
+
+
+    analytics
+x   author
+x   award
+x   BOOK
+x   bookcollections
+    cart
+    CUSTOMERS
+    discount
+x   edition
+x   format
+x   genre
+    INVENTORY
+    notification
+    ORDER
+x   publisher
+    review
+    role
+    searchHistory
+    shopAssistant
+x   translator
+    user
+    wishlist
