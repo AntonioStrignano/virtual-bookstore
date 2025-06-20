@@ -14,25 +14,25 @@ Techstack: Spring boot, Spring Security, Spring Data JPA
 
 
 
-    analytics
+x   BOOK
 x   author
 x   award
-x   BOOK
 x   bookcollections
-    cart
-    CUSTOMERS
-    discount
 x   edition
 x   format
 x   genre
-    INVENTORY
-    notification
-    ORDER
 x   publisher
+x   translator
+x   CUSTOMERS
+    analytics
+    cart
+    notification
     review
     role
     searchHistory
-    shopAssistant
-x   translator
     user
     wishlist
+    INVENTORY
+    discount
+    ORDER
+    shopAssistant
