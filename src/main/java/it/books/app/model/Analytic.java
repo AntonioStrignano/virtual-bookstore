@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="analytics")
-public class Analytics {
+public class Analytic {
 
 	//id
 	@Id

@@ -52,7 +52,7 @@ public class Customer {
 	// analytics
 	// FK OtM
 	@OneToMany(mappedBy = "customerId")
-	private List<Analytics> analytics;
+	private List<Analytic> analytics;
 
 	// cart
 	// FK OtO
@@ -65,11 +65,11 @@ public class Customer {
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
 
-	public List<Analytics> getAnalytics() {
+	public List<Analytic> getAnalytics() {
 		return analytics;
 	}
 
-	public void setAnalytics(List<Analytics> analytics) {
+	public void setAnalytics(List<Analytic> analytics) {
 		this.analytics = analytics;
 	}
 

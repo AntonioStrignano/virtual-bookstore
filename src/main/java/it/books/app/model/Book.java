@@ -92,7 +92,7 @@ public class Book {
 
 	// FK one to many
 	@OneToMany(mappedBy = "id_book")
-	private List<Analytics> analytics;
+	private List<Analytic> analytics;
 
 	// FK one to many
 	@OneToMany(mappedBy = "book")
@@ -248,11 +248,11 @@ public class Book {
 		this.bookCollection = bookCollection;
 	}
 
-	public List<Analytics> getAnalytics() {
+	public List<Analytic> getAnalytics() {
 		return analytics;
 	}
 
-	public void setAnalytics(List<Analytics> analytics) {
+	public void setAnalytics(List<Analytic> analytics) {
 		this.analytics = analytics;
 	}
 
