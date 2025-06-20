@@ -51,9 +51,16 @@ public class Customer {
 
 	// analytics
 	// FK OtM
-	@OneToMany(mappedBy = "id_customer")
+	@OneToMany(mappedBy = "customerId")
 	private List<Analytics> analytics;
 
+	// cart
+	// FK OtO
+	@OneToOne
+	@JoinColumn(name="id_cart")
+	private Cart cartId;
+	
+	
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------

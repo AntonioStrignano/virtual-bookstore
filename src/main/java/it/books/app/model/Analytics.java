@@ -33,7 +33,7 @@ public class Analytics {
 	//customer id
 	@ManyToOne
 	@JoinColumn(name="id_customer")
-	private Customer customer;
+	private Customer customerId;
 
 	//event type (linked list)
 }
