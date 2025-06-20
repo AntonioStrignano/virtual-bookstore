@@ -1,16 +1,19 @@
 package it.books.app.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer {
 
 	@Id
@@ -46,9 +49,22 @@ public class Customer {
 	@JoinColumn(name = "id_user")
 	private User user;
 
+	// analytics
+	// FK OtM
+	@OneToMany(mappedBy = "id_customer")
+	private List<Analytics> analytics;
+
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
+
+	public List<Analytics> getAnalytics() {
+		return analytics;
+	}
+
+	public void setAnalytics(List<Analytics> analytics) {
+		this.analytics = analytics;
+	}
 
 	public Integer getId() {
 		return id;

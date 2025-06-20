@@ -91,7 +91,7 @@ public class Book {
 	private BookCollection bookCollection;
 
 	// FK one to many
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "id_book")
 	private List<Analytics> analytics;
 
 	// FK one to many
