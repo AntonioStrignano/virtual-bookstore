@@ -66,6 +66,10 @@ public class Customer {
 	@OneToMany(mappedBy = "customerId")
 	private List<SearchHistory> searchHistory;
 
+	@OneToOne
+	@JoinColumn(name = "id_wishlist")
+	private Wishlist wishlistId;
+
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
@@ -148,6 +152,14 @@ public class Customer {
 
 	public void setSearchHistory(List<SearchHistory> searchHistory) {
 		this.searchHistory = searchHistory;
+	}
+
+	public Wishlist getWishlistId() {
+		return wishlistId;
+	}
+
+	public void setWishlistId(Wishlist wishlistId) {
+		this.wishlistId = wishlistId;
 	}
 
 }

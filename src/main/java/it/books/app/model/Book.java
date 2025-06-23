@@ -101,6 +101,9 @@ public class Book {
 	@OneToOne(mappedBy = "book")
 	private Inventory inventory;
 
+	@ManyToMany(mappedBy = "wishlistedBooks")
+	private List<Wishlist> wishlists;
+
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
