@@ -32,7 +32,7 @@ public class DiscountType {
 
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+	// ---------------------------- 
 
 	public Integer getId() {
 		return id;
