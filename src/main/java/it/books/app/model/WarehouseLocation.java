@@ -26,6 +26,10 @@ public class WarehouseLocation {
 	@OneToMany(mappedBy = "warehouseLocation")
 	private List<Inventory> inventoryList;
 
+	// shop assistants OtM
+	@OneToMany(mappedBy = "assistantLocation")
+	private List<ShopAssistant> shopAssistants;
+
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
@@ -52,6 +56,14 @@ public class WarehouseLocation {
 
 	public void setInventoryList(List<Inventory> inventoryList) {
 		this.inventoryList = inventoryList;
+	}
+
+	public List<ShopAssistant> getShopAssistants() {
+		return shopAssistants;
+	}
+
+	public void setShopAssistants(List<ShopAssistant> shopAssistants) {
+		this.shopAssistants = shopAssistants;
 	}
 
 }
