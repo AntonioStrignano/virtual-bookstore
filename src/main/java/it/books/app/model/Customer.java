@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer extends User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,12 +42,6 @@ public class Customer {
 	private String preferences;
 
 	// ----- FKs -----
-
-	// user id
-	// FK OtO
-	@OneToOne
-	@JoinColumn(name = "id_user")
-	private User user;
 
 	// analytics
 	// FK OtM
@@ -133,14 +127,6 @@ public class Customer {
 
 	public void setPreferences(String preferences) {
 		this.preferences = preferences;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Cart getCartId() {

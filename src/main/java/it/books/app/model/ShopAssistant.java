@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "shop_assistants")
-public class ShopAssistant {
+public class ShopAssistant extends User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,8 +64,6 @@ public class ShopAssistant {
 	@JoinColumn(name = "assistant_location")
 	private WarehouseLocation assistantLocation;
 
-	// user id
-
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
@@ -74,7 +72,7 @@ public class ShopAssistant {
 		// TODO Auto-generated constructor stub
 	}
 
-	Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
