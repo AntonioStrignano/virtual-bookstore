@@ -70,6 +70,11 @@ public class Customer {
 	@JoinColumn(name = "id_wishlist")
 	private Wishlist wishlistId;
 
+	// order
+	// OtM
+	@OneToMany(mappedBy = "customerId")
+	private List<Order> orders;
+
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
@@ -160,6 +165,14 @@ public class Customer {
 
 	public void setWishlistId(Wishlist wishlistId) {
 		this.wishlistId = wishlistId;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 }

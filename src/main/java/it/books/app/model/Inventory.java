@@ -65,6 +65,11 @@ public class Inventory {
 	@ManyToMany(mappedBy = "inventoryList")
 	private List<Cart> carts;
 
+	// order
+	// MtM
+	@ManyToMany(mappedBy = "inventoryOrdered")
+	private List<Order> orders;
+
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
@@ -131,6 +136,22 @@ public class Inventory {
 
 	public void setCarts(List<Cart> carts) {
 		this.carts = carts;
+	}
+
+	public List<Discount> getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(List<Discount> discounts) {
+		this.discounts = discounts;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 }
