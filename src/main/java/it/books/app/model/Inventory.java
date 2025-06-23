@@ -8,7 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -20,11 +22,6 @@ public class Inventory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-
-	// book
-	@OneToOne
-	@JoinColumn(name = "book_id")
-	private Book book;
 
 	// price
 	@Column(name = "price", nullable = false, columnDefinition = "decimal(5,2)")
@@ -42,10 +39,27 @@ public class Inventory {
 	@Column(name = "notes", nullable = true, columnDefinition = "varchar(200)")
 	private String notes;
 
-	// status FK
-	// discount FK
+	// FKs
+	// book
+	// OtO
+	@OneToOne
+	@JoinColumn(name = "book_id")
+	private Book book;
 
-	// cart FK
+	// status
+	// MtO
+	@ManyToOne
+	@JoinColumn(name = "inventory_status")
+	private InventoryStatus inventoryStatus;
+
+	// discount
+	// MtM
+	@ManyToMany
+	@JoinTable(name = "inventory_discounts", joinColumns = @JoinColumn(name = "id_inventory"), inverseJoinColumns = @JoinColumn(name = "id_discount"))
+	private List<Discount> discounts;
+
+	// cart
+	// MtM
 	@ManyToMany(mappedBy = "inventoryList")
 	private List<Cart> carts;
 }
