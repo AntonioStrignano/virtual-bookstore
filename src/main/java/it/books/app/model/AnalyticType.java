@@ -18,6 +18,16 @@ public class AnalyticType {
 	@Column(name = "id")
 	private Integer id;
 
+	// name
+	@Column(name = "type_name", nullable = false, unique = true, columnDefinition = "VARCHAR(30)")
+	private String name;
+
+	// text template
+	@Column(name = "text_template", nullable = false, columnDefinition = "tinytext")
+	private String textTemplate;
+
+	// FKs
+	// analytics OtM
 	@OneToMany(mappedBy = "analyticType")
 	private Analytic analyticId;
 
@@ -39,6 +49,22 @@ public class AnalyticType {
 
 	public void setAnalyticId(Analytic analyticId) {
 		this.analyticId = analyticId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTextTemplate() {
+		return textTemplate;
+	}
+
+	public void setTextTemplate(String textTemplate) {
+		this.textTemplate = textTemplate;
 	}
 
 }

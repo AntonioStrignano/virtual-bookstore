@@ -16,84 +16,86 @@ import jakarta.persistence.Table;
 @Table(name = "book_collections")
 public class BookCollection {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
 
-    //title
-    @Column(name = "coll_title", nullable = false, unique = true, columnDefinition = "tinytext")
-    private String title;
+	// title
+	@Column(name = "coll_title", nullable = false, unique = true, columnDefinition = "tinytext")
+	private String title;
 
-    //description
-    @Column(name = "coll_description", columnDefinition = "text(2000)")
-    private String description;
+	// description
+	@Column(name = "coll_description", columnDefinition = "text(2000)")
+	private String description;
 
-    //is numerated
-    @Column(name = "is_numerated", columnDefinition = "bool")
-    private Boolean is_numerated;
+	// is numerated
+	@Column(name = "is_numerated", columnDefinition = "bool")
+	private Boolean is_numerated;
 
-    //books
-    //FK OtM
-    @OneToMany(mappedBy = "bookCollection")
-    private List<Book> books;
+	// FKs
 
-    //publisher
-    //FK MtO
-    @ManyToOne
-    @JoinColumn(name = "id_publisher", nullable = false)
-    private Publisher publisher;
+	// books
+	// OtM
+	@OneToMany(mappedBy = "bookCollection")
+	private List<Book> books;
 
-    // ----------------------------
-    // ----- GETTERS & SETTERS ----
-    // ----------------------------
-    
-    public Integer getId() {
-        return id;
-    }
+	// publisher
+	// MtO
+	@ManyToOne
+	@JoinColumn(name = "id_publisher", nullable = false)
+	private Publisher publisher;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	// ----------------------------
+	// ----- GETTERS & SETTERS ----
+	// ----------------------------
 
-    public String getTitle() {
-        return title;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public Boolean getIs_numerated() {
-        return is_numerated;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setIs_numerated(Boolean is_numerated) {
-        this.is_numerated = is_numerated;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public List<Book> getBooks() {
-        return books;
-    }
+	public Boolean getIs_numerated() {
+		return is_numerated;
+	}
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+	public void setIs_numerated(Boolean is_numerated) {
+		this.is_numerated = is_numerated;
+	}
 
-    public Publisher getPublisher() {
-        return publisher;
-    }
+	public List<Book> getBooks() {
+		return books;
+	}
 
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+	}
 
 }

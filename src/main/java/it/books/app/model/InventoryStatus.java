@@ -19,16 +19,18 @@ public class InventoryStatus {
 	@Column(name = "id")
 	private Integer id;
 
-	// nome
+	// name
 	@Column(name = "status_name", nullable = false, unique = true, columnDefinition = "VARCHAR(10)")
 	private String statusName;
 
-	// descrizione
+	// description
 	@Column(name = "status_description", nullable = false, columnDefinition = "tinytext")
 	private String statusDescription;
 
 	// FKs
-	// inventory (mapped by "inventoryStatus")
+
+	// inventory
+	// OtM
 	@OneToMany(mappedBy = "inventoryStatus")
 	private List<Inventory> inventoryList;
 

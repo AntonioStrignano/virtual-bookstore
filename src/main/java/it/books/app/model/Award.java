@@ -11,75 +11,83 @@ import jakarta.persistence.ManyToMany;
 
 public class Award {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
 
-    @Column(name = "award_title", nullable = false, columnDefinition = "tinytext")
-    private String title;
+	// title
+	@Column(name = "award_title", nullable = false, columnDefinition = "tinytext")
+	private String title;
 
-    @Column(name = "year", nullable = false, columnDefinition = "year")
-    private Year year;
+	// year
+	@Column(name = "year", nullable = false, columnDefinition = "year")
+	private Year year;
 
-    @Column(name = "description", columnDefinition = "text(2000)")
-    private String description;
+	// description
+	@Column(name = "description", columnDefinition = "text(2000)")
+	private String description;
 
-    @Column(name = "award_type", columnDefinition = "tinytext")
-    private String awardType;
+	// award type
+	@Column(name = "award_type", columnDefinition = "tinytext")
+	private String awardType;
 
-    @ManyToMany(mappedBy = "awards")
-    private List<Book> books;
+	// FKs
 
-    // ----------------------------
-    // ----- GETTERS & SETTERS ----
-    // ----------------------------
-    public Integer getId() {
-        return id;
-    }
+	// boooks
+	// MtM
+	@ManyToMany(mappedBy = "awards")
+	private List<Book> books;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	// ----------------------------
+	// ----- GETTERS & SETTERS ----
+	// ----------------------------
+	public Integer getId() {
+		return id;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public Year getYear() {
-        return year;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setYear(Year year) {
-        this.year = year;
-    }
+	public Year getYear() {
+		return year;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setYear(Year year) {
+		this.year = year;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getAwardType() {
-        return awardType;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setAwardType(String awardType) {
-        this.awardType = awardType;
-    }
+	public String getAwardType() {
+		return awardType;
+	}
 
-    public List<Book> getBooks() {
-        return books;
-    }
+	public void setAwardType(String awardType) {
+		this.awardType = awardType;
+	}
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 
 }

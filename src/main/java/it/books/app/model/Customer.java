@@ -44,22 +44,23 @@ public class Customer extends User {
 	// ----- FKs -----
 
 	// analytics
-	// FK OtM
+	// OtM
 	@OneToMany(mappedBy = "customerId")
 	private List<Analytic> analytics;
 
 	// cart
-	// FK OtO
+	// OtO
 	@OneToOne
 	@JoinColumn(name = "id_cart")
 	private Cart cartId;
 
 	// search history
-	// FK OtM
-
+	// OtM
 	@OneToMany(mappedBy = "customerId")
 	private List<SearchHistory> searchHistory;
 
+	// wishlist
+	// OtO
 	@OneToOne
 	@JoinColumn(name = "id_wishlist")
 	private Wishlist wishlistId;

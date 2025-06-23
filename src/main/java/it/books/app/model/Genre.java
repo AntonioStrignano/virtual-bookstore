@@ -15,64 +15,72 @@ import jakarta.persistence.Table;
 @Table(name = "genres")
 public class Genre {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
 
-    @Column(name = "genre_name", nullable = false, unique = true, columnDefinition = "varchar(30")
-    private String name;
+	// name
+	@Column(name = "genre_name", nullable = false, unique = true, columnDefinition = "varchar(30")
+	private String name;
 
-    @Column(name = "description", columnDefinition = "varchar(100)")
-    private String description;
+	// description
+	@Column(name = "description", columnDefinition = "varchar(100)")
+	private String description;
 
-    @ManyToMany(mappedBy = "genres")
-    private List<Book> books;
+	// FKs
 
-    @OneToMany(mappedBy = "mainGenre")
-    private List<Author> authors;
+	// books
+	// MtM
+	@ManyToMany(mappedBy = "genres")
+	private List<Book> books;
 
-    // ----------------------------
-    // ----- GETTERS & SETTERS ----
-    // ----------------------------
-    public Integer getId() {
-        return id;
-    }
+	// authors
+	// OtM
+	@OneToMany(mappedBy = "mainGenre")
+	private List<Author> authors;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	// ----------------------------
+	// ----- GETTERS & SETTERS ----
+	// ----------------------------
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public List<Book> getBooks() {
-        return books;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+	public List<Book> getBooks() {
+		return books;
+	}
 
-    public List<Author> getAuthors() {
-        return authors;
-    }
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
-    }
+	public List<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
 
 }

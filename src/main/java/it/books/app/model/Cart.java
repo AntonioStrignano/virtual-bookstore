@@ -28,13 +28,14 @@ public class Cart {
 	private LocalDateTime lastUpdateDate;
 
 	// FKs
-	// customer id
-	// one to one
+
+	// customer
+	// OtO
 	@OneToOne(mappedBy = "cartId")
 	private Customer customerId;
 
 	// inventory list
-	// many to many
+	// MtM
 	@ManyToMany
 	@JoinTable(name = "carts_inventories", joinColumns = @JoinColumn(name = "id_cart"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
 	private List<Inventory> inventoryList;

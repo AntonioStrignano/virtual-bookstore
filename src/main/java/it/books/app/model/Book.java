@@ -25,88 +25,114 @@ public class Book {
 	@Column(name = "id")
 	private Integer id;
 
+	// title
 	@Column(name = "book_title", nullable = false, columnDefinition = "tinytext")
 	private String title;
 
-	// Many to One
+	// isbn
+	@Column(name = "isbn", nullable = false, columnDefinition = "char(13)", unique = true, length = 13)
+	private String isbn;
+
+	// language
+	@Column(name = "lang", nullable = false, columnDefinition = "varchar(30)")
+	private String language;
+
+	// publish date
+	@Column(name = "publish_date", nullable = false, columnDefinition = "date")
+	private LocalDate publishDate;
+
+	// description
+	@Column(name = "description", columnDefinition = "text(2000)")
+	private String description;
+
+	// cover
+	@Column(name = "cover_url", columnDefinition = "mediumtext")
+	private String cover;
+
+	// page number
+	@Column(name = "pg_number", columnDefinition = "int(5)")
+	private Integer page_number;
+
+	// edition
+	@Column(name = "edition", nullable = false, columnDefinition = "tinytext")
+	private String edition;
+
+	// dimension
+	@Column(name = "dimension", nullable = false, columnDefinition = "tinytext")
+	private String dimension;
+
+	// copyright
+	@Column(name = "copyright", columnDefinition = "tinytext")
+	private String copyright;
+
+	// FKs
+
+	// author
+	// MtO
 	@ManyToOne
 	@JoinColumn(name = "id_author", nullable = false)
 	private Author author;
 
-	@Column(name = "isbn", nullable = false, columnDefinition = "char(13)", unique = true, length = 13)
-	private String isbn;
-
-	// FK many to many
+	// awards
+	// MtM
 	@ManyToMany
 	@JoinTable(name = "books_awards", joinColumns = @JoinColumn(name = "id_book"), inverseJoinColumns = @JoinColumn(name = "id_award"))
 	private List<Award> awards;
 
-	// FK many to many
+	// genres
+	// MtM
 	@ManyToMany
 	@JoinTable(name = "books_genres", joinColumns = @JoinColumn(name = "id_book"), inverseJoinColumns = @JoinColumn(name = "id_genre"))
 	private List<Genre> genres;
 
-	@Column(name = "lang", nullable = false, columnDefinition = "varchar(30)")
-	private String language;
-
-	@Column(name = "publish_date", nullable = false, columnDefinition = "date")
-	private LocalDate publishDate;
-
-	// FK many to one
+	// publisher
+	// MtO
 	@ManyToOne
 	@JoinColumn(name = "id_publisher", nullable = false)
 	private Publisher publisher;
 
-	@Column(name = "description", columnDefinition = "text(2000)")
-	private String description;
-
-	@Column(name = "cover_url", columnDefinition = "mediumtext")
-	private String cover;
-
-	// FK many to one
+	// format
+	// MtO
 	@ManyToOne
 	@JoinColumn(name = "id_format", nullable = false)
 	private Format format;
 
-	@Column(name = "pg_number", columnDefinition = "int(5)")
-	private Integer page_number;
-
-	@Column(name = "edition", nullable = false, columnDefinition = "tinytext")
-	private String edition;
-
-	@Column(name = "dimension", nullable = false, columnDefinition = "tinytext")
-	private String dimension;
-
-	@Column(name = "copyright", columnDefinition = "tinytext")
-	private String copyright;
-
-	// FK many to one
+	// translator
+	// MtO
 	@ManyToOne
 	@JoinColumn(name = "id_translator")
 	private Translator translator;
 
-	// FK many to one
+	// bool collection
+	// MtO
 	@ManyToOne
 	@JoinColumn(name = "id_collection")
 	private BookCollection bookCollection;
 
-	// FK one to many
+	// analytics
+	// OtM
 	@OneToMany(mappedBy = "id_book")
 	private List<Analytic> analytics;
 
-	// FK one to many
+	// reviews
+	// OtM
 	@OneToMany(mappedBy = "book")
 	private List<Review> reviews;
 
+	// inventory
+	// OtO
 	@OneToOne(mappedBy = "book")
 	private Inventory inventory;
 
+	// wishlist
+	// MtM
 	@ManyToMany(mappedBy = "wishlistedBooks")
 	private List<Wishlist> wishlists;
 
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
+
 	public Integer getId() {
 		return id;
 	}
@@ -273,6 +299,14 @@ public class Book {
 
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
+	}
+
+	public List<Wishlist> getWishlists() {
+		return wishlists;
+	}
+
+	public void setWishlists(List<Wishlist> wishlists) {
+		this.wishlists = wishlists;
 	}
 
 }

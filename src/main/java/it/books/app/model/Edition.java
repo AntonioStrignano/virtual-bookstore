@@ -14,42 +14,47 @@ import jakarta.persistence.Table;
 @Table(name = "edition")
 public class Edition {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
 
-    @Column(name = "edition_name", nullable = false, unique = true, columnDefinition = "varchar(20)")
-    private String name;
+	// name
+	@Column(name = "edition_name", nullable = false, unique = true, columnDefinition = "varchar(20)")
+	private String name;
 
-    @OneToMany(mappedBy = "edition")
-    private List<Book> books;
+	// FKs
 
-    // ----------------------------
-    // ----- GETTERS & SETTERS ----
-    // ----------------------------
-    public Integer getId() {
-        return id;
-    }
+	// books
+	// OtM
+	@OneToMany(mappedBy = "edition")
+	private List<Book> books;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	// ----------------------------
+	// ----- GETTERS & SETTERS ----
+	// ----------------------------
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public List<Book> getBooks() {
-        return books;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 
 }

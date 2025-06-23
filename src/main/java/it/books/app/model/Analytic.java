@@ -24,18 +24,22 @@ public class Analytic {
 	// timestamp
 	@Column(name = "event_timestamp", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime eventTimestamp;
+
 	// FKs
 	// books
+	// Mto
 	@ManyToOne
 	@JoinColumn(name = "id_book")
 	private Book book;
 
 	// customer id
+	// MtO
 	@ManyToOne
 	@JoinColumn(name = "id_customer")
 	private Customer customerId;
 
-	// event type
+	// analytic type
+	// MtO
 	@ManyToOne
 	@JoinColumn(name = "event_type", nullable = false)
 	private AnalyticType analyticType;

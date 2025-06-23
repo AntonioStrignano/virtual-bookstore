@@ -19,9 +19,11 @@ public class DiscountType {
 	@Column(name = "id")
 	private Integer id;
 
+	// name
 	@Column(name = "type_name", nullable = false, unique = true, columnDefinition = "tinytext")
 	private String typeName;
 
+	// discount rule
 	@Column(name = "discount_rule", nullable = false, columnDefinition = "mediumtext")
 	private String discountRule;
 
@@ -32,7 +34,7 @@ public class DiscountType {
 
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
-	// ---------------------------- 
+	// ----------------------------
 
 	public Integer getId() {
 		return id;

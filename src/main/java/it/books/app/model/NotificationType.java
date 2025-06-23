@@ -1,10 +1,13 @@
 package it.books.app.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,11 +19,20 @@ public class NotificationType {
 	@Column(name = "id")
 	private Integer id;
 
+	// name
 	@Column(name = "notification_name", nullable = false, unique = true, columnDefinition = "VARCHAR(20)")
 	private String notificationName;
 
+	// template
 	@Column(name = "notif_template", nullable = true, columnDefinition = "tinytext")
 	private String notificationTemplate;
+
+	// FKs
+
+	// notifications
+	// OtM
+	@OneToMany(mappedBy = "notificationType")
+	private List<Notification> notifications;
 
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
@@ -48,6 +60,14 @@ public class NotificationType {
 
 	public void setNotificationTemplate(String notificationTemplate) {
 		this.notificationTemplate = notificationTemplate;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
 	}
 
 }

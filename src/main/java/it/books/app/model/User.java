@@ -79,12 +79,12 @@ public class User {
 		this.roles = roles;
 	}
 
-	public Boolean getIsActive() {
-		return isActive;
+	public Integer getSecondId() {
+		return secondId;
 	}
 
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
+	public void setSecondId(Integer secondId) {
+		this.secondId = secondId;
 	}
 
 }

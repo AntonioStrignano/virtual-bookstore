@@ -12,31 +12,30 @@ Payment Integration: Add integration with payment gateways (e.g., Stripe, PayPal
 Techstack: Spring boot, Spring Security, Spring Data JPA 
 
 
-
-
-x   BOOK
-x   author
-x   award
-x   bookcollections
-x   edition
-x   format
-x   genre
-x   publisher
-x   translator
-x   CUSTOMERS
-x   analytics
-x   cart
-x   notification
-x   notification type
-x   review
-    role
-X   searchHistory
-    user
-x   wishlist
-x   INVENTORY
-    inventory status
-x   warehouse location
-x   discount
-    discount type
-    ORDER
-    shopAssistant
+analytic
+analytictype
+author
+award
+book
+bookCollection
+cart
+customer
+discount
+discountType
+edition
+format
+genre
+inventory
+inventorystatus
+notification
+notificationtype
+order
+publisher
+review
+role
+searchHistory
+shopassistant
+translator
+user
+warehouse
+wishlist

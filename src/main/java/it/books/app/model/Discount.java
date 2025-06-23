@@ -35,7 +35,8 @@ public class Discount {
 	private Integer discountValue;
 
 	// FKs
-	// inventory MtM (mapped by "discounts")
+	// inventory
+	// MtM
 	@ManyToMany(mappedBy = "discounts")
 	private List<Inventory> inventoryList;
 

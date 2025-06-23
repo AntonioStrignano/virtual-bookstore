@@ -32,7 +32,7 @@ public class Notification {
 	@Column(name = "creation_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime creationDate;
 
-	// FKs (da integrare)
+	// FKs
 
 	// customer id
 	// MtO
@@ -40,7 +40,7 @@ public class Notification {
 	@JoinColumn(name = "id_customer", nullable = false)
 	private Customer customerId;
 
-	// notification type (da fare)
+	// notification type
 	// MtO
 	@ManyToOne
 	@JoinColumn(name = "notification_type", nullable = false)

@@ -15,130 +15,145 @@ import jakarta.persistence.Table;
 @Table(name = "publisher")
 public class Publisher {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
 
-    @Column(name = "publisher_name", nullable = false, unique = true, columnDefinition = "varchar(50)")
-    private String publisherName;
+	// name
+	@Column(name = "publisher_name", nullable = false, unique = true, columnDefinition = "varchar(50)")
+	private String publisherName;
 
-    @Column(name = "founder_year", nullable = false, columnDefinition = "year")
-    private Year founderYear;
+	// founder year
+	@Column(name = "founder_year", nullable = false, columnDefinition = "year")
+	private Year founderYear;
 
-    @Column(name = "country", nullable = false, columnDefinition = "varchar(30)")
-    private String country;
+	// country
+	@Column(name = "country", nullable = false, columnDefinition = "varchar(30)")
+	private String country;
 
-    @Column(name = "city", columnDefinition = "varchar(30)")
-    private String city;
+	// city
+	@Column(name = "city", columnDefinition = "varchar(30)")
+	private String city;
 
-    @Column(name = "publisher_website", columnDefinition = "mediumtext")
-    private String publisherWebsite;
+	// website
+	@Column(name = "publisher_website", columnDefinition = "mediumtext")
+	private String publisherWebsite;
 
-    @Column(name = "publisher_email", columnDefinition = "varchar(254)")
-    private String email;
+	// email
+	@Column(name = "publisher_email", columnDefinition = "varchar(254)")
+	private String email;
 
-    @Column(name = "publisher_address", columnDefinition = "tinytext")
-    private String publisherAddress;
+	// address
+	@Column(name = "publisher_address", columnDefinition = "tinytext")
+	private String publisherAddress;
 
-    @Column(name = "publisher_bio", columnDefinition = "text(2000)")
-    private String publisherBio;
+	// bio
+	@Column(name = "publisher_bio", columnDefinition = "text(2000)")
+	private String publisherBio;
 
-    @OneToMany(mappedBy = "publisher")
-    private List<Book> books;
+	// KFs
 
-    @OneToMany(mappedBy = "publisher")
-    private List<BookCollection> bookCollections;
+	// books
+	// OtM
+	@OneToMany(mappedBy = "publisher")
+	private List<Book> books;
 
-    // ----------------------------
-    // ----- GETTERS & SETTERS ----
-    // ----------------------------
-    public Integer getId() {
-        return id;
-    }
+	// book collections
+	// OtM
+	@OneToMany(mappedBy = "publisher")
+	private List<BookCollection> bookCollections;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	// ----------------------------
+	// ----- GETTERS & SETTERS ----
+	// ----------------------------
 
-    public String getPublisherName() {
-        return publisherName;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setPublisherName(String publisherName) {
-        this.publisherName = publisherName;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Year getFounderYear() {
-        return founderYear;
-    }
+	public String getPublisherName() {
+		return publisherName;
+	}
 
-    public void setFounderYear(Year founderYear) {
-        this.founderYear = founderYear;
-    }
+	public void setPublisherName(String publisherName) {
+		this.publisherName = publisherName;
+	}
 
-    public String getCountry() {
-        return country;
-    }
+	public Year getFounderYear() {
+		return founderYear;
+	}
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+	public void setFounderYear(Year founderYear) {
+		this.founderYear = founderYear;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public String getCountry() {
+		return country;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
-    public String getPublisherWebsite() {
-        return publisherWebsite;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public void setPublisherWebsite(String publisherWebsite) {
-        this.publisherWebsite = publisherWebsite;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getPublisherWebsite() {
+		return publisherWebsite;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setPublisherWebsite(String publisherWebsite) {
+		this.publisherWebsite = publisherWebsite;
+	}
 
-    public String getPublisherAddress() {
-        return publisherAddress;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setPublisherAddress(String publisherAddress) {
-        this.publisherAddress = publisherAddress;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getPublisherBio() {
-        return publisherBio;
-    }
+	public String getPublisherAddress() {
+		return publisherAddress;
+	}
 
-    public void setPublisherBio(String publisherBio) {
-        this.publisherBio = publisherBio;
-    }
+	public void setPublisherAddress(String publisherAddress) {
+		this.publisherAddress = publisherAddress;
+	}
 
-    public List<Book> getBooks() {
-        return books;
-    }
+	public String getPublisherBio() {
+		return publisherBio;
+	}
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+	public void setPublisherBio(String publisherBio) {
+		this.publisherBio = publisherBio;
+	}
 
-    public List<BookCollection> getBookCollections() {
-        return bookCollections;
-    }
+	public List<Book> getBooks() {
+		return books;
+	}
 
-    public void setBookCollections(List<BookCollection> bookCollections) {
-        this.bookCollections = bookCollections;
-    }
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+
+	public List<BookCollection> getBookCollections() {
+		return bookCollections;
+	}
+
+	public void setBookCollections(List<BookCollection> bookCollections) {
+		this.bookCollections = bookCollections;
+	}
 
 }

@@ -36,6 +36,7 @@ public class Inventory {
 	private String notes;
 
 	// FKs
+
 	// warehouse_location
 	// Mto
 	@ManyToOne
@@ -48,7 +49,7 @@ public class Inventory {
 	@JoinColumn(name = "book_id")
 	private Book book;
 
-	// status
+	// inventory status
 	// MtO
 	@ManyToOne
 	@JoinColumn(name = "inventory_status")
