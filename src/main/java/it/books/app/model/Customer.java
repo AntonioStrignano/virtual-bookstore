@@ -57,10 +57,15 @@ public class Customer {
 	// cart
 	// FK OtO
 	@OneToOne
-	@JoinColumn(name="id_cart")
+	@JoinColumn(name = "id_cart")
 	private Cart cartId;
-	
-	
+
+	// search history
+	// FK OtM
+
+	@OneToMany(mappedBy = "customerId")
+	private List<SearchHistory> searchHistory;
+
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
 	// ----------------------------
@@ -127,6 +132,22 @@ public class Customer {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Cart getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Cart cartId) {
+		this.cartId = cartId;
+	}
+
+	public List<SearchHistory> getSearchHistory() {
+		return searchHistory;
+	}
+
+	public void setSearchHistory(List<SearchHistory> searchHistory) {
+		this.searchHistory = searchHistory;
 	}
 
 }
