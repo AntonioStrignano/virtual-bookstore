@@ -125,14 +125,6 @@ public class Inventory {
 		this.inventoryStatus = inventoryStatus;
 	}
 
-	public List<Discount> getDiscounts() {
-		return discounts;
-	}
-
-	public void setDiscounts(List<Discount> discounts) {
-		this.discounts = discounts;
-	}
-
 	public List<Cart> getCarts() {
 		return carts;
 	}

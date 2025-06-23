@@ -24,15 +24,19 @@ x   genre
 x   publisher
 x   translator
 x   CUSTOMERS
-    analytics
-    cart
-    notification
-    review
+x   analytics
+x   cart
+x   notification
+x   notification type
+x   review
     role
-    searchHistory
+X   searchHistory
     user
-    wishlist
-    INVENTORY
-    discount
+x   wishlist
+x   INVENTORY
+    inventory status
+x   warehouse location
+x   discount
+    discount type
     ORDER
     shopAssistant
