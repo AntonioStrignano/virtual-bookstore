@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "edition")
@@ -20,6 +21,7 @@ public class Edition {
 	private Integer id;
 
 	// name
+	@NotBlank(message = "Edition name empty.")
 	@Column(name = "edition_name", nullable = false, unique = true, columnDefinition = "varchar(20)")
 	private String name;
 
