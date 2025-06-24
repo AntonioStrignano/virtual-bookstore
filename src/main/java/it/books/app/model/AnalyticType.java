@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "analytic_types")
@@ -21,15 +23,18 @@ public class AnalyticType {
 	private Integer id;
 
 	// name
+	@NotBlank(message = "Analytic Type name empty.")
 	@Column(name = "type_name", nullable = false, unique = true, columnDefinition = "VARCHAR(30)")
 	private String name;
 
 	// text template
+	@NotBlank(message = "Analytic text template empty.")
 	@Column(name = "text_template", nullable = false, columnDefinition = "tinytext")
 	private String textTemplate;
 
 	// FKs
 	// analytics OtM
+	@NotNull(message = "Analytic ID missing.")
 	@OneToMany(mappedBy = "analyticType")
 	private List<Analytic> analyticId;
 
