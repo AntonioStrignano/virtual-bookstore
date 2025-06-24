@@ -11,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "book_collections")
@@ -22,6 +24,7 @@ public class BookCollection {
 	private Integer id;
 
 	// title
+	@NotBlank(message = "Collection title empty.")
 	@Column(name = "coll_title", nullable = false, unique = true, columnDefinition = "tinytext")
 	private String title;
 
@@ -30,7 +33,8 @@ public class BookCollection {
 	private String description;
 
 	// is numerated
-	@Column(name = "is_numerated", columnDefinition = "bool")
+	@NotEmpty(message = "Numeration flag missing.")
+	@Column(name = "is_numerated", nullable = false, columnDefinition = "bool")
 	private Boolean is_numerated;
 
 	// FKs
