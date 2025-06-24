@@ -15,6 +15,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "book")
@@ -26,18 +29,22 @@ public class Book {
 	private Integer id;
 
 	// title
+	@NotBlank(message = "Book title empty.")
 	@Column(name = "book_title", nullable = false, columnDefinition = "tinytext")
 	private String title;
 
 	// isbn
+	@NotEmpty(message = "ISBN missing.")
 	@Column(name = "isbn", nullable = false, columnDefinition = "char(13)", unique = true, length = 13)
 	private String isbn;
 
 	// language
+	@NotEmpty(message = "Book language missing.")
 	@Column(name = "lang", nullable = false, columnDefinition = "varchar(30)")
 	private String language;
 
 	// publish date
+	@NotNull(message = "Book publish date missing.")
 	@Column(name = "publish_date", nullable = false, columnDefinition = "date")
 	private LocalDate publishDate;
 
@@ -107,7 +114,7 @@ public class Book {
 	@JoinColumn(name = "id_translator")
 	private Translator translator;
 
-	// bool collection
+	// book collection
 	// MtO
 	@ManyToOne
 	@JoinColumn(name = "id_collection")
