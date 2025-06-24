@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "discout_types")
@@ -20,10 +21,12 @@ public class DiscountType {
 	private Integer id;
 
 	// name
+	@NotBlank(message = "Discout type name missing.")
 	@Column(name = "type_name", nullable = false, unique = true, columnDefinition = "tinytext")
 	private String typeName;
 
 	// discount rule
+	@NotBlank(message = "Discount type rule missing.")
 	@Column(name = "discount_rule", nullable = false, columnDefinition = "mediumtext")
 	private String discountRule;
 
