@@ -11,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "customers")
@@ -22,18 +24,22 @@ public class Customer {
 	private Integer id;
 
 	// first name
+	@NotBlank(message = "Customer first name missing.")
 	@Column(name = "first_name", nullable = false, columnDefinition = "tinytext")
 	private String firstName;
 
 	// last name
+	@NotBlank(message = "Customer last name missing.")
 	@Column(name = "last_name", nullable = false, columnDefinition = "tinytext")
 	private String lastName;
 
 	// phone number
+	@NotNull(message = "Customer phone number missing.")
 	@Column(name = "phone_number", nullable = false, columnDefinition = "varchar(20)", unique = true)
 	private String phoneNumber;
 
 	// address
+	@NotBlank(message = "Customer address missing.")
 	@Column(name = "address", nullable = false, columnDefinition = "tinytext")
 	private String addres;
 
