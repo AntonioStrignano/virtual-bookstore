@@ -21,7 +21,7 @@ public class Genre {
 	private Integer id;
 
 	// name
-	@Column(name = "genre_name", nullable = false, unique = true, columnDefinition = "varchar(30")
+	@Column(name = "genre_name", nullable = false, unique = true, columnDefinition = "varchar(30)")
 	private String name;
 
 	// description

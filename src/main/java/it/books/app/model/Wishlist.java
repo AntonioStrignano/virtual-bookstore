@@ -23,6 +23,7 @@ public class Wishlist {
 	private Integer id;
 
 	// FKs
+
 	// customer id
 	// one to one
 	@OneToOne(mappedBy = "wishlistId")

@@ -53,9 +53,6 @@ public class Book {
 	@Column(name = "pg_number", columnDefinition = "int(5)")
 	private Integer page_number;
 
-	// edition
-	@Column(name = "edition", nullable = false, columnDefinition = "tinytext")
-	private String edition;
 
 	// dimension
 	@Column(name = "dimension", nullable = false, columnDefinition = "tinytext")
@@ -67,6 +64,13 @@ public class Book {
 
 	// FKs
 
+	// edition
+	//MtO
+	@ManyToOne
+	@JoinColumn(name="edition_id")
+	private Edition edition;
+	
+	
 	// author
 	// MtO
 	@ManyToOne
@@ -237,13 +241,6 @@ public class Book {
 		this.page_number = page_number;
 	}
 
-	public String getEdition() {
-		return edition;
-	}
-
-	public void setEdition(String edition) {
-		this.edition = edition;
-	}
 
 	public String getDimension() {
 		return dimension;
@@ -307,6 +304,14 @@ public class Book {
 
 	public void setWishlists(List<Wishlist> wishlists) {
 		this.wishlists = wishlists;
+	}
+
+	public Edition getEdition() {
+		return edition;
+	}
+
+	public void setEdition(Edition edition) {
+		this.edition = edition;
 	}
 
 }

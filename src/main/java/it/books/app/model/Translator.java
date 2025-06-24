@@ -25,7 +25,7 @@ public class Translator {
 	private String firstName;
 
 	// last name
-	@Column(name = "last_name", nullable = false, columnDefinition = "rtinytext")
+	@Column(name = "last_name", nullable = false, columnDefinition = "tinytext")
 	private String lastName;
 
 	// birth date

@@ -26,7 +26,7 @@ public class Customer {
 	private String firstName;
 
 	// last name
-	@Column(name = "last_name", nullable = false, columnDefinition = "tinmytext")
+	@Column(name = "last_name", nullable = false, columnDefinition = "tinytext")
 	private String lastName;
 
 	// phone number

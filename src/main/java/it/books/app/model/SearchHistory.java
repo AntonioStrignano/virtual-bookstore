@@ -35,4 +35,40 @@ public class SearchHistory {
 	@JoinColumn(name = "customer_id")
 	private Customer customerId;
 
+	//////////////////////////
+	// GETTERS & SETTERS //
+	//////////////////////////
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getSearchQuery() {
+		return searchQuery;
+	}
+
+	public void setSearchQuery(String searchQuery) {
+		this.searchQuery = searchQuery;
+	}
+
+	public LocalDateTime getSearchDate() {
+		return searchDate;
+	}
+
+	public void setSearchDate(LocalDateTime searchDate) {
+		this.searchDate = searchDate;
+	}
+
+	public Customer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Customer customerId) {
+		this.customerId = customerId;
+	}
+
 }
