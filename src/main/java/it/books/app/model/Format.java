@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "formats")
@@ -20,6 +21,7 @@ public class Format {
 	private Integer id;
 
 	// name
+	@NotBlank(message = "Format name empty.")
 	@Column(name = "format_name", nullable = false, unique = true, columnDefinition = "varchar(20)")
 	private String name;
 

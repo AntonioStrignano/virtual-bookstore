@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "reviews")
@@ -21,14 +23,16 @@ public class Review {
 	private Integer id;
 
 	// rating
+	@NotEmpty(message = "Review rating missing.")
 	@Column(name = "rating", nullable = false, columnDefinition = "tinyint")
 	private int rating;
 
 	// comment
-	@Column(name = "comment", nullable = true, columnDefinition = "mediumtext")
+	@Column(name = "comment", columnDefinition = "mediumtext")
 	private String comment;
 
 	// review date
+	@NotNull(message = "Review timestamp missing.")
 	@Column(name = "review_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime reviewDate;
 

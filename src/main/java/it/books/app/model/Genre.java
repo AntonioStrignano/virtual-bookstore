@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "genres")
@@ -21,6 +22,7 @@ public class Genre {
 	private Integer id;
 
 	// name
+	@NotBlank(message = "Genre name empty.")
 	@Column(name = "genre_name", nullable = false, unique = true, columnDefinition = "varchar(30)")
 	private String name;
 

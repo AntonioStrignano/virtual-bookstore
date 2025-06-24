@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "translators")
@@ -21,23 +23,25 @@ public class Translator {
 	private Integer id;
 
 	// first name
+	@NotBlank(message = "Translator first name missing.")
 	@Column(name = "first_name", nullable = false, columnDefinition = "tinytext")
 	private String firstName;
 
 	// last name
+	@NotBlank(message = "Translator last name missing.")
 	@Column(name = "last_name", nullable = false, columnDefinition = "tinytext")
 	private String lastName;
 
 	// birth date
-	@Column(name = "birth_date", nullable = false, columnDefinition = "date")
+	@Column(name = "birth_date", columnDefinition = "date")
 	private LocalDate birthDate;
 
 	// death date
-	@Column(name = "death_date", nullable = true, columnDefinition = "date")
+	@Column(name = "death_date", columnDefinition = "date")
 	private LocalDate deathDate;
 
 	// nationality
-	@Column(name = "nationality", nullable = false, columnDefinition = "varchar(30)")
+	@Column(name = "nationality", columnDefinition = "varchar(30)")
 	private String nationality;
 
 	// bio
@@ -57,6 +61,7 @@ public class Translator {
 	private String socialMedia;
 
 	// is active
+	@NotEmpty(message = "Translator activity flag is missing.")
 	@Column(name = "is_active", nullable = false, columnDefinition = "bool")
 	private Boolean isActive;
 

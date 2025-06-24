@@ -10,6 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.AssertFalse;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "notification")
@@ -21,14 +24,17 @@ public class Notification {
 	private Integer id;
 
 	// message
+	@NotBlank(message = "Notification message missing.")
 	@Column(name = "mnesage", nullable = false, columnDefinition = "tinytext")
 	private String message;
 
 	// read status (bool)
+	@AssertFalse(message = "Notification must be unread at the creation.")
 	@Column(name = "read_status", nullable = false, columnDefinition = "bool")
 	private Boolean isRead;
 
 	// creation date
+	@NotNull(message = "Motification creation date missing.")
 	@Column(name = "creation_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime creationDate;
 

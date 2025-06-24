@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "warehouse_locations")
@@ -20,7 +21,8 @@ public class WarehouseLocation {
 	private Integer id;
 
 	// location
-	@Column(name = "lcation_name", nullable = false, unique = true, columnDefinition = "tinytext")
+	@NotBlank(message = "Location name missing.")
+	@Column(name = "location_name", nullable = false, unique = true, columnDefinition = "tinytext")
 	private String location;
 
 	// FKs

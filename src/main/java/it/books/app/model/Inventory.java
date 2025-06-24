@@ -13,6 +13,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "inventory")
@@ -24,10 +26,12 @@ public class Inventory {
 	private Integer id;
 
 	// price
+	@NotNull(message = "Price missing.")
 	@Column(name = "price", nullable = false, columnDefinition = "decimal(5,2)")
 	private Double price;
 
 	// quantity
+	@NotBlank(message = "Quantity missing.")
 	@Column(name = "quantity", nullable = false, columnDefinition = "int(5)")
 	private Integer quantity;
 

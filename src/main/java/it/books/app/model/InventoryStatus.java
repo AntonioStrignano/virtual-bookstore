@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "inventory_status")
@@ -20,10 +21,12 @@ public class InventoryStatus {
 	private Integer id;
 
 	// name
+	@NotBlank(message = "Status name missing.")
 	@Column(name = "status_name", nullable = false, unique = true, columnDefinition = "VARCHAR(10)")
 	private String statusName;
 
 	// description
+	@NotBlank(message = "Status description missing.")
 	@Column(name = "status_description", nullable = false, columnDefinition = "tinytext")
 	private String statusDescription;
 

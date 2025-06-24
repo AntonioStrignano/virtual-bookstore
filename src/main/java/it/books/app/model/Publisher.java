@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "publisher")
@@ -21,14 +23,17 @@ public class Publisher {
 	private Integer id;
 
 	// name
+	@NotBlank(message = "Publisher name missing.")
 	@Column(name = "publisher_name", nullable = false, unique = true, columnDefinition = "varchar(50)")
 	private String publisherName;
 
 	// founder year
+	@NotEmpty(message = "Publisher founder year missing.")
 	@Column(name = "founder_year", nullable = false, columnDefinition = "year")
 	private Year founderYear;
 
 	// country
+	@NotBlank(message = "Publisher country missing.")
 	@Column(name = "country", nullable = false, columnDefinition = "varchar(30)")
 	private String country;
 

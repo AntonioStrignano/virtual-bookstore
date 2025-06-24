@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "search_history")
@@ -21,10 +23,12 @@ public class SearchHistory {
 	private Integer id;
 
 	// search query
+	@NotBlank(message = "Search history query missing.")
 	@Column(name = "search_query", nullable = false, columnDefinition = "tinytext")
 	private String searchQuery;
 
 	// search date
+	@NotNull(message = "Search history date missing.")
 	@Column(name = "search_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime searchDate;
 

@@ -11,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "shop_assistants")
@@ -22,34 +24,42 @@ public class ShopAssistant {
 	private Integer id;
 
 	// first name
+	@NotBlank(message = "Shop assistant first name missing.")
 	@Column(name = "first_name", nullable = false, columnDefinition = "VARCHAR(30)")
 	private String firstName;
 
 	// last name
+	@NotBlank(message = "Shop assistant last name missing.")
 	@Column(name = "last_name", nullable = false, columnDefinition = "VARCHAR(30)")
 	private String lastName;
 
 	// personal email
+	@NotBlank(message = "Shop assistant personal mail missing.")
 	@Column(name = "personal_email", nullable = false, columnDefinition = "VARCHAR (250)")
 	private String personalEmail;
 
 	// internal email
+	@NotBlank(message = "Shop assistant internal email missing.")
 	@Column(name = "internal_email", nullable = false, unique = true, columnDefinition = "VARCHAR(250)")
 	private String internalEmail;
 
 	// phone number
+	@NotBlank(message = "Shop assistant phone number missing.")
 	@Column(name = "phone_number", nullable = false, columnDefinition = "VARCHAR(15)")
 	private String phoneNumber;
 
 	// address
+	@NotBlank(message = "Shop assistant address missing.")
 	@Column(name = "address", nullable = false, columnDefinition = "VARCHAR(250)")
 	private String address;
 
 	// city
+	@NotBlank(message = "Shop assistant city missing.")
 	@Column(name = "city", nullable = false, columnDefinition = "VARCHAR(50)")
 	private String city;
 
 	// is remote
+	@NotEmpty(message = "Shop assistant remote flag missing.")
 	@Column(name = "is_remote", nullable = false, columnDefinition = "BOOL")
 	private Boolean isRemote;
 

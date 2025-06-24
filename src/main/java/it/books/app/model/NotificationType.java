@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "notification_types")
@@ -20,10 +21,12 @@ public class NotificationType {
 	private Integer id;
 
 	// name
+	@NotBlank(message = "Notification name missing.")
 	@Column(name = "notification_name", nullable = false, unique = true, columnDefinition = "VARCHAR(20)")
 	private String notificationName;
 
 	// template
+	@NotBlank(message = "Notification template missing.")
 	@Column(name = "notif_template", nullable = true, columnDefinition = "tinytext")
 	private String notificationTemplate;
 
