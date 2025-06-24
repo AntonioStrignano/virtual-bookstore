@@ -31,7 +31,6 @@ public class Analytic {
 	// FKs
 	// books
 	// Mto
-	@NotNull(message = "Book ID missing.")
 	@ManyToOne
 	@JoinColumn(name = "id_book")
 	private Book bookId;

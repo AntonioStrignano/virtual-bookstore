@@ -34,7 +34,6 @@ public class AnalyticType {
 
 	// FKs
 	// analytics OtM
-	@NotNull(message = "Analytic ID missing.")
 	@OneToMany(mappedBy = "analyticType")
 	private List<Analytic> analyticId;
 

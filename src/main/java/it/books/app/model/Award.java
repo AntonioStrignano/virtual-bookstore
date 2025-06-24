@@ -10,6 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 @Table(name = "awards")
@@ -21,10 +24,13 @@ public class Award {
 	private Integer id;
 
 	// title
+	@NotBlank(message = "Award title missing.")
 	@Column(name = "award_title", nullable = false, columnDefinition = "tinytext")
 	private String title;
 
 	// year
+	@PastOrPresent(message = "Award not yet declared.")
+	@NotEmpty(message = "Award year missing.")
 	@Column(name = "year", nullable = false, columnDefinition = "year")
 	private Year year;
 

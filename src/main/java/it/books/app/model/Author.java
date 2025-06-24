@@ -12,6 +12,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "author")
@@ -23,14 +26,17 @@ public class Author {
 	private Integer id;
 
 	// first name
+	@NotBlank(message = "Author first name empty.")
 	@Column(name = "first_name", nullable = false, columnDefinition = "tinytext")
 	private String firstName;
 
 	// last name
+	@NotBlank(message = "Author last name empty.")
 	@Column(name = "last_name", nullable = false, columnDefinition = "tinytext")
 	private String lastName;
 
 	// birth date
+	@NotEmpty(message = "Author birth date missing.")
 	@Column(name = "birth_date", nullable = false, columnDefinition = "date")
 	private LocalDate birthDate;
 
@@ -39,6 +45,7 @@ public class Author {
 	private LocalDate deathDate;
 
 	// nationality
+	@NotBlank(message = "Author nationality missing.")
 	@Column(name = "nationality", nullable = false, columnDefinition = "varchar(30)")
 	private String nationality;
 
@@ -59,6 +66,7 @@ public class Author {
 	private String socialMedia;
 
 	// is active
+	@NotEmpty(message = "Author activity flag missing.")
 	@Column(name = "is_active", nullable = false, columnDefinition = "bool")
 	private Boolean isActive;
 
