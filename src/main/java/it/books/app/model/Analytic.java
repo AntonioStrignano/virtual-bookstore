@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "analytics")
@@ -22,24 +24,28 @@ public class Analytic {
 	private Integer id;
 
 	// timestamp
+	@NotEmpty(message = "Event timestamp missing.")
 	@Column(name = "event_timestamp", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime eventTimestamp;
 
 	// FKs
 	// books
 	// Mto
+	@NotNull(message = "Book ID missing.")
 	@ManyToOne
 	@JoinColumn(name = "id_book")
 	private Book bookId;
 
 	// customer id
 	// MtO
+	@NotNull(message = "Customer ID missing.")
 	@ManyToOne
 	@JoinColumn(name = "id_customer")
 	private Customer customerId;
 
 	// analytic type
 	// MtO
+	@NotNull(message = "Analytic Type ID missing.")
 	@ManyToOne
 	@JoinColumn(name = "event_type", nullable = false)
 	private AnalyticType analyticType;
