@@ -25,22 +25,29 @@ public class User {
 	@Column(name = "id")
 	private Integer id;
 
+	// username
 	@NotNull
 	@Column(unique = true)
 	@NotBlank(message = "Inserisci username.")
 	private String username;
 
+	// password
 	@NotNull
 	@NotBlank(message = "Inserisci password.")
 	private String password;
 
+	// second ID
+	@Column(name = "second_id", nullable = true, columnDefinition = "INT")
+
+	// FKs
+
+	// roles
+	// MtM
 	@ManyToMany(fetch = FetchType.EAGER)
 	@NotEmpty(message = "Seleziona almeno un ruolo.")
 	@JsonManagedReference
 	private List<Role> roles;
 
-	// second ID
-	@Column(name = "second_id", nullable = true, columnDefinition = "INT")
 	private Integer secondId;
 
 	// ----------------------------

@@ -55,11 +55,13 @@ public class ShopAssistant extends User {
 
 	// FKs
 
-	// order shopAssistantId
+	// order
+	// OtM
 	@OneToMany(mappedBy = "shopAssistantId")
 	private List<Order> orders;
 
-	// warehouse location (da settare)
+	// warehouse location
+	// MtO
 	@ManyToOne
 	@JoinColumn(name = "assistant_location")
 	private WarehouseLocation assistantLocation;

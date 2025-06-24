@@ -19,14 +19,19 @@ public class WarehouseLocation {
 	@Column(name = "id")
 	private Integer id;
 
+	// location
 	@Column(name = "lcation_name", nullable = false, unique = true, columnDefinition = "tinytext")
 	private String location;
 
-	// inventory OtM (mapped by "warehouseLocation")
+	// FKs
+
+	// inventory
+	// OtM
 	@OneToMany(mappedBy = "warehouseLocation")
 	private List<Inventory> inventoryList;
 
-	// shop assistants OtM
+	// shop assistants
+	// OtM
 	@OneToMany(mappedBy = "assistantLocation")
 	private List<ShopAssistant> shopAssistants;
 

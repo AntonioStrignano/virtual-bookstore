@@ -15,144 +15,155 @@ import jakarta.persistence.Table;
 @Table(name = "translators")
 public class Translator {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
 
-    //first name
-    @Column(name = "first_name", nullable = false, columnDefinition = "tinytext")
-    private String firstName;
-    //last name
-    @Column(name = "last_name", nullable = false, columnDefinition = "rtinytext")
-    private String lastName;
-    //birth date
-    @Column(name = "birth_date", nullable = false, columnDefinition = "date")
-    private LocalDate birthDate;
-    //death date
-    @Column(name = "death_date", nullable = true, columnDefinition = "date")
-    private LocalDate deathDate;
-    //nationality
-    @Column(name = "nationality", nullable = false, columnDefinition = "varchar(30)")
-    private String nationality;
-    //bio
-    @Column(name = "bio", columnDefinition = "varchar(2000)")
-    private String bio;
-    //website
+	// first name
+	@Column(name = "first_name", nullable = false, columnDefinition = "tinytext")
+	private String firstName;
 
-    @Column(name = "website", columnDefinition = "mediumtext")
-    private String website;
+	// last name
+	@Column(name = "last_name", nullable = false, columnDefinition = "rtinytext")
+	private String lastName;
 
-    @Column(name = "pro_pic", columnDefinition = "mediumtext")
-    private String profilePicture;
+	// birth date
+	@Column(name = "birth_date", nullable = false, columnDefinition = "date")
+	private LocalDate birthDate;
 
-    @Column(name = "social_media", columnDefinition = "mediumtext")
-    private String socialMedia;
+	// death date
+	@Column(name = "death_date", nullable = true, columnDefinition = "date")
+	private LocalDate deathDate;
 
-    @Column(name = "is_active", nullable = false, columnDefinition = "bool")
-    private Boolean isActive;
+	// nationality
+	@Column(name = "nationality", nullable = false, columnDefinition = "varchar(30)")
+	private String nationality;
 
-    //books
-    @OneToMany(mappedBy = "translator")
-    private List<Book> books;
+	// bio
+	@Column(name = "bio", columnDefinition = "varchar(2000)")
+	private String bio;
 
-    // ----------------------------
-    // ----- GETTERS & SETTERS ----
-    // ----------------------------
-    public Integer getId() {
-        return id;
-    }
+	// website
+	@Column(name = "website", columnDefinition = "mediumtext")
+	private String website;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	// pro pic
+	@Column(name = "pro_pic", columnDefinition = "mediumtext")
+	private String profilePicture;
 
-    public String getFirstName() {
-        return firstName;
-    }
+	// social media
+	@Column(name = "social_media", columnDefinition = "mediumtext")
+	private String socialMedia;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	// is active
+	@Column(name = "is_active", nullable = false, columnDefinition = "bool")
+	private Boolean isActive;
 
-    public String getLastName() {
-        return lastName;
-    }
+	// FKs
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	// books
+	// OtM
+	@OneToMany(mappedBy = "translator")
+	private List<Book> books;
 
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
+	// ----------------------------
+	// ----- GETTERS & SETTERS ----
+	// ----------------------------
+	public Integer getId() {
+		return id;
+	}
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public LocalDate getDeathDate() {
-        return deathDate;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setDeathDate(LocalDate deathDate) {
-        this.deathDate = deathDate;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public String getNationality() {
-        return nationality;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public String getBio() {
-        return bio;
-    }
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
 
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
 
-    public String getWebsite() {
-        return website;
-    }
+	public LocalDate getDeathDate() {
+		return deathDate;
+	}
 
-    public void setWebsite(String website) {
-        this.website = website;
-    }
+	public void setDeathDate(LocalDate deathDate) {
+		this.deathDate = deathDate;
+	}
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
+	public String getNationality() {
+		return nationality;
+	}
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
 
-    public String getSocialMedia() {
-        return socialMedia;
-    }
+	public String getBio() {
+		return bio;
+	}
 
-    public void setSocialMedia(String socialMedia) {
-        this.socialMedia = socialMedia;
-    }
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
 
-    public Boolean getIsActive() {
-        return isActive;
-    }
+	public String getWebsite() {
+		return website;
+	}
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
+	public void setWebsite(String website) {
+		this.website = website;
+	}
 
-    public List<Book> getBooks() {
-        return books;
-    }
+	public String getProfilePicture() {
+		return profilePicture;
+	}
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	public String getSocialMedia() {
+		return socialMedia;
+	}
+
+	public void setSocialMedia(String socialMedia) {
+		this.socialMedia = socialMedia;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 
 }
