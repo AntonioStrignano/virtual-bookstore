@@ -12,6 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "discounts")
@@ -23,14 +25,17 @@ public class Discount {
 	private Integer id;
 
 	// start date
+	@NotNull(message = "Discount start date missing")
 	@Column(name = "start_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime startDate;
 
 	// end date
+	@NotNull(message = "Discount end date missing.")
 	@Column(name = "end_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime endDate;
 
 	// value
+	@NotEmpty(message = "Discount value empty.")
 	@Column(name = "discount_value", nullable = false, columnDefinition = "tinyint")
 	private Integer discountValue;
 
