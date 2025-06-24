@@ -30,7 +30,7 @@ public class Analytic {
 	// Mto
 	@ManyToOne
 	@JoinColumn(name = "id_book")
-	private Book book;
+	private Book bookId;
 
 	// customer id
 	// MtO
@@ -64,12 +64,12 @@ public class Analytic {
 		this.eventTimestamp = eventTimestamp;
 	}
 
-	public Book getBook() {
-		return book;
+	public Book getBookId() {
+		return bookId;
 	}
 
-	public void setBook(Book book) {
-		this.book = book;
+	public void setBookId(Book bookId) {
+		this.bookId = bookId;
 	}
 
 	public Customer getCustomerId() {

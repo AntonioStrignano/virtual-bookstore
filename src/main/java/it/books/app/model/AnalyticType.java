@@ -1,5 +1,7 @@
 package it.books.app.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +31,7 @@ public class AnalyticType {
 	// FKs
 	// analytics OtM
 	@OneToMany(mappedBy = "analyticType")
-	private Analytic analyticId;
+	private List<Analytic> analyticId;
 
 	// ----------------------------
 	// ----- GETTERS & SETTERS ----
@@ -41,14 +43,6 @@ public class AnalyticType {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Analytic getAnalyticId() {
-		return analyticId;
-	}
-
-	public void setAnalyticId(Analytic analyticId) {
-		this.analyticId = analyticId;
 	}
 
 	public String getName() {
@@ -65,6 +59,14 @@ public class AnalyticType {
 
 	public void setTextTemplate(String textTemplate) {
 		this.textTemplate = textTemplate;
+	}
+
+	public List<Analytic> getAnalyticId() {
+		return analyticId;
+	}
+
+	public void setAnalyticId(List<Analytic> analyticId) {
+		this.analyticId = analyticId;
 	}
 
 }

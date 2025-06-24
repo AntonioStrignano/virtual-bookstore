@@ -111,12 +111,12 @@ public class Book {
 
 	// analytics
 	// OtM
-	@OneToMany(mappedBy = "id_book")
+	@OneToMany(mappedBy = "bookId")
 	private List<Analytic> analytics;
 
 	// reviews
 	// OtM
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "bookId")
 	private List<Review> reviews;
 
 	// inventory
