@@ -1,0 +1,31 @@
+package it.books.app.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/books")
+public class BookController {
+
+	@GetMapping("")
+	public String bookCatalog() {
+		return "/books/book-home";
+	}
+	
+	
+/*
+ * Entita' dipendenti:
+ * author
+ * genres
+ * publisher
+ * format
+ * inventory
+ * 	
+ */
+	
+	@GetMapping("/create")
+	public String newBook() {
+		return "";
+	}
+}

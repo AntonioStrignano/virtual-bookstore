@@ -11,31 +11,10 @@ Payment Integration: Add integration with payment gateways (e.g., Stripe, PayPal
 
 Techstack: Spring boot, Spring Security, Spring Data JPA 
 
+customer side:
+read book list
+read book details
 
-analytic
-analytictype
-author
-award
-book
-bookCollection
-cart
-customer
-discount
-discountType
-edition
-format
-genre
-inventory
-inventorystatus
-notification
-notificationtype
-order
-publisher
-review
-role
-searchHistory
-shopassistant
-translator
-user
-warehouse
-wishlist
+
+admin side:
+see analytics
