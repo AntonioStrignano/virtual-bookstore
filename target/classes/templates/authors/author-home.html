@@ -56,7 +56,20 @@
 						<td><img th:src="${author.profilePicture}" height="100px"></td>
 						<td><a th:href="${author.socialMedia}" target="_blank">Link</a></td>
 						<td><a th:href="${author.website}" target="_blank">Link</a></td>
-						<td></td>
+						<td>
+							<button>
+								<a th:href="@{|authors/edit/${author.id}|}">
+									<i class="bi bi-pencil-square"></i>
+								</a>
+							</button>
+							<form method="post" id="delete-author" th:action="@{|/authors/${author.id}/delete|}">
+								<button class="btn btn-danger" type="submit" id="submitButton"
+									th:data-confirm-delete="|Delete ${author.lastName}?|"
+									th:onclick="if(!confirm(this.getAttribute('data-confirm-delete'))) return false">
+									<i class="bi bi-trash"></i>
+								</button>
+							</form>
+						</td>
 					</tr>
 
 

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -59,4 +60,42 @@ public class AuthorController {
 		return "redirect:/authors";
 	}
 
+//	-------- UPDATE	--------
+	// GET
+	@GetMapping("/edit/{id}")
+	public String editAuthor(@PathVariable("id") Integer id, Model model) {
+
+		model.addAttribute("author", authorRepo.getReferenceById(id));
+		model.addAttribute("genres", genreRepo.findAll());
+		model.addAttribute("editMode", true);
+
+		return "authors/edit";
+	}
+
+	// POST
+	@PostMapping("/{id}/update")
+	public String updateAuthor(@Valid @ModelAttribute("author") Author upAuthor, @PathVariable("id") Integer id,
+			BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			return "authors/edit";
+		}
+
+		authorRepo.save(upAuthor);
+
+		return "redirect:/authors";
+	}
+
+//	--------	DELETE	--------
+	
+	//	POST
+	@PostMapping("/{id}/delete")
+	public String deleteAuthor(@PathVariable("id") Integer id) {
+		
+		authorRepo.deleteById(id);
+		
+		return "redirect:/authors";
+	}
+	
+	
 }

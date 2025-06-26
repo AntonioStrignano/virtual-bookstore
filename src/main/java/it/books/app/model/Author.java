@@ -3,6 +3,8 @@ package it.books.app.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +15,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -36,11 +37,13 @@ public class Author {
 	private String lastName;
 
 	// birth date
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "Author birth date missing.")
 	@Column(name = "birth_date", nullable = false, columnDefinition = "date")
 	private LocalDate birthDate;
 
 	// death date
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "death_date", columnDefinition = "date")
 	private LocalDate deathDate;
 

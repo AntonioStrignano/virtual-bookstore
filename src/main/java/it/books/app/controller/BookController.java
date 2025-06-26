@@ -16,7 +16,7 @@ public class BookController {
 	
 /*
  * Entita' dipendenti:
- * author
+ * author (if delete author, delete author record in every book)
  * genres
  * publisher
  * format
