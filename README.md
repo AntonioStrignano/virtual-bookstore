@@ -11,6 +11,10 @@ Payment Integration: Add integration with payment gateways (e.g., Stripe, PayPal
 
 Techstack: Spring boot, Spring Security, Spring Data JPA 
 
+CRUDs to do
+author (filtered GETs)
+genres (setup blank defasulkt genre when deleted for artists and books)
+
 customer side:
 read book list
 read book details

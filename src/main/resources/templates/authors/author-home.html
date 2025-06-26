@@ -19,6 +19,9 @@
 				<li>
 					<a href="/authors/create">Create new author</a>
 				</li>
+				<li>
+					<a href="/">Return Home</a>
+				</li>
 			</ul>
 		</div>
 
@@ -57,7 +60,7 @@
 						<td><a th:href="${author.socialMedia}" target="_blank">Link</a></td>
 						<td><a th:href="${author.website}" target="_blank">Link</a></td>
 						<td>
-							<button>
+							<button class="btn">
 								<a th:href="@{|authors/edit/${author.id}|}">
 									<i class="bi bi-pencil-square"></i>
 								</a>

@@ -87,15 +87,14 @@ public class AuthorController {
 	}
 
 //	--------	DELETE	--------
-	
-	//	POST
+
+	// POST
 	@PostMapping("/{id}/delete")
 	public String deleteAuthor(@PathVariable("id") Integer id) {
-		
+
 		authorRepo.deleteById(id);
-		
+
 		return "redirect:/authors";
 	}
-	
-	
+
 }
