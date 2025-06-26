@@ -14,6 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "author")
@@ -35,7 +36,7 @@ public class Author {
 	private String lastName;
 
 	// birth date
-	@NotEmpty(message = "Author birth date missing.")
+	@NotNull(message = "Author birth date missing.")
 	@Column(name = "birth_date", nullable = false, columnDefinition = "date")
 	private LocalDate birthDate;
 
@@ -65,8 +66,7 @@ public class Author {
 	private String socialMedia;
 
 	// is active
-	@NotEmpty(message = "Author activity flag missing.")
-	@Column(name = "is_active", nullable = false, columnDefinition = "bool")
+	@Column(name = "is_active", columnDefinition = "bool")
 	private Boolean isActive;
 
 	// FKs

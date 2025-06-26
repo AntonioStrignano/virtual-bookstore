@@ -29,7 +29,7 @@ public class AuthorController {
 	public String authorPage(Model model) {
 		model.addAttribute("authors", authorRepo.findAll());
 		model.addAttribute("genres", genreRepo.findAll());
-		return "/authors/author-home";
+		return "authors/author-home";
 	}
 
 // -------- CREATE --------	
