@@ -1,7 +1,7 @@
 package it.books.app.model;
 
-import java.time.Year;
 import java.util.List;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "publisher")
@@ -28,9 +28,9 @@ public class Publisher {
 	private String publisherName;
 
 	// founder year
-	@NotEmpty(message = "Publisher founder year missing.")
-	@Column(name = "founder_year", nullable = false, columnDefinition = "year")
-	private Year founderYear;
+	@NotNull(message = "Publisher founder year missing.")
+	@Column(name = "founder_year", nullable = false, columnDefinition = "int(4)")
+	private Integer founderYear;
 
 	// country
 	@NotBlank(message = "Publisher country missing.")
@@ -89,11 +89,11 @@ public class Publisher {
 		this.publisherName = publisherName;
 	}
 
-	public Year getFounderYear() {
+	public Integer getFounderYear() {
 		return founderYear;
 	}
 
-	public void setFounderYear(Year founderYear) {
+	public void setFounderYear(Integer founderYear) {
 		this.founderYear = founderYear;
 	}
 

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<title th:unless=${editMode} th:text="|Create new publisher|"></title>
+	<title th:if="${editMode}" th:text="|Edit publisher: ${publ.publisherName}|"></title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<h1 th:unless=${editMode} th:text="|Create new publisher|"></h1>
+		<h1 th:if=${editMode} th:text="|Edit publisher: ${publ.publisherName}|"></h1>
+
+		<!-- ///////FORM//////// -->
+		<form th:object="${publ}" method="post" id="form-genre"
+			th:action="${editMode} ? @{|/publishers/${publ.id}/update|} : @{/publishers/create}">
+			<input type="hidden" th:field="*{id}" id="id">
+
+			<!--	NAME	-->
+			<label for="publ-name" class="form-label">Name</label>
+			<input type="text" th:field="*{publisherName}" placeholder="Publisher's name" id="genre-name"
+				class="form-control">
+
+			<!--	FOUNDER YEAR	-->
+			<label for="publ-year" class="form-label">Founder Year</label>
+			<input type="number" min="1000" max="9999" th:field="*{founderYear}" id="publ-year" class="form-control"
+				placeholder="YYYY">
+
+			<!--	COUNTRY	-->
+			<label for="publ-country" class="formn-label">Country</label>
+			<input type="text" th:field="*{country}" id="publ-country" class="form-control"
+				placeholder="Publisher's country">
+
+			<!--	CITY	-->
+			<label for="publ-city" class="form-label">City</label>
+			<input type="text" th:field="*{city}" id="publ-city" class="form-control" placeholder="Publisher's city">
+
+			<!--	WEBSITE	-->
+			<label for="publ-web" class="form-label">Website</label>
+			<input type="text" th:field="*{publisherWebsite}" id="publ-website" class="form-control"
+				placeholder="Publisher's website">
+
+			<!--	EMAIL	-->
+			<label for="publ-email" class="form-label">Email</label>
+			<input type="email" th:field="*{email}" id="publ-email" class="form-control"
+				placeholder="Publisher's email">
+
+			<!--	ADDRESS	-->
+			<label for="publ-address" class="form-label">Address</label>
+			<input type="text" th:field="*{publisherAddress}" id="publ-address" class="form-control"
+				placeholder="Publisher's addres">
+
+			<!--	BIO	-->
+			<label for="publ-bio" class="form-label">Bio</label>
+			<input type="text" th:field="*{publisherBio}" id="publ-bio" class="form-control"
+				placeholder="Publisher's bio">
+
+			<div th:if="${#fields.hasAnyErrors()}">
+				<ul class="list-group">
+					<il th:each="err : ${#fields.allErrors}" th:text="${err}"
+						class="alert alert-primary list-group-item">
+
+					</il>
+				</ul>
+			</div>
+			<br>
+			<button type="submit" class="btn btn-primary mb-3">Save</button>
+
+
+		</form>
+
+
+	</div>
+	<!-- SCRIPT BOOTSTRAP-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
