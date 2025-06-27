@@ -3,6 +3,7 @@ package it.books.app.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -60,7 +61,6 @@ public class Book {
 	@Column(name = "pg_number", columnDefinition = "int(5)")
 	private Integer page_number;
 
-
 	// dimension
 	@Column(name = "dimension", nullable = false, columnDefinition = "tinytext")
 	private String dimension;
@@ -72,12 +72,11 @@ public class Book {
 	// FKs
 
 	// edition
-	//MtO
+	// MtO
 	@ManyToOne
-	@JoinColumn(name="edition_id")
+	@JoinColumn(name = "edition_id")
 	private Edition edition;
-	
-	
+
 	// author
 	// MtO
 	@ManyToOne
@@ -129,11 +128,6 @@ public class Book {
 	// OtM
 	@OneToMany(mappedBy = "bookId")
 	private List<Review> reviews;
-
-	// inventory
-	// OtO
-	@OneToOne(mappedBy = "book")
-	private Inventory inventory;
 
 	// wishlist
 	// MtM
@@ -248,7 +242,6 @@ public class Book {
 		this.page_number = page_number;
 	}
 
-
 	public String getDimension() {
 		return dimension;
 	}
@@ -295,14 +288,6 @@ public class Book {
 
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
-	}
-
-	public Inventory getInventory() {
-		return inventory;
-	}
-
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
 	}
 
 	public List<Wishlist> getWishlists() {

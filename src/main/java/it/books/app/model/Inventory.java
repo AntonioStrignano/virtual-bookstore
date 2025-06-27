@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -35,6 +36,12 @@ public class Inventory {
 	@Column(name = "quantity", nullable = false, columnDefinition = "int(5)")
 	private Integer quantity;
 
+	// isbn
+
+	@NotEmpty(message = "ISBN missing.")
+	@Column(name = "isbn", nullable = false, columnDefinition = "char(13)", length = 13)
+	private String isbn;
+
 	// notes
 	@Column(name = "notes", nullable = true, columnDefinition = "varchar(200)")
 	private String notes;
@@ -46,12 +53,6 @@ public class Inventory {
 	@ManyToOne
 	@JoinColumn(name = "warehouse_location")
 	private WarehouseLocation warehouseLocation;
-
-	// book
-	// OtO
-	@OneToOne
-	@JoinColumn(name = "book_id")
-	private Book book;
 
 	// inventory status
 	// MtO
@@ -119,14 +120,6 @@ public class Inventory {
 		this.warehouseLocation = warehouseLocation;
 	}
 
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
 	public InventoryStatus getInventoryStatus() {
 		return inventoryStatus;
 	}
@@ -157,6 +150,14 @@ public class Inventory {
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 }

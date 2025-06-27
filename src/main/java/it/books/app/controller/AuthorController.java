@@ -67,7 +67,6 @@ public class AuthorController {
 
 		model.addAttribute("author", authorRepo.getReferenceById(id));
 		model.addAttribute("genres", genreRepo.findAll());
-		model.addAttribute("editMode", true);
 
 		return "authors/edit";
 	}
