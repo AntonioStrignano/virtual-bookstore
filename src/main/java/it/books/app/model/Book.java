@@ -3,7 +3,6 @@ package it.books.app.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -59,7 +57,7 @@ public class Book {
 
 	// page number
 	@Column(name = "pg_number", columnDefinition = "int(5)")
-	private Integer page_number;
+	private Integer pageNumber;
 
 	// dimension
 	@Column(name = "dimension", nullable = false, columnDefinition = "tinytext")
@@ -234,12 +232,12 @@ public class Book {
 		this.format = format;
 	}
 
-	public Integer getPage_number() {
-		return page_number;
+	public Integer getPageNumber() {
+		return pageNumber;
 	}
 
-	public void setPage_number(Integer page_number) {
-		this.page_number = page_number;
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 
 	public String getDimension() {
