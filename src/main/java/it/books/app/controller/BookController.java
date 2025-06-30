@@ -54,7 +54,7 @@ public class BookController {
 	@GetMapping("")
 	public String bookCatalog(Model model) {
 
-		addAllRepos(model);
+		model.addAttribute("books", bookRepo.findAll());
 
 		return "/books/book-home";
 	}

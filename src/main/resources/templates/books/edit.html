@@ -62,49 +62,63 @@
 				class="form-control">
 
 			<!-- EDITION -->
-			<label for="book-edition" class="form-label">Edition</label>
-			<select name="book-edition" id="book-edition" th:field="*{edition}">
-				<option th:each="edition : ${editions}" th:value="${edition.id}" th:text="${edition.name}"></option>
-			</select>
+			<DIV>
 
-			<!-- AUTHOR -->
-			<label for="book-author" class="form-label">author</label>
-			<select name="book-author" id="book-author" th:field="*{author}">
-				<option th:each="author : ${authors}" th:value="${author.id}"
-					th:text="|${author.firstName} ${author.lastName}, ${author.birthDate}, ${author.nationality}|">
-				</option>
-			</select>
+				<label for="book-edition" class="form-label">Edition</label>
+				<select name="book-edition" id="book-edition" th:field="*{edition}">
+					<option th:each="edition : ${editions}" th:value="${edition.id}" th:text="${edition.name}"></option>
+				</select>
+			</DIV>
+			<div>
+				<!-- AUTHOR -->
+				<label for="book-author" class="form-label">author</label>
+				<select name="book-author" id="book-author" th:field="*{author}">
+					<option th:each="author : ${authors}" th:value="${author.id}"
+						th:text="|${author.firstName} ${author.lastName}, ${author.birthDate}, ${author.nationality}|">
+					</option>
+				</select>
+			</div>
+			<div>
 
-			<!-- AWARDS -->
-			<label for="book-awards" class="form-label">Awards</label>
-			<input type="checkbox" name="book-awards" th:each="award : ${allAwards}" th:text="${award.title}"
-				th:value="${award.id}" th:field="*{awards}">
+				<!-- AWARDS -->
+				<label for="book-awards" class="form-label">Awards</label>
+				<input type="checkbox" name="book-awards" th:each="award : ${allAwards}" th:text="${award.title}"
+					th:value="${award.id}" th:field="*{awards}">
+			</div>
+			<div>
 
-			<!-- GENRES -->
-			<label for="book-genres" class="form-label">Genres</label>
-			<input type="checkbox" name="book-genres" th:each="genre : ${allGenres}" th:text="${genre.name}"
-				th:value="${genre.id}" th:field="*{genres}">
+				<!-- GENRES -->
+				<label for="book-genres" class="form-label">Genres</label>
+				<input type="checkbox" name="book-genres" th:each="genre : ${allGenres}" th:text="${genre.name}"
+					th:value="${genre.id}" th:field="*{genres}">
+			</div>
+			<div>
 
-			<!-- PUBLISHER -->
-			<label for="book-publisher" class="form-label">Publisher</label>
-			<select name="book-publisher" id="book-publisher" th:field="*{publisher}">
-				<option th:each="publisher : ${publishers}" th:value="${publisher.id}"
-					th:text="|${publisher.publisherName}, ${publisher.city} (${publisher.country})|"></option>
-			</select>
+				<!-- PUBLISHER -->
+				<label for="book-publisher" class="form-label">Publisher</label>
+				<select name="book-publisher" id="book-publisher" th:field="*{publisher}">
+					<option th:each="publisher : ${publishers}" th:value="${publisher.id}"
+						th:text="|${publisher.publisherName}, ${publisher.city} (${publisher.country})|"></option>
+				</select>
+			</div>
+			<div>
 
-			<!-- FORMAT -->
-			<label for="book-format" class="form-label">format </label>
-			<select name="book-format" id="book-format" th:field="*{format}">
-				<option th:each="format : ${formats}" th:value="${format.id}" th:text="${format.name}"></option>
-			</select>
+				<!-- FORMAT -->
+				<label for="book-format" class="form-label">format </label>
+				<select name="book-format" id="book-format" th:field="*{format}">
+					<option th:each="format : ${formats}" th:value="${format.id}" th:text="${format.name}"></option>
+				</select>
+			</div>
+			<div>
 
-			<!-- TRANSLATOR -->
-			<label for="book-translator" class="form-label">translator</label>
-			<select name="book-transl" id="book-transl" th:field="*{translator}">
-				<option value="">None</option>
-				<option th:each="transl : ${translators}" th:value="${transl.id}"
-					th:text="|${transl.firstName} ${transl.lastName}, ${transl.birthDate}|"></option>
-			</select>
+				<!-- TRANSLATOR -->
+				<label for="book-translator" class="form-label">translator</label>
+				<select name="book-transl" id="book-transl" th:field="*{translator}">
+					<option value="">None</option>
+					<option th:each="transl : ${translators}" th:value="${transl.id}"
+						th:text="|${transl.firstName} ${transl.lastName}, ${transl.birthDate}|"></option>
+				</select>
+			</div>
 
 			<!-- BOOK COLLECTIONS -->
 			<SPAN>book collections still to implements</SPAN>
