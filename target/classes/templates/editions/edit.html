@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-	<title>Home</title>
+	<title th:unless=${editMode} th:text="|Create new edition|"></title>
+	<title th:if="${editMode}" th:text="|Edit edition: ${edition.name}|"></title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -11,34 +12,35 @@
 <body>
 
 	<div class="container">
-		<h1>Home</h1>
-		<ul>
-			<li>
-				<a href="/books">Book Catalog</a>
-			</li>
-			<li>
-				<a href="/authors">Author Page</a>
-			</li>
-			<li>
-				<a href="/genres">Genres Page</a>
-			</li>
-			<li>
-				<a href="/publishers">Publishers Page</a>
-			</li>
-			<li>
-				<a href="/formats">Formats Page</a>
-			</li>
-			<li>
-				<a href="/editions">Editions Page</a>
-			</li>
-		</ul>
+		<h1 th:unless=${editMode} th:text="|Create new edition|"></h1>
+		<h1 th:if=${editMode} th:text="|Edit edition: ${edition.name}|"></h1>
+
+		<!-- ///////FORM//////// -->
+		<form th:object="${edition}" method="post" id="form-edition"
+			th:action="${editMode} ? @{|/editions/${edition.id}/update|} : @{/editions/create}">
+			<input type="hidden" th:field="*{id}" id="id">
+
+			<!--	NAME	-->
+			<label for="edition-name" class="form-label">Name</label>
+			<input type="text" th:field="*{name}" placeholder="edition's name" id="edition-name" class="form-control">
+
+			</select>
+			<div th:if="${#fields.hasAnyErrors()}">
+				<ul class="list-group">
+					<il th:each="err : ${#fields.allErrors}" th:text="${err}"
+						class="alert alert-primary list-group-item">
+
+					</il>
+				</ul>
+			</div>
+			<br>
+			<button type="submit" class="btn btn-primary mb-3">Save</button>
+
+
+		</form>
+
+
 	</div>
-
-
-
-
-
-
 	<!-- SCRIPT BOOTSTRAP-->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

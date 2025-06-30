@@ -15,6 +15,8 @@ CRUDs to do
 author (filtered GETs)
 genres (setup blank defasulkt genre when deleted for artists and books)
 
+author (if delete author, delete author record in every book)
+genres (if delete genre, drop to a default blank genre)
 
 customer side:
 read book list
