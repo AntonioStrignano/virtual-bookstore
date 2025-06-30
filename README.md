@@ -18,6 +18,10 @@ genres (setup blank defasulkt genre when deleted for artists and books)
 author (if delete author, delete author record in every book)
 genres (if delete genre, drop to a default blank genre)
 
+translator
+
+
+
 customer side:
 read book list
 read book details

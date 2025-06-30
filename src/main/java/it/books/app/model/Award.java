@@ -1,6 +1,5 @@
 package it.books.app.model;
 
-import java.time.Year;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -12,6 +11,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
@@ -29,10 +29,9 @@ public class Award {
 	private String title;
 
 	// year
-	@PastOrPresent(message = "Award not yet declared.")
-	@NotEmpty(message = "Award year missing.")
-	@Column(name = "year", nullable = false, columnDefinition = "year")
-	private Year year;
+	@NotNull(message = "Award year missing.")
+	@Column(name = "year", nullable = false, columnDefinition = "int(4)")
+	private Integer year;
 
 	// description
 	@Column(name = "description", columnDefinition = "text(2000)")
@@ -68,11 +67,11 @@ public class Award {
 		this.title = title;
 	}
 
-	public Year getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(Year year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 
