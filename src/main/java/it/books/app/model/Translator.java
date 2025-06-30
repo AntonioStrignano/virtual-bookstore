@@ -3,6 +3,8 @@ package it.books.app.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "translators")
@@ -33,10 +34,12 @@ public class Translator {
 	private String lastName;
 
 	// birth date
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "birth_date", columnDefinition = "date")
 	private LocalDate birthDate;
 
 	// death date
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "death_date", columnDefinition = "date")
 	private LocalDate deathDate;
 
@@ -61,8 +64,7 @@ public class Translator {
 	private String socialMedia;
 
 	// is active
-	@NotEmpty(message = "Translator activity flag is missing.")
-	@Column(name = "is_active", nullable = false, columnDefinition = "bool")
+	@Column(name = "is_active", columnDefinition = "bool")
 	private Boolean isActive;
 
 	// FKs

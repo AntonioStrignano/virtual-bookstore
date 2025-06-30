@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<title th:unless=${editMode} th:text="|Create new translator|"></title>
+	<title th:if="${editMode}" th:text="|Edit translator: ${transl.firstName} ${transl.lastName}|"></title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<h1 th:unless=${editMode} th:text="|Create new translator|"></h1>
+		<h1 th:if=${editMode} th:text="|Edit translator: ${transl.firstName} ${transl.lastName}|"></h1>
+
+		<!-- ///////FORM//////// -->
+		<form th:object="${transl}" method="post" id="form-translator"
+			th:action="${editMode} ? @{|/translators/${transl.id}/update|} : @{/translators/create}">
+			<input type="hidden" th:field="*{id}" id="id">
+
+			<!--first name-->
+			<label for="transl-first-name" class="form-label">First name</label>
+			<input type="text" th:field="*{firstName}" placeholder="Transl first name" id="transl-first-name">
+			<br>
+			<!--last name-->
+			<label for="transl-last-name" class="form-label">Last name</label>
+			<input type="text" th:field="*{lastName}" placeholder="Last name" id="transl-last-name">
+			<br>
+			<!--birth date-->
+			<label for="transl-birth-date" class="form-label">Birth date</label>
+			<input type="date" th:field="*{birthDate}" id="transl-birth-date">
+			<br>
+			<!--death date-->
+			<label for="transl-death-date" class="form-label">Death date (if dead)</label>
+			<input type="date" th:field="*{deathDate}" id="transl-death-date">
+			<br>
+			<!--nationality-->
+			<label for="transl-nationality" class="form-label">Nationality</label>
+			<input type="text" th:field="*{nationality}" placeholder="Nationality" id="transl-nationality">
+			<br>
+			<!--bio-->
+			<label for="transl-bio" class="form-label">Bio</label>
+			<input type="text" th:field="*{bio}" placeholder="Bio" id="transl-bio">
+			<br>
+			<!--website-->
+			<label for="transl-website" class="form-label">Website</label>
+			<input type="text" th:field="*{website}" placeholder="Website" id="transl-website">
+			<br>
+			<!--propic-->
+			<label for="transl-propic" class="form-label">Profile picture</label>
+			<input type="text" th:field="*{profilePicture}" placeholder="Profile picture" id="transl-propic">
+			<br>
+			<!--social media-->
+			<label for="transl-social" class="form-label">Social media</label>
+			<input type="text" th:field="*{socialMedia}" placeholder="Social media" id="transl-social">
+			<br>
+			<!--isActive-->
+			<label for="translator-active" class="form-label">Is translator active?</label>
+			<input type="checkbox" id="translator-active" value="true" th:field=*{isActive}>
+			<br>
+			</select>
+			<div th:if="${#fields.hasAnyErrors()}">
+				<ul class="list-group">
+					<il th:each="err : ${#fields.allErrors}" th:text="${err}"
+						class="alert alert-primary list-group-item">
+
+					</il>
+				</ul>
+			</div>
+			<br>
+			<button type="submit" class="btn btn-primary mb-3">Save</button>
+
+
+		</form>
+
+
+	</div>
+	<!-- SCRIPT BOOTSTRAP-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
