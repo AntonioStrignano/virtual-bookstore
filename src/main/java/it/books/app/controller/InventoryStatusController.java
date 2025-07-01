@@ -55,6 +55,7 @@ public class InventoryStatusController {
 	@GetMapping("/edit/{id}")
 	public String editStatus(Model model, @PathVariable("id") Integer id) {
 		model.addAttribute("status", invStatRepo.getReferenceById(id));
+		model.addAttribute("editMode", true);
 		return "inv-stat/edit";
 	}
 
