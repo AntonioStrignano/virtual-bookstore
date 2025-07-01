@@ -22,7 +22,7 @@ public class InventoryStatus {
 
 	// name
 	@NotBlank(message = "Status name missing.")
-	@Column(name = "status_name", nullable = false, unique = true, columnDefinition = "VARCHAR(10)")
+	@Column(name = "status_name", nullable = false, unique = true, columnDefinition = "VARCHAR(30)")
 	private String statusName;
 
 	// description

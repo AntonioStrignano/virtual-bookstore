@@ -1,3 +1,14 @@
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\AuthorController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\AwardController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\BookController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\EditionController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\FormatController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\GenreController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\InventoryController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\MainController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\PublisherController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\TranslatorController.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\controller\WarehouseController.java
 C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\model\Analytic.java
 C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\model\AnalyticType.java
 C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\model\Author.java
@@ -52,4 +63,6 @@ C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\ma
 C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\repository\UserRepository.java
 C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\repository\WarehouseLocationRepository.java
 C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\repository\WishlistRepository.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\service\AuthorService.java
+C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\service\AuthorServiceImpl.java
 C:\Users\POSTAZIONE-53\Documents\java\virtual-bookstore\virtual-bookstore\src\main\java\it\books\app\VirtualBookstoreApplication.java
