@@ -20,6 +20,12 @@ genres (if delete genre, drop to a default blank genre)
 book collections still to implements
 
 
+*INVENTORY*
+
+to finish: discount edit, book choose first
+
+
+
 customer side:
 read book list
 read book details

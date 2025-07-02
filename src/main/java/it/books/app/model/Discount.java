@@ -3,6 +3,8 @@ package it.books.app.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,11 +27,13 @@ public class Discount {
 	private Integer id;
 
 	// start date
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "Discount start date missing")
 	@Column(name = "start_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime startDate;
 
 	// end date
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "Discount end date missing.")
 	@Column(name = "end_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime endDate;
