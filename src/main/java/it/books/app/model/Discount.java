@@ -14,7 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -26,20 +26,25 @@ public class Discount {
 	@Column(name = "id")
 	private Integer id;
 
+	// name
+	@NotBlank(message = "Name empty.")
+	@Column(name = "discount_name", nullable = false, columnDefinition = "tinytext")
+	private String name;
+
 	// start date
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd hh-mm")
 	@NotNull(message = "Discount start date missing")
-	@Column(name = "start_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	@Column(name = "start_date", nullable = false, columnDefinition = "datetime")
 	private LocalDateTime startDate;
 
 	// end date
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd hh-mm")
 	@NotNull(message = "Discount end date missing.")
-	@Column(name = "end_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	@Column(name = "end_date", nullable = false, columnDefinition = "datetime")
 	private LocalDateTime endDate;
 
 	// value
-	@NotEmpty(message = "Discount value empty.")
+	@NotNull(message = "Missing discount value.")
 	@Column(name = "discount_value", nullable = false, columnDefinition = "tinyint")
 	private Integer discountValue;
 
@@ -52,7 +57,8 @@ public class Discount {
 	// discount type
 	// MtO
 	@ManyToOne
-	@JoinColumn(name = "discount_type")
+	@NotNull(message = "Select a type")
+	@JoinColumn(name = "discount_type", nullable = false)
 	private DiscountType discountType;
 
 	// ----------------------------
@@ -105,6 +111,14 @@ public class Discount {
 
 	public void setDiscountValue(Integer discountValue) {
 		this.discountValue = discountValue;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

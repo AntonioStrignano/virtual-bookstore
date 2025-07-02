@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.books.app.model.Discount;
-import it.books.app.repository.BookRepository;
 import it.books.app.repository.DiscountRepository;
+import it.books.app.repository.DiscountTypeRepository;
+import it.books.app.repository.InventoryRepository;
 import jakarta.validation.Valid;
 
 @Controller
@@ -21,9 +22,12 @@ public class DiscountController {
 
 	@Autowired
 	private DiscountRepository discountRepo;
-	
+
 	@Autowired
-	private BookRepository bookRepo;
+	private InventoryRepository invRepo;
+
+	@Autowired
+	private DiscountTypeRepository discTypeRepo;
 
 	// ---- READ ----
 	// GET
@@ -31,7 +35,6 @@ public class DiscountController {
 	public String discountPage(Model model) {
 
 		model.addAttribute("discounts", discountRepo.findAll());
-		model.addAttribute("books", bookRepo.findAll());
 		return "discounts/discount-home";
 	}
 
@@ -42,6 +45,8 @@ public class DiscountController {
 
 		Discount newDiscount = new Discount();
 		model.addAttribute("discount", newDiscount);
+		model.addAttribute("stock", invRepo.findAll());
+		model.addAttribute("types", discTypeRepo.findAll());
 		return "/discounts/edit";
 	}
 
@@ -50,7 +55,7 @@ public class DiscountController {
 	public String storeNewDiscount(@Valid @ModelAttribute("discount") Discount newDiscount,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			return "/disc-types/edit";
+			return "/discounts/edit";
 		}
 		discountRepo.save(newDiscount);
 		return "redirect:/discounts";
@@ -61,7 +66,9 @@ public class DiscountController {
 	@GetMapping("/edit/{id}")
 	public String editDiscount(Model model, @PathVariable("id") Integer id) {
 		model.addAttribute("editMode", true);
-		model.addAttribute("discount", discountRepo.findById(id).get());
+		model.addAttribute("discount", discountRepo.getReferenceById(id));
+		model.addAttribute("stock", invRepo.findAll());
+		model.addAttribute("types", discTypeRepo.findAll());
 		return "discounts/edit";
 	}
 
@@ -69,7 +76,7 @@ public class DiscountController {
 	@PostMapping("{id}/update")
 	public String updateDiscount(@Valid @ModelAttribute("discount") Discount upDiscount, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			return "/disc-types/edit";
+			return "/discounts/edit";
 		}
 		discountRepo.save(upDiscount);
 		return "redirect:/discounts";

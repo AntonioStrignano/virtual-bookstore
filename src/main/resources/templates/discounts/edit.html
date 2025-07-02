@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-	<title th:unless=${editMode} th:text="|Create new discount type|"></title>
-	<title th:if="${editMode}" th:text="|Edit discount type: ${type.typeName}|"></title>
+	<title th:unless=${editMode} th:text="|Create new discount|"></title>
+	<title th:if="${editMode}" th:text="|Edit discount: ${discount.name}|"></title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -12,21 +12,42 @@
 <body>
 
 	<div class="container">
-		<h1 th:unless=${editMode} th:text="|Create new discount type|"></h1>
-		<h1 th:if=${editMode} th:text="|Edit discount type: ${type.typeName}|"></h1>
+		<h1 th:unless=${editMode} th:text="|Create new discount|"></h1>
+		<h1 th:if=${editMode} th:text="|Edit discount: ${discount.name}|"></h1>
 
 		<!-- ///////FORM//////// -->
-		<form th:object="${type}" method="post" id="form-type"
-			th:action="${editMode} ? @{|/discount-types/${type.id}/update|} : @{/discount-types/create}">
+		<form th:object="${discount}" method="post" id="form-discounts"
+			th:action="${editMode} ? @{|/discounts/${discount.id}/update|} : @{/discounts/create}">
 			<input type="hidden" th:field="*{id}" id="id">
 
 			<!--	NAME	-->
-			<label for="type-name" class="form-label">Name</label>
-			<input type="text" th:field="*{typeName}" placeholder="Type's name" id="type-name" class="form-control">
+			<label for="discount-name" class="form-label">Name</label>
+			<input type="text" th:field="*{name}" placeholder="Discount's name" id="discount-name" class="form-control">
 
-			<!--	RULE	-->
-			<label for="type-rule" class="form-label">Rule</label>
-			<input type="text" th:field="*{discountRule}" placeholder="Type rule" id="type-rule" class="form-control">
+			<!--	START DATE	-->
+			<label for="discount-start-date" class="form-label">Start date</label>
+			<input type="datetime-local" th:field="*{startDate}" id="discount-start-date" class="form-control">
+
+			<!--	END DATE	-->
+			<label for="discount-end-date" class="form-label">End date</label>
+			<input type="datetime-local" th:field="*{endDate}" id="discount-end-date" class="form-control">
+
+			<!--	VALUE	-->
+			<label for="discount-value" class="form-label">Value</label>
+			<input type="number" th:field="*{discountValue}" step=".01" id="discount-value" class="form-control">
+
+			<!--	TYPE	-->
+			<label for="discount-" class="form-label">Type</label>
+			<select th:field="*{discountType}">
+				<option th:each="type : ${types}" th:text="${type.typeName}" th:value="${type.id}"></option>
+			</select>
+			<!--	ARTICLES	-->
+			<label for="discount-" class="form-label">Articles</label>
+			<div th:each="article : ${stock}">
+				<input type="checkbox" name="inventory"
+					th:text="|${article.book.title}, ${article.book.author.firstName} ${article.book.author.lastName}, ${article.book.publishDate}, ${article.book.edition.name}/ ${article.notes}|"
+					value="${book.id}">
+			</div>
 
 			<div th:if="${#fields.hasAnyErrors()}">
 				<ul class="list-group">

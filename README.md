@@ -21,8 +21,7 @@ book collections still to implements
 
 
 *INVENTORY*
-
-to finish: discount edit, book choose first
+fix discount datetime edit
 
 
 
