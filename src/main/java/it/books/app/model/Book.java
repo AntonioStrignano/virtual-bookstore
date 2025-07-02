@@ -122,6 +122,11 @@ public class Book {
 	@OneToMany(mappedBy = "bookId")
 	private List<Analytic> analytics;
 
+	// inventory
+	// OTM
+	@OneToMany(mappedBy = "book")
+	private List<Inventory> storeRecords;
+
 	// reviews
 	// OtM
 	@OneToMany(mappedBy = "bookId")
@@ -294,6 +299,14 @@ public class Book {
 
 	public void setWishlists(List<Wishlist> wishlists) {
 		this.wishlists = wishlists;
+	}
+
+	public List<Inventory> getStoreRecords() {
+		return storeRecords;
+	}
+
+	public void setStoreRecords(List<Inventory> storeRecords) {
+		this.storeRecords = storeRecords;
 	}
 
 	public Edition getEdition() {

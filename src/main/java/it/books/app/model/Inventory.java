@@ -12,8 +12,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -31,15 +29,9 @@ public class Inventory {
 	private Double price;
 
 	// quantity
-	@NotBlank(message = "Quantity missing.")
+	@NotNull(message = "Quantity missing.")
 	@Column(name = "quantity", nullable = false, columnDefinition = "int(5)")
 	private Integer quantity;
-
-	// isbn
-
-	@NotEmpty(message = "ISBN missing.")
-	@Column(name = "isbn", nullable = false, columnDefinition = "char(13)", length = 13)
-	private String isbn;
 
 	// notes
 	@Column(name = "notes", nullable = true, columnDefinition = "varchar(200)")
@@ -64,6 +56,12 @@ public class Inventory {
 	@ManyToMany
 	@JoinTable(name = "inventory_discounts", joinColumns = @JoinColumn(name = "id_inventory"), inverseJoinColumns = @JoinColumn(name = "id_discount"))
 	private List<Discount> discounts;
+
+	// book
+	// MtO
+	@ManyToOne
+	@JoinColumn(name = "books")
+	private Book book;
 
 	// cart
 	// MtM
@@ -151,12 +149,12 @@ public class Inventory {
 		this.orders = orders;
 	}
 
-	public String getIsbn() {
-		return isbn;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 }
