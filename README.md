@@ -20,11 +20,6 @@ genres (if delete genre, drop to a default blank genre)
 book collections still to implements
 
 
-*INVENTORY*
-fix discount datetime edit
-
-
-
 customer side:
 read book list
 read book details

@@ -16,7 +16,7 @@
 			<span>Commands</span>
 			<ul>
 				<li>
-					<a href="/discounts/create">Create new discount type</a>
+					<a href="/discounts/create">Create new discount</a>
 				</li>
 				<li>
 					<a href="/">Return Home</a>
@@ -29,6 +29,7 @@
 				<thead>
 					<tr>
 						<th scope="col">ID</th>
+						<th scope="col">Name</th>
 						<th scope="col">Start date</th>
 						<th scope="col">End date</th>
 						<th scope="col">Value</th>
@@ -40,6 +41,7 @@
 				<tbody>
 					<tr th:each="discount : ${discounts}" scope="row">
 						<td th:text="${discount.id}"></td>
+						<td th:text="${discount.name}"></td>
 						<td th:text="${discount.startDate}"></td>
 						<td th:text="${discount.endDate}"></td>
 						<td th:text="${discount.discountValue}"></td>

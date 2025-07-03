@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -32,13 +33,13 @@ public class Discount {
 	private String name;
 
 	// start date
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh-mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@NotNull(message = "Discount start date missing")
 	@Column(name = "start_date", nullable = false, columnDefinition = "datetime")
 	private LocalDateTime startDate;
 
 	// end date
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh-mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@NotNull(message = "Discount end date missing.")
 	@Column(name = "end_date", nullable = false, columnDefinition = "datetime")
 	private LocalDateTime endDate;
@@ -51,7 +52,8 @@ public class Discount {
 	// FKs
 	// inventory
 	// MtM
-	@ManyToMany(mappedBy = "discounts")
+	@ManyToMany
+	@JoinTable(name = "discounts_inventory", joinColumns = @JoinColumn(name = "id_discount"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
 	private List<Inventory> inventoryList;
 
 	// discount type

@@ -1,5 +1,7 @@
 package it.books.app.controller;
 
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,8 +67,17 @@ public class DiscountController {
 	// GET
 	@GetMapping("/edit/{id}")
 	public String editDiscount(Model model, @PathVariable("id") Integer id) {
+
+		Discount upDisc = discountRepo.getReferenceById(id);
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+		String formattedStartDate = upDisc.getStartDate().format(formatter);
+		String formattedEndDate = upDisc.getEndDate().format(formatter);
+
 		model.addAttribute("editMode", true);
-		model.addAttribute("discount", discountRepo.getReferenceById(id));
+		model.addAttribute("discount", upDisc);
+		model.addAttribute("formattedStartDate", formattedStartDate);
+		model.addAttribute("formattedEndDate", formattedEndDate);
 		model.addAttribute("stock", invRepo.findAll());
 		model.addAttribute("types", discTypeRepo.findAll());
 		return "discounts/edit";

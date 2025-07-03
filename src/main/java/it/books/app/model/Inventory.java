@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -17,6 +16,14 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "inventory")
 public class Inventory {
+
+	public List<Discount> getDiscountList() {
+		return discountList;
+	}
+
+	public void setDiscountList(List<Discount> discountList) {
+		this.discountList = discountList;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,9 +60,8 @@ public class Inventory {
 
 	// discount
 	// MtM
-	@ManyToMany
-	@JoinTable(name = "inventory_discounts", joinColumns = @JoinColumn(name = "id_inventory"), inverseJoinColumns = @JoinColumn(name = "id_discount"))
-	private List<Discount> discounts;
+	@ManyToMany(mappedBy = "inventoryList")
+	private List<Discount> discountList;
 
 	// book
 	// MtO
@@ -134,11 +140,11 @@ public class Inventory {
 	}
 
 	public List<Discount> getDiscounts() {
-		return discounts;
+		return discountList;
 	}
 
 	public void setDiscounts(List<Discount> discounts) {
-		this.discounts = discounts;
+		this.discountList = discounts;
 	}
 
 	public List<Order> getOrders() {

@@ -7,6 +7,13 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<style>
+		.container>*>*,
+		container>*>*>*,
+		.container>*>*>* {
+			display: block;
+		}
+	</style>
 </head>
 
 <body>
@@ -26,28 +33,30 @@
 
 			<!--	START DATE	-->
 			<label for="discount-start-date" class="form-label">Start date</label>
-			<input type="datetime-local" th:field="*{startDate}" id="discount-start-date" class="form-control">
+			<input type="datetime-local" th:field="*{startDate}" id="discount-start-date" class="form-control"
+				th:value="${editMode} ? ${formattedStartDate} : ''">
 
 			<!--	END DATE	-->
 			<label for="discount-end-date" class="form-label">End date</label>
-			<input type="datetime-local" th:field="*{endDate}" id="discount-end-date" class="form-control">
+			<input type="datetime-local" th:field="*{endDate}" id="discount-end-date" class="form-control"
+				th:value="${editMode} ? ${formattedEndDate} : ''">
 
 			<!--	VALUE	-->
 			<label for="discount-value" class="form-label">Value</label>
 			<input type="number" th:field="*{discountValue}" step=".01" id="discount-value" class="form-control">
 
 			<!--	TYPE	-->
-			<label for="discount-" class="form-label">Type</label>
+			<label for="discount-type" class="form-label">Type</label>
 			<select th:field="*{discountType}">
 				<option th:each="type : ${types}" th:text="${type.typeName}" th:value="${type.id}"></option>
 			</select>
 			<!--	ARTICLES	-->
-			<label for="discount-" class="form-label">Articles</label>
-			<div th:each="article : ${stock}">
-				<input type="checkbox" name="inventory"
-					th:text="|${article.book.title}, ${article.book.author.firstName} ${article.book.author.lastName}, ${article.book.publishDate}, ${article.book.edition.name}/ ${article.notes}|"
-					value="${book.id}">
-			</div>
+			<label for="discount-books" class="form-label">Articles</label>
+			<input th:each="article : ${stock}" type="checkbox"
+				th:text="|${article.book.title}, ${article.book.author.firstName} ${article.book.author.lastName}, ${article.book.publishDate}, ${article.book.edition.name}/ ${article.notes}|"
+				th:value="${article.id}" th:field="*{inventoryList}">
+
+
 
 			<div th:if="${#fields.hasAnyErrors()}">
 				<ul class="list-group">
