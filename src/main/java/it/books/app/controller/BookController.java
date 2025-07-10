@@ -25,109 +25,117 @@ import jakarta.validation.Valid;
 @RequestMapping("/books")
 public class BookController {
 
-	@Autowired
-	private BookRepository bookRepo;
+    @Autowired
+    private BookRepository bookRepo;
 
-	@Autowired
-	private AuthorRepository authorRepo;
+    @Autowired
+    private AuthorRepository authorRepo;
 
-	@Autowired
-	private EditionRepository editionRepo;
+    @Autowired
+    private EditionRepository editionRepo;
 
-	@Autowired
-	private AwardRepository awardRepo;
+    @Autowired
+    private AwardRepository awardRepo;
 
-	@Autowired
-	private GenreRepository genreRepo;
+    @Autowired
+    private GenreRepository genreRepo;
 
-	@Autowired
-	private PublisherRepository publRepo;
+    @Autowired
+    private PublisherRepository publRepo;
 
-	@Autowired
-	private FormatRepository formatRepo;
+    @Autowired
+    private FormatRepository formatRepo;
 
-	@Autowired
-	private TranslatorRepository translRepo;
+    @Autowired
+    private TranslatorRepository translRepo;
 
-	// ---- READ ----
+    // ---- READ ----
+    // CATALOG
+    @GetMapping("")
+    public String bookCatalog(Model model) {
 
-	@GetMapping("")
-	public String bookCatalog(Model model) {
+        model.addAttribute("books", bookRepo.findAll());
 
-		model.addAttribute("books", bookRepo.findAll());
+        return "/books/book-home";
+    }
 
-		return "/books/book-home";
-	}
+    // BOOK DETAIL
+    @GetMapping("{id}")
+    public String bookDetail(@PathVariable("id") Integer id, Model model) {
 
-	// ---- CREATE ----
-	// GET
-	@GetMapping("/create")
-	public String createNewBook(Model model) {
+        model.addAttribute("book", bookRepo.getReferenceById(id));
 
-		addAllRepos(model);
-		Book newBook = new Book();
-		model.addAttribute("book", newBook);
+        return "/detail";
+    }
 
-		return "/books/edit";
-	}
+    // ---- CREATE ----
+    // GET
+    @GetMapping("/create")
+    public String createNewBook(Model model) {
 
-	// POST
-	@PostMapping("/create")
-	public String storeNewBook(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult) {
+        addAllRepos(model);
+        Book newBook = new Book();
+        model.addAttribute("book", newBook);
 
-		if (bindingResult.hasErrors()) {
-			return "/books/edit";
-		}
-		bookRepo.save(newBook);
+        return "/books/edit";
+    }
 
-		return "redirect:/books";
-	}
+    // POST
+    @PostMapping("/create")
+    public String storeNewBook(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult) {
 
-	// ---- UPDATE ----
-	// GET
-	@GetMapping("/edit/{id}")
-	public String editBook(Model model, @PathVariable("id") Integer id) {
+        if (bindingResult.hasErrors()) {
+            return "/books/edit";
+        }
+        bookRepo.save(newBook);
 
-		addAllRepos(model);
-		model.addAttribute("editMode", true);
-		model.addAttribute("book", bookRepo.getReferenceById(id));
+        return "redirect:/books";
+    }
 
-		return "/books/edit";
-	}
+    // ---- UPDATE ----
+    // GET
+    @GetMapping("/edit/{id}")
+    public String editBook(Model model, @PathVariable("id") Integer id) {
 
-	// POST
-	@PostMapping("/{id}/update")
-	public String updateBook(@Valid @ModelAttribute("book") Book updateBook, BindingResult bindingResult) {
+        addAllRepos(model);
+        model.addAttribute("editMode", true);
+        model.addAttribute("book", bookRepo.getReferenceById(id));
 
-		if (bindingResult.hasErrors()) {
-			return "/books/edit";
-		}
+        return "/books/edit";
+    }
 
-		bookRepo.save(updateBook);
+    // POST
+    @PostMapping("/{id}/update")
+    public String updateBook(@Valid @ModelAttribute("book") Book updateBook, BindingResult bindingResult) {
 
-		return "redirect:/books";
-	}
+        if (bindingResult.hasErrors()) {
+            return "/books/edit";
+        }
 
-	// ---- DELETE ----
-	// POST
-	@PostMapping("/{id}/delete")
-	public String deleteBook(@PathVariable("id") Integer id) {
+        bookRepo.save(updateBook);
 
-		bookRepo.deleteById(id);
-		return "redirect:/books";
-	}
+        return "redirect:/books";
+    }
 
-	// ---- OTHERS ----
+    // ---- DELETE ----
+    // POST
+    @PostMapping("/{id}/delete")
+    public String deleteBook(@PathVariable("id") Integer id) {
 
-	private void addAllRepos(Model model) {
+        bookRepo.deleteById(id);
+        return "redirect:/books";
+    }
 
-		model.addAttribute("books", bookRepo.findAll());
-		model.addAttribute("authors", authorRepo.findAll());
-		model.addAttribute("editions", editionRepo.findAll());
-		model.addAttribute("allAwards", awardRepo.findAll());
-		model.addAttribute("allGenres", genreRepo.findAll());
-		model.addAttribute("publishers", publRepo.findAll());
-		model.addAttribute("formats", formatRepo.findAll());
-		model.addAttribute("translators", translRepo.findAll());
-	}
+    // ---- OTHERS ----
+    private void addAllRepos(Model model) {
+
+        model.addAttribute("books", bookRepo.findAll());
+        model.addAttribute("authors", authorRepo.findAll());
+        model.addAttribute("editions", editionRepo.findAll());
+        model.addAttribute("allAwards", awardRepo.findAll());
+        model.addAttribute("allGenres", genreRepo.findAll());
+        model.addAttribute("publishers", publRepo.findAll());
+        model.addAttribute("formats", formatRepo.findAll());
+        model.addAttribute("translators", translRepo.findAll());
+    }
 }
