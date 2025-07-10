@@ -19,11 +19,28 @@ author (if delete author, delete author record in every book)
 genres (if delete genre, drop to a default blank genre)
 book collections still to implements
 
+USER LOGIC
+controllers to do:
+user
+role
+shop assistant
+customer
+wishlist
+search history
+analytic type
+analytics
+notification type
+notification
+cart
+order
+review
+
+
+
 
 customer side:
 read book list
 read book details
-
 
 admin side:
 see analytics
