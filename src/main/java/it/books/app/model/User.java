@@ -20,78 +20,76 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "user")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// username
-	@NotNull
-	@Column(unique = true)
-	@NotBlank(message = "Inserisci username.")
-	private String username;
+    // username
+    @NotNull
+    @Column(unique = true)
+    @NotBlank(message = "Inserisci username.")
+    private String username;
 
-	// password
-	@NotNull
-	@NotBlank(message = "Inserisci password.")
-	private String password;
+    // password
+    @NotNull
+    @NotBlank(message = "Inserisci password.")
+    private String password;
 
-	// second ID
-	@Column(name = "second_id", nullable = true, columnDefinition = "INT")
+    // second ID
+    @Column(name = "second_id", nullable = true, columnDefinition = "INT")
 
-	// FKs
+    // FKs
+    // roles
+    // MtM
+    @ManyToMany(fetch = FetchType.EAGER)
+    @NotEmpty(message = "Seleziona almeno un ruolo.")
+    @JsonManagedReference
+    private List<Role> roles;
 
-	// roles
-	// MtM
-	@ManyToMany(fetch = FetchType.EAGER)
-	@NotEmpty(message = "Seleziona almeno un ruolo.")
-	@JsonManagedReference
-	private List<Role> roles;
+    private Integer secondId;
 
-	private Integer secondId;
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public List<Role> getRoles() {
+        return roles;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
-	public List<Role> getRoles() {
-		return roles;
-	}
+    public Integer getSecondId() {
+        return secondId;
+    }
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-
-	public Integer getSecondId() {
-		return secondId;
-	}
-
-	public void setSecondId(Integer secondId) {
-		this.secondId = secondId;
-	}
+    public void setSecondId(Integer secondId) {
+        this.secondId = secondId;
+    }
 
 }

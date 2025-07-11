@@ -18,158 +18,155 @@ import jakarta.validation.constraints.NotEmpty;
 @Table(name = "shop_assistants")
 public class ShopAssistant {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// first name
-	@NotBlank(message = "Shop assistant first name missing.")
-	@Column(name = "first_name", nullable = false, columnDefinition = "VARCHAR(30)")
-	private String firstName;
+    // first name
+    @NotBlank(message = "Shop assistant first name missing.")
+    @Column(name = "first_name", nullable = false, columnDefinition = "VARCHAR(30)")
+    private String firstName;
 
-	// last name
-	@NotBlank(message = "Shop assistant last name missing.")
-	@Column(name = "last_name", nullable = false, columnDefinition = "VARCHAR(30)")
-	private String lastName;
+    // last name
+    @NotBlank(message = "Shop assistant last name missing.")
+    @Column(name = "last_name", nullable = false, columnDefinition = "VARCHAR(30)")
+    private String lastName;
 
-	// personal email
-	@NotBlank(message = "Shop assistant personal mail missing.")
-	@Column(name = "personal_email", nullable = false, columnDefinition = "VARCHAR (250)")
-	private String personalEmail;
+    // personal email
+    @NotBlank(message = "Shop assistant personal mail missing.")
+    @Column(name = "personal_email", nullable = false, columnDefinition = "VARCHAR (250)")
+    private String personalEmail;
 
-	// internal email
-	@NotBlank(message = "Shop assistant internal email missing.")
-	@Column(name = "internal_email", nullable = false, unique = true, columnDefinition = "VARCHAR(250)")
-	private String internalEmail;
+    // internal email
+    @NotBlank(message = "Shop assistant internal email missing.")
+    @Column(name = "internal_email", nullable = false, unique = true, columnDefinition = "VARCHAR(250)")
+    private String internalEmail;
 
-	// phone number
-	@NotBlank(message = "Shop assistant phone number missing.")
-	@Column(name = "phone_number", nullable = false, columnDefinition = "VARCHAR(15)")
-	private String phoneNumber;
+    // phone number
+    @NotBlank(message = "Shop assistant phone number missing.")
+    @Column(name = "phone_number", nullable = false, columnDefinition = "VARCHAR(15)")
+    private String phoneNumber;
 
-	// address
-	@NotBlank(message = "Shop assistant address missing.")
-	@Column(name = "address", nullable = false, columnDefinition = "VARCHAR(250)")
-	private String address;
+    // address
+    @NotBlank(message = "Shop assistant address missing.")
+    @Column(name = "address", nullable = false, columnDefinition = "VARCHAR(250)")
+    private String address;
 
-	// city
-	@NotBlank(message = "Shop assistant city missing.")
-	@Column(name = "city", nullable = false, columnDefinition = "VARCHAR(50)")
-	private String city;
+    // city
+    @NotBlank(message = "Shop assistant city missing.")
+    @Column(name = "city", nullable = false, columnDefinition = "VARCHAR(50)")
+    private String city;
 
-	// is remote
-	@NotEmpty(message = "Shop assistant remote flag missing.")
-	@Column(name = "is_remote", nullable = false, columnDefinition = "BOOL")
-	private Boolean isRemote;
+    // is remote
+    @NotEmpty(message = "Shop assistant remote flag missing.")
+    @Column(name = "is_remote", nullable = false, columnDefinition = "BOOL")
+    private Boolean isRemote;
 
-	// FKs
+    // FKs
+    // order
+    // OtM
+    @OneToMany(mappedBy = "shopAssistantId")
+    private List<Order> orders;
 
-	// order
-	// OtM
-	@OneToMany(mappedBy = "shopAssistantId")
-	private List<Order> orders;
+    // warehouse location
+    // MtO
+    @ManyToOne
+    @JoinColumn(name = "assistant_location")
+    private WarehouseLocation assistantLocation;
 
-	// warehouse location
-	// MtO
-	@ManyToOne
-	@JoinColumn(name = "assistant_location")
-	private WarehouseLocation assistantLocation;
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public ShopAssistant() {
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public ShopAssistant() {
-		// TODO Auto-generated constructor stub
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getPersonalEmail() {
+        return personalEmail;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setPersonalEmail(String personalEmail) {
+        this.personalEmail = personalEmail;
+    }
 
-	public String getPersonalEmail() {
-		return personalEmail;
-	}
+    public String getInternalEmail() {
+        return internalEmail;
+    }
 
-	public void setPersonalEmail(String personalEmail) {
-		this.personalEmail = personalEmail;
-	}
+    public void setInternalEmail(String internalEmail) {
+        this.internalEmail = internalEmail;
+    }
 
-	public String getInternalEmail() {
-		return internalEmail;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public void setInternalEmail(String internalEmail) {
-		this.internalEmail = internalEmail;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public Boolean getIsRemote() {
+        return isRemote;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setIsRemote(Boolean isRemote) {
+        this.isRemote = isRemote;
+    }
 
-	public Boolean getIsRemote() {
-		return isRemote;
-	}
+    public List<Order> getOrders() {
+        return orders;
+    }
 
-	public void setIsRemote(Boolean isRemote) {
-		this.isRemote = isRemote;
-	}
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
-	public List<Order> getOrders() {
-		return orders;
-	}
+    public WarehouseLocation getAssistantLocation() {
+        return assistantLocation;
+    }
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-
-	public WarehouseLocation getAssistantLocation() {
-		return assistantLocation;
-	}
-
-	public void setAssistantLocation(WarehouseLocation assistantLocation) {
-		this.assistantLocation = assistantLocation;
-	}
+    public void setAssistantLocation(WarehouseLocation assistantLocation) {
+        this.assistantLocation = assistantLocation;
+    }
 
 }
