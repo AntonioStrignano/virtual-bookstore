@@ -36,6 +36,12 @@ order
 review
 
 
+todo:
+if delete customer
+set customer reviews/orders as "delete user" name
+
+test:
+delete users and go around
 
 
 customer side:

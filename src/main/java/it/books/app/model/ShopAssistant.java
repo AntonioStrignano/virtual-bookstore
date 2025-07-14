@@ -63,6 +63,9 @@ public class ShopAssistant {
     @Column(name = "is_remote", nullable = false, columnDefinition = "BOOL")
     private Boolean isRemote;
 
+    @Column(name = "is_fired", columnDefinition = "BOOLEAN")
+    private Boolean isFired;
+
     // FKs
     // order
     // OtM
@@ -167,6 +170,14 @@ public class ShopAssistant {
 
     public void setAssistantLocation(WarehouseLocation assistantLocation) {
         this.assistantLocation = assistantLocation;
+    }
+
+    public Boolean getIsFired() {
+        return isFired;
+    }
+
+    public void setIsFired(Boolean isFired) {
+        this.isFired = isFired;
     }
 
 }

@@ -18,154 +18,178 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "customers")
 public class Customer {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// first name
-	@NotBlank(message = "Customer first name missing.")
-	@Column(name = "first_name", nullable = false, columnDefinition = "tinytext")
-	private String firstName;
+    // first name
+    @NotBlank(message = "Customer first name missing.")
+    @Column(name = "first_name", nullable = false, columnDefinition = "tinytext")
+    private String firstName;
 
-	// last name
-	@NotBlank(message = "Customer last name missing.")
-	@Column(name = "last_name", nullable = false, columnDefinition = "tinytext")
-	private String lastName;
+    // last name
+    @NotBlank(message = "Customer last name missing.")
+    @Column(name = "last_name", nullable = false, columnDefinition = "tinytext")
+    private String lastName;
 
-	// phone number
-	@NotNull(message = "Customer phone number missing.")
-	@Column(name = "phone_number", nullable = false, columnDefinition = "varchar(20)", unique = true)
-	private String phoneNumber;
+    // phone number
+    @NotNull(message = "Customer phone number missing.")
+    @Column(name = "phone_number", nullable = false, columnDefinition = "varchar(20)", unique = true)
+    private String phoneNumber;
 
-	// address
-	@NotBlank(message = "Customer address missing.")
-	@Column(name = "address", nullable = false, columnDefinition = "tinytext")
-	private String addres;
+    // address
+    @NotBlank(message = "Customer address missing.")
+    @Column(name = "address", nullable = false, columnDefinition = "tinytext")
+    private String addres;
 
-	// preferences(json)
-	@Column(name = "preferences", nullable = false, columnDefinition = "JSON")
-	private String preferences;
+    // preferences(json)
+    @Column(name = "preferences", nullable = false, columnDefinition = "JSON")
+    private String preferences;
 
-	// ----- FKs -----
+    // ----- FKs -----
+    // analytics
+    // OtM
+    @OneToMany(mappedBy = "customerId")
+    private List<Analytic> analytics;
 
-	// analytics
-	// OtM
-	@OneToMany(mappedBy = "customerId")
-	private List<Analytic> analytics;
+    // cart
+    // OtO
+    @OneToOne
+    @JoinColumn(name = "id_cart")
+    private Cart cartId;
 
-	// cart
-	// OtO
-	@OneToOne
-	@JoinColumn(name = "id_cart")
-	private Cart cartId;
+    // search history
+    // OtM
+    @OneToMany(mappedBy = "customerId")
+    private List<SearchHistory> searchHistory;
 
-	// search history
-	// OtM
-	@OneToMany(mappedBy = "customerId")
-	private List<SearchHistory> searchHistory;
+    // wishlist
+    // OtO
+    @OneToOne
+    @JoinColumn(name = "id_wishlist")
+    private Wishlist wishlistId;
 
-	// wishlist
-	// OtO
-	@OneToOne
-	@JoinColumn(name = "id_wishlist")
-	private Wishlist wishlistId;
+    // order
+    // OtM
+    @OneToMany(mappedBy = "customerId")
+    private List<Order> orders;
 
-	// order
-	// OtM
-	@OneToMany(mappedBy = "customerId")
-	private List<Order> orders;
+    // notifications
+    // OtM
+    @OneToMany(mappedBy = "customerId")
+    private List<Notification> notifications;
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    // review
+    // OtM
+    @OneToMany(mappedBy = "customerId")
+    private List<Review> reviews;
 
-	public List<Analytic> getAnalytics() {
-		return analytics;
-	}
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public List<Analytic> getAnalytics() {
+        return analytics;
+    }
 
-	public void setAnalytics(List<Analytic> analytics) {
-		this.analytics = analytics;
-	}
+    public void setAnalytics(List<Analytic> analytics) {
+        this.analytics = analytics;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public String getAddres() {
-		return addres;
-	}
+    public String getAddres() {
+        return addres;
+    }
 
-	public void setAddres(String addres) {
-		this.addres = addres;
-	}
+    public void setAddres(String addres) {
+        this.addres = addres;
+    }
 
-	public String getPreferences() {
-		return preferences;
-	}
+    public String getPreferences() {
+        return preferences;
+    }
 
-	public void setPreferences(String preferences) {
-		this.preferences = preferences;
-	}
+    public void setPreferences(String preferences) {
+        this.preferences = preferences;
+    }
 
-	public Cart getCartId() {
-		return cartId;
-	}
+    public Cart getCartId() {
+        return cartId;
+    }
 
-	public void setCartId(Cart cartId) {
-		this.cartId = cartId;
-	}
+    public void setCartId(Cart cartId) {
+        this.cartId = cartId;
+    }
 
-	public List<SearchHistory> getSearchHistory() {
-		return searchHistory;
-	}
+    public List<SearchHistory> getSearchHistory() {
+        return searchHistory;
+    }
 
-	public void setSearchHistory(List<SearchHistory> searchHistory) {
-		this.searchHistory = searchHistory;
-	}
+    public void setSearchHistory(List<SearchHistory> searchHistory) {
+        this.searchHistory = searchHistory;
+    }
 
-	public Wishlist getWishlistId() {
-		return wishlistId;
-	}
+    public Wishlist getWishlistId() {
+        return wishlistId;
+    }
 
-	public void setWishlistId(Wishlist wishlistId) {
-		this.wishlistId = wishlistId;
-	}
+    public void setWishlistId(Wishlist wishlistId) {
+        this.wishlistId = wishlistId;
+    }
 
-	public List<Order> getOrders() {
-		return orders;
-	}
+    public List<Order> getOrders() {
+        return orders;
+    }
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 
 }
