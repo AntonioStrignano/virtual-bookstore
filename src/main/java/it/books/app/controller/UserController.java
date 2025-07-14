@@ -74,6 +74,14 @@ public class UserController {
         return "/users/admin";
     }
 
+    /*------------------------------------------
+    *--------------- WARNING -------------------
+    *-------- USER CONTROLLER LINKED ----------- 
+    *-------- TO SHOP ASSISTANT AND ------------
+    *-------- CUSTOMER CONTROLLERS -------------
+    *-------------------------------------------
+    *
+     */
     // ---- CREATE ----
     //  NEW SHOP ASSISTANT
     @GetMapping("/new/shop-assistant")
