@@ -21,8 +21,6 @@ book collections still to implements
 
 USER LOGIC
 controllers to do:
-shop assistant
-customer
 wishlist
 search history
 analytic type

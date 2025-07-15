@@ -20,8 +20,6 @@ import it.books.app.model.User;
 import it.books.app.repository.CartRepository;
 import it.books.app.repository.CustomerRepository;
 import it.books.app.repository.NotificationRepository;
-import it.books.app.repository.OrderRepository;
-import it.books.app.repository.ReviewRepository;
 import it.books.app.repository.RoleRepository;
 import it.books.app.repository.SearchHistoryRepository;
 import it.books.app.repository.ShopAssistantRepository;
@@ -56,12 +54,6 @@ public class UserController {
 
     @Autowired
     private SearchHistoryRepository searchRepo;
-
-    @Autowired
-    private ReviewRepository revRepo;
-
-    @Autowired
-    private OrderRepository orderRepo;
 
     // ---- READ  ----
     public String adminUsersView(Model model) {
@@ -100,11 +92,11 @@ public class UserController {
         userRepo.save(newUser);
         if (newUser.getRoles().contains(roleRepo.getReferenceById(2))) {
             // SHOP ASSISTANT
-            return "redirect:/shop-assistant/create/" + newUser.getId();
+            return "redirect:/shop-assistants/new/" + newUser.getId();
 
         } else if (newUser.getRoles().contains(roleRepo.getReferenceById(3))) {
             // CUSTOMER
-            return "redirect:/customer/create/" + newUser.getId();
+            return "redirect:/customers/new/" + newUser.getId();
         }
 
         return "redirect:/users";
@@ -115,6 +107,7 @@ public class UserController {
     public String editUser(@PathVariable("id") Integer id, Model model) {
         User editUser = userRepo.getReferenceById(id);
         model.addAttribute("user", editUser);
+        model.addAttribute("editMode", true);
         return "/users/edit";
     }
 
@@ -128,11 +121,11 @@ public class UserController {
 
         if (upUser.getRoles().contains(roleRepo.getReferenceById(2))) {
             // SHOP ASSISTANT
-            return "redirect:/shop-assistant/edit/" + upUser.getId();
+            return "redirect:/shop-assistants/edit/" + upUser.getId();
 
         } else if (upUser.getRoles().contains(roleRepo.getReferenceById(3))) {
             // CUSTOMER
-            return "redirect:/customer/edit/" + upUser.getId();
+            return "redirect:/customers/edit/" + upUser.getId();
         }
 
         return "redirect:/users";
