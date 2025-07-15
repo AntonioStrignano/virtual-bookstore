@@ -21,8 +21,6 @@ book collections still to implements
 
 USER LOGIC
 controllers to do:
-user
-role
 shop assistant
 customer
 wishlist

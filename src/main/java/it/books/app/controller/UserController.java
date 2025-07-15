@@ -1,8 +1,5 @@
 package it.books.app.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +15,6 @@ import it.books.app.model.Customer;
 import it.books.app.model.Notification;
 import it.books.app.model.Order;
 import it.books.app.model.Review;
-import it.books.app.model.Role;
 import it.books.app.model.SearchHistory;
 import it.books.app.model.User;
 import it.books.app.repository.CartRepository;
@@ -74,99 +70,72 @@ public class UserController {
         return "/users/admin";
     }
 
-    /*------------------------------------------
-    *--------------- WARNING -------------------
-    *-------- USER CONTROLLER LINKED ----------- 
-    *-------- TO SHOP ASSISTANT AND ------------
-    *-------- CUSTOMER CONTROLLERS -------------
-    *-------------------------------------------
-    *
-     */
     // ---- CREATE ----
-    //  NEW SHOP ASSISTANT
+    // GET
     @GetMapping("/new/shop-assistant")
-    public String newShopAssistant(Model model) {
+    public String newUser(Model model) {
         User newUser = new User();
+        newUser.getRoles().add(roleRepo.getReferenceById(2));
         model.addAttribute("user", newUser);
-        model.addAttribute("deployee", true);
         return "/users/edit";
-    }
-
-    @PostMapping("/create/shop-assistant")
-    public String createShopAssistant(Model model, @Valid @ModelAttribute("user") User newUser, BindingResult bindingResult) {
-
-        List<Role> roles = new ArrayList<>();
-        roles.add(roleRepo.getReferenceById(2));
-        newUser.setRoles(roles);
-
-        if (bindingResult.hasErrors()) {
-            return "/users/edit";
-        }
-        userRepo.save(newUser);
-        model.addAttribute("user", newUser);
-
-        return "redirect:/shop-assistant/new/";
     }
 
     //  NEW CUSTOMER
     @GetMapping("/new/customer")
     public String newCustomer(Model model) {
         User newUser = new User();
+        newUser.getRoles().add(roleRepo.getReferenceById(3));
         model.addAttribute("user", newUser);
-        model.addAttribute("customer", true);
         return "/users/edit";
     }
 
-    @PostMapping("/create/customer")
-    public String createCustomer(Model model, @Valid @ModelAttribute("user") User newUser, BindingResult bindingResult) {
-        List<Role> roles = new ArrayList<>();
-        roles.add(roleRepo.getReferenceById(3));
-        newUser.setRoles(roles);
+    // POST
+    @PostMapping("/create")
+    public String createUser(Model model, @Valid @ModelAttribute("user") User newUser, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "/users/edit";
         }
+
         userRepo.save(newUser);
-        model.addAttribute("user", newUser);
-        return "redirect:/customer/new";
+        if (newUser.getRoles().contains(roleRepo.getReferenceById(2))) {
+            // SHOP ASSISTANT
+            return "redirect:/shop-assistant/create/" + newUser.getId();
+
+        } else if (newUser.getRoles().contains(roleRepo.getReferenceById(3))) {
+            // CUSTOMER
+            return "redirect:/customer/create/" + newUser.getId();
+        }
+
+        return "redirect:/users";
     }
 
     // ---- UPDATE ----
-    // UPDATE SHOP ASSISTANT
-    @GetMapping("/edit/shop-assistant/{id}")
-    public String editShopAssistant(Model model, @PathVariable("id") Integer id) {
-
-        model.addAttribute("user", userRepo.getReferenceById(id));
-        model.addAttribute("deployee", true);
+    @GetMapping("/edit/{id}")
+    public String editUser(@PathVariable("id") Integer id, Model model) {
+        User editUser = userRepo.getReferenceById(id);
+        model.addAttribute("user", editUser);
         return "/users/edit";
     }
 
-    @PostMapping("/update/shop-assistant/{id}")
-    public String updateShopAssistant(Model model, @Valid @ModelAttribute("user") User upUser, BindingResult bindingResult) {
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") Integer id, @Valid @ModelAttribute("user") User upUser, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "/users/edit";
         }
         userRepo.save(upUser);
-        return "redirect:/shop-assistant/edit/{id}";
-    }
 
-    // UPDATE CUSTOMER
-    @GetMapping("/edit/customer/{id}")
-    public String editCustomer(Model model, @PathVariable("id") Integer id) {
-        model.addAttribute("user", userRepo.getReferenceById(id));
-        model.addAttribute("customer", true);
+        if (upUser.getRoles().contains(roleRepo.getReferenceById(2))) {
+            // SHOP ASSISTANT
+            return "redirect:/shop-assistant/edit/" + upUser.getId();
 
-        return "users/edit";
-    }
-
-    @PostMapping("/update/customer/{id")
-    public String updateCustomer(Model model, @Valid @ModelAttribute("user") User upUser, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "/users/edit";
+        } else if (upUser.getRoles().contains(roleRepo.getReferenceById(3))) {
+            // CUSTOMER
+            return "redirect:/customer/edit/" + upUser.getId();
         }
-        userRepo.save(upUser);
-        return "/redirect:/customer/edit/{id}";
+
+        return "redirect:/users";
     }
 
     // ---- DELETE ----
