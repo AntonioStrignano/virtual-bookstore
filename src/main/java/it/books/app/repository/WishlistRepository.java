@@ -6,4 +6,6 @@ import it.books.app.model.Wishlist;
 
 public interface WishlistRepository extends JpaRepository<Wishlist, Integer> {
 
+    public Wishlist findByUserId(Integer userId);
+
 }
