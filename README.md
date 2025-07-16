@@ -21,11 +21,10 @@ book collections still to implements
 
 USER LOGIC
 controllers to do:
-order
+review
 search history
 notification type
 notification
-review
 analytic type
 analytics
 
