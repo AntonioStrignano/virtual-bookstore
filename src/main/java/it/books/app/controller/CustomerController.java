@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import it.books.app.model.Cart;
 import it.books.app.model.Customer;
+import it.books.app.model.Wishlist;
+import it.books.app.repository.CartRepository;
 import it.books.app.repository.CustomerRepository;
 import it.books.app.repository.UserRepository;
+import it.books.app.repository.WishlistRepository;
 import jakarta.validation.Valid;
 
 @Controller
@@ -24,6 +28,12 @@ public class CustomerController {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private WishlistRepository wishlistRepo;
+
+    @Autowired
+    private CartRepository cartRepo;
 
 // ---- READ ----
     @GetMapping("")
@@ -48,6 +58,14 @@ public class CustomerController {
         if (bindingResult.hasErrors()) {
             return "customers/edit";
         }
+        Wishlist wishlist = new Wishlist();
+        wishlist.setCustomerId(newCustomer);
+        wishlistRepo.save(wishlist);
+        newCustomer.setWishlistId(wishlist);
+        Cart cart = new Cart();
+        cart.setCustomerId(newCustomer);
+        cartRepo.save(cart);
+        newCustomer.setCartId(cart);
         custRepo.save(newCustomer);
         return "redirect:/customers";
     }
