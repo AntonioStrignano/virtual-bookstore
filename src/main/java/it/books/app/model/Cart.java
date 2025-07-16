@@ -19,63 +19,69 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "carts")
 public class Cart {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// last update date
-	@NotNull(message = "Cart last update date missing.")
-	@Column(name = "last_update_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-	private LocalDateTime lastUpdateDate;
+    // last update date
+    @NotNull(message = "Cart last update date missing.")
+    @Column(name = "last_update_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime lastUpdateDate;
 
-	// FKs
+    // FKs
+    // customer
+    // OtO
+    @OneToOne(mappedBy = "cartId")
+    private Customer customerId;
 
-	// customer
-	// OtO
-	@OneToOne(mappedBy = "cartId")
-	private Customer customerId;
+    // inventory list
+    // MtM
+    @ManyToMany
+    @JoinTable(name = "carts_inventories", joinColumns = @JoinColumn(name = "id_cart"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
+    private List<Inventory> inventoryList;
 
-	// inventory list
-	// MtM
-	@ManyToMany
-	@JoinTable(name = "carts_inventories", joinColumns = @JoinColumn(name = "id_cart"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
-	private List<Inventory> inventoryList;
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Double getTotalPrice() {
+        Double totalPrice = 0.0;
+        for (Inventory inventory : inventoryList) {
+            totalPrice += inventory.getFinalPrice();
+        }
+        return totalPrice;
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public LocalDateTime getLastUpdateDate() {
+        return lastUpdateDate;
+    }
 
-	public LocalDateTime getLastUpdateDate() {
-		return lastUpdateDate;
-	}
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
 
-	public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
-		this.lastUpdateDate = lastUpdateDate;
-	}
+    public Customer getCustomerId() {
+        return customerId;
+    }
 
-	public Customer getCustomerId() {
-		return customerId;
-	}
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
+    }
 
-	public void setCustomerId(Customer customerId) {
-		this.customerId = customerId;
-	}
+    public List<Inventory> getInventoryList() {
+        return inventoryList;
+    }
 
-	public List<Inventory> getInventoryList() {
-		return inventoryList;
-	}
-
-	public void setInventoryList(List<Inventory> inventoryList) {
-		this.inventoryList = inventoryList;
-	}
+    public void setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = inventoryList;
+    }
 
 }

@@ -19,102 +19,108 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "orders")
 public class Order {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// confirmation date
-	@NotNull(message = "Order confirmation date missing.")
-	@Column(name = "confirmation_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-	private LocalDateTime confirmationDate;
+    // confirmation date
+    @NotNull(message = "Order confirmation date missing.")
+    @Column(name = "confirmation_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime confirmationDate;
 
-	// payment date
-	@Column(name = "payment_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-	private LocalDateTime paymentDate;
+    // payment date
+    @Column(name = "payment_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime paymentDate;
 
-	// shipping date
-	@Column(name = "shipping_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-	private LocalDateTime shippingDate;
+    // shipping date
+    @Column(name = "shipping_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime shippingDate;
 
-	// FKs
+    // FKs
+    // customer
+    // MtO
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customerId;
 
-	// customer
-	// MtO
-	@ManyToOne
-	@JoinColumn(name = "customer_id")
-	private Customer customerId;
+    // assistant
+    // MtO
+    @ManyToOne
+    @JoinColumn(name = "shop_assistant_id")
+    private ShopAssistant shopAssistantId;
 
-	// assistant
-	// MtO
-	@ManyToOne
-	@JoinColumn(name = "shop_assistant_id")
-	private ShopAssistant shopAssistantId;
+    // inventory
+    // MtM
+    @ManyToMany
+    @JoinTable(name = "orders_inventories", joinColumns = @JoinColumn(name = "id_order"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
+    private List<Inventory> inventoryOrdered;
 
-	// inventory
-	// MtM
-	@ManyToMany
-	@JoinTable(name = "orders_inventories", joinColumns = @JoinColumn(name = "id_order"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
-	private List<Inventory> inventoryOrdered;
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Double getTotalPrice() {
+        Double totalPrice = 0.0;
+        for (Inventory inventory : inventoryOrdered) {
+            totalPrice += inventory.getFinalPrice();
+        }
+        return totalPrice;
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public LocalDateTime getConfirmationDate() {
+        return confirmationDate;
+    }
 
-	public LocalDateTime getConfirmationDate() {
-		return confirmationDate;
-	}
+    public void setConfirmationDate(LocalDateTime confirmationDate) {
+        this.confirmationDate = confirmationDate;
+    }
 
-	public void setConfirmationDate(LocalDateTime confirmationDate) {
-		this.confirmationDate = confirmationDate;
-	}
+    public LocalDateTime getPaymentDate() {
+        return paymentDate;
+    }
 
-	public LocalDateTime getPaymentDate() {
-		return paymentDate;
-	}
+    public void setPaymentDate(LocalDateTime paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 
-	public void setPaymentDate(LocalDateTime paymentDate) {
-		this.paymentDate = paymentDate;
-	}
+    public LocalDateTime getShippingDate() {
+        return shippingDate;
+    }
 
-	public LocalDateTime getShippingDate() {
-		return shippingDate;
-	}
+    public void setShippingDate(LocalDateTime shippingDate) {
+        this.shippingDate = shippingDate;
+    }
 
-	public void setShippingDate(LocalDateTime shippingDate) {
-		this.shippingDate = shippingDate;
-	}
+    public Customer getCustomerId() {
+        return customerId;
+    }
 
-	public Customer getCustomerId() {
-		return customerId;
-	}
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
+    }
 
-	public void setCustomerId(Customer customerId) {
-		this.customerId = customerId;
-	}
+    public ShopAssistant getShopAssistantId() {
+        return shopAssistantId;
+    }
 
-	public ShopAssistant getShopAssistantId() {
-		return shopAssistantId;
-	}
+    public void setShopAssistantId(ShopAssistant shopAssistantId) {
+        this.shopAssistantId = shopAssistantId;
+    }
 
-	public void setShopAssistantId(ShopAssistant shopAssistantId) {
-		this.shopAssistantId = shopAssistantId;
-	}
+    public List<Inventory> getInventoryOrdered() {
+        return inventoryOrdered;
+    }
 
-	public List<Inventory> getInventoryOrdered() {
-		return inventoryOrdered;
-	}
-
-	public void setInventoryOrdered(List<Inventory> inventoryOrdered) {
-		this.inventoryOrdered = inventoryOrdered;
-	}
+    public void setInventoryOrdered(List<Inventory> inventoryOrdered) {
+        this.inventoryOrdered = inventoryOrdered;
+    }
 
 }

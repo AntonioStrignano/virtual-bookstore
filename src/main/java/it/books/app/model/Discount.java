@@ -22,105 +22,104 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "discounts")
 public class Discount {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// name
-	@NotBlank(message = "Name empty.")
-	@Column(name = "discount_name", nullable = false, columnDefinition = "tinytext")
-	private String name;
+    // name
+    @NotBlank(message = "Name empty.")
+    @Column(name = "discount_name", nullable = false, columnDefinition = "tinytext")
+    private String name;
 
-	// start date
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@NotNull(message = "Discount start date missing")
-	@Column(name = "start_date", nullable = false, columnDefinition = "datetime")
-	private LocalDateTime startDate;
+    // start date
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull(message = "Discount start date missing")
+    @Column(name = "start_date", nullable = false, columnDefinition = "datetime")
+    private LocalDateTime startDate;
 
-	// end date
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@NotNull(message = "Discount end date missing.")
-	@Column(name = "end_date", nullable = false, columnDefinition = "datetime")
-	private LocalDateTime endDate;
+    // end date
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull(message = "Discount end date missing.")
+    @Column(name = "end_date", nullable = false, columnDefinition = "datetime")
+    private LocalDateTime endDate;
 
-	// value
-	@NotNull(message = "Missing discount value.")
-	@Column(name = "discount_value", nullable = false, columnDefinition = "tinyint")
-	private Integer discountValue;
+    // value
+    @NotNull(message = "Missing discount value.")
+    @Column(name = "discount_value", nullable = false, columnDefinition = "tinyint")
+    private Double discountValue;
 
-	// FKs
-	// inventory
-	// MtM
-	@ManyToMany
-	@JoinTable(name = "discounts_inventory", joinColumns = @JoinColumn(name = "id_discount"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
-	private List<Inventory> inventoryList;
+    // FKs
+    // inventory
+    // MtM
+    @ManyToMany
+    @JoinTable(name = "discounts_inventory", joinColumns = @JoinColumn(name = "id_discount"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
+    private List<Inventory> inventoryList;
 
-	// discount type
-	// MtO
-	@ManyToOne
-	@NotNull(message = "Select a type")
-	@JoinColumn(name = "discount_type", nullable = false)
-	private DiscountType discountType;
+    // discount type
+    // MtO
+    @ManyToOne
+    @NotNull(message = "Select a type")
+    @JoinColumn(name = "discount_type", nullable = false)
+    private DiscountType discountType;
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
 
-	public LocalDateTime getStartDate() {
-		return startDate;
-	}
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
 
-	public void setStartDate(LocalDateTime startDate) {
-		this.startDate = startDate;
-	}
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
 
-	public LocalDateTime getEndDate() {
-		return endDate;
-	}
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
 
-	public void setEndDate(LocalDateTime endDate) {
-		this.endDate = endDate;
-	}
+    public List<Inventory> getInventoryList() {
+        return inventoryList;
+    }
 
-	public List<Inventory> getInventoryList() {
-		return inventoryList;
-	}
+    public void setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = inventoryList;
+    }
 
-	public void setInventoryList(List<Inventory> inventoryList) {
-		this.inventoryList = inventoryList;
-	}
+    public DiscountType getDiscountType() {
+        return discountType;
+    }
 
-	public DiscountType getDiscountType() {
-		return discountType;
-	}
+    public void setDiscountType(DiscountType discountType) {
+        this.discountType = discountType;
+    }
 
-	public void setDiscountType(DiscountType discountType) {
-		this.discountType = discountType;
-	}
+    public Double getDiscountValue() {
+        return discountValue;
+    }
 
-	public Integer getDiscountValue() {
-		return discountValue;
-	}
+    public void setDiscountValue(Double discountValue) {
+        this.discountValue = discountValue;
+    }
 
-	public void setDiscountValue(Integer discountValue) {
-		this.discountValue = discountValue;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }
