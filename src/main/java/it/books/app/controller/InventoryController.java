@@ -22,94 +22,99 @@ import jakarta.validation.Valid;
 @RequestMapping("/inventory")
 public class InventoryController {
 
-	// ---- WIRING ----
+    // ---- WIRING ----
+    @Autowired
+    private InventoryRepository invRepo;
 
-	@Autowired
-	private InventoryRepository invRepo;
+    @Autowired
+    private InventoryStatusRepository invStatRepo;
 
-	@Autowired
-	private InventoryStatusRepository invStatRepo;
+    @Autowired
+    private DiscountRepository discRepo;
 
-	@Autowired
-	private DiscountRepository discRepo;
+    @Autowired
+    private WarehouseLocationRepository locationRepo;
 
-	@Autowired
-	private WarehouseLocationRepository locationRepo;
+    @Autowired
+    private BookRepository bookRepo;
 
-	@Autowired
-	private BookRepository bookRepo;
+    // ---- READ ----
+    // GET
+    @GetMapping("")
+    public String inventoryPage(Model model) {
 
-	// ---- READ ----
-	// GET
-	@GetMapping("")
-	public String inventoryPage(Model model) {
+        model.addAttribute("books", bookRepo.findAll());
+        model.addAttribute("stock", invRepo.findAll());
+        return "/inventory/inv-home";
+    }
 
-		model.addAttribute("books", bookRepo.findAll());
-		model.addAttribute("stock", invRepo.findAll());
-		return "/inventory/inv-home";
-	}
+    @GetMapping("{id}")
+    public String inventoryDetail(Model model, @PathVariable("id") Integer id) {
+        model.addAttribute("article", invRepo.getReferenceById(id));
+        return "/inventory/inv-detail";
+    }
 
-	// ---- CREATE ----
-	// GET
-	@GetMapping("/create")
-	public String selectIsbn(Model model) {
-		addAll(model);
-		Inventory newArticle = new Inventory();
-		model.addAttribute("article", newArticle);
+    // ---- CREATE ----
+    // GET
+    @GetMapping("/create")
+    public String selectIsbn(Model model) {
+        addAll(model);
+        Inventory newArticle = new Inventory();
+        model.addAttribute("article", newArticle);
 
-		return "/inventory/edit";
-	}
+        return "/inventory/edit";
+    }
 
-	// POST
-	@PostMapping("/create")
-	public String storeNewArticle(@Valid @ModelAttribute("article") Inventory newArticle, BindingResult bindingResult) {
+    // POST
+    @PostMapping("/create")
+    public String storeNewArticle(@Valid @ModelAttribute("article") Inventory newArticle, BindingResult bindingResult) {
 
-		if (bindingResult.hasErrors()) {
-			return "/inventory/edit";
-		}
-		invRepo.save(newArticle);
+        if (bindingResult.hasErrors()) {
+            return "/inventory/edit";
+        }
+        invRepo.save(newArticle);
 
-		return "redirect:/inventory";
-	}
+        return "redirect:/inventory";
+    }
 
-	// ---- UPDATE ----
-	// GET
-	@GetMapping("/edit/{id}")
-	public String editArticle(Model model, @PathVariable("id") Integer id) {
+    // ---- UPDATE ----
+    // GET
+    @GetMapping("/edit/{id}")
+    public String editArticle(Model model, @PathVariable("id") Integer id) {
 
-		addAll(model);
-		model.addAttribute("editMode", true);
-		model.addAttribute("article", invRepo.getReferenceById(id));
+        addAll(model);
+        model.addAttribute("editMode", true);
+        model.addAttribute("article", invRepo.getReferenceById(id));
 
-		return "/inventory/edit";
-	}
+        return "/inventory/edit";
+    }
 
-	// POST
-	@PostMapping("{id}/update")
-	public String updateArticle(@Valid @ModelAttribute("article") Inventory upArticle, BindingResult bindingResult) {
+    // POST
+    @PostMapping("{id}/update")
+    public String updateArticle(@Valid @ModelAttribute("article") Inventory upArticle, BindingResult bindingResult) {
 
-		if (bindingResult.hasErrors()) {
-			return "/inventory/edit";
-		}
-		invRepo.save(upArticle);
+        if (bindingResult.hasErrors()) {
+            return "/inventory/edit";
+        }
+        invRepo.save(upArticle);
 
-		return "redirect:/inventory";
-	}
+        return "redirect:/inventory";
+    }
 
-	// ---- DELETE ----
-	// POST
-	@PostMapping("{id}/delete")
-	public String deleteArticle(@PathVariable("id") Integer id) {
+    // ---- DELETE ----
+    // POST
+    @PostMapping("{id}/delete")
+    public String deleteArticle(@PathVariable("id") Integer id) {
 
-		invRepo.deleteById(id);
-		return "redirect:/inventory";
-	}
+        invRepo.deleteById(id);
+        return "redirect:/inventory";
+    }
 
-	// ---- OTHERS ----
-	private void addAll(Model model) {
-		model.addAttribute("books", bookRepo.findAll());
-		model.addAttribute("stati", invStatRepo.findAll());
-		model.addAttribute("discs", discRepo.findAll());
-		model.addAttribute("warehouseLocations", locationRepo.findAll());
-	}
+    // ---- OTHERS ----
+    private void addAll(Model model) {
+        model.addAttribute("books", bookRepo.findAll());
+        model.addAttribute("stati", invStatRepo.findAll());
+        model.addAttribute("discs", discRepo.findAll());
+        model.addAttribute("warehouseLocations", locationRepo.findAll());
+    }
 }

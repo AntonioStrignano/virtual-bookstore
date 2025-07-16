@@ -21,20 +21,22 @@ book collections still to implements
 
 USER LOGIC
 controllers to do:
-wishlist
+order
 search history
-analytic type
-analytics
 notification type
 notification
-cart
-order
 review
+analytic type
+analytics
 
 
 todo:
 if delete customer
 set customer reviews/orders as "delete user" name
+
+inventory detail page
+
+cart checkout
 
 test:
 delete users and go around
