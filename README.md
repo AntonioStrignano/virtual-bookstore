@@ -21,9 +21,6 @@ book collections still to implements
 
 USER LOGIC
 controllers to do:
-review
-search history
-notification type
 notification
 analytic type
 analytics
@@ -39,6 +36,8 @@ cart checkout
 
 test:
 delete users and go around
+
+manage search history as analytics
 
 
 customer side:
