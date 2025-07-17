@@ -21,7 +21,6 @@ book collections still to implements
 
 USER LOGIC
 controllers to do:
-notification
 analytic type
 analytics
 
@@ -33,6 +32,8 @@ set customer reviews/orders as "delete user" name
 inventory detail page
 
 cart checkout
+
+notification logics in corrispectives controllers
 
 test:
 delete users and go around
