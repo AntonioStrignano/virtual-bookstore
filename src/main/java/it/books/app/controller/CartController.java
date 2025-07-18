@@ -28,7 +28,7 @@ public class CartController {
 // ---- READ ----
     @GetMapping("{customerId}")
     public String cartPage(Model model, @PathVariable("customerId") Integer customerId) {
-        model.addAttribute("cart", cartRepo.findByCustomerId(customerId));
+        model.addAttribute("cart", custRepo.getReferenceById(customerId).getCartId());
         return "/cart/cart-home";
     }
 

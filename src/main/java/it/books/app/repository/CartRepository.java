@@ -6,6 +6,4 @@ import it.books.app.model.Cart;
 
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 
-    public Cart findByCustomerId(Integer customerId);
-
 }

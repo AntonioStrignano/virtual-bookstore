@@ -15,62 +15,73 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "inventory_status")
 public class InventoryStatus {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// name
-	@NotBlank(message = "Status name missing.")
-	@Column(name = "status_name", nullable = false, unique = true, columnDefinition = "VARCHAR(30)")
-	private String statusName;
+    // name
+    @NotBlank(message = "Status name missing.")
+    @Column(name = "status_name", nullable = false, unique = true, columnDefinition = "VARCHAR(30)")
+    private String statusName;
 
-	// description
-	@NotBlank(message = "Status description missing.")
-	@Column(name = "status_description", nullable = false, columnDefinition = "tinytext")
-	private String statusDescription;
+    // description
+    @NotBlank(message = "Status description missing.")
+    @Column(name = "status_description", nullable = false, columnDefinition = "tinytext")
+    private String statusDescription;
 
-	// FKs
+    // FKs
+    // inventory
+    // OtM
+    @OneToMany(mappedBy = "inventoryStatus")
+    private List<Inventory> inventoryList;
 
-	// inventory
-	// OtM
-	@OneToMany(mappedBy = "inventoryStatus")
-	private List<Inventory> inventoryList;
+    // CONSTRUCTORS 
+    public InventoryStatus() {
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    public InventoryStatus(String statusName) {
+        this.statusName = statusName;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public InventoryStatus(String statusName, String statusDescription) {
+        this.statusName = statusName;
+        this.statusDescription = statusDescription;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public String getStatusName() {
-		return statusName;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setStatusName(String statusName) {
-		this.statusName = statusName;
-	}
+    public String getStatusName() {
+        return statusName;
+    }
 
-	public String getStatusDescription() {
-		return statusDescription;
-	}
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
 
-	public void setStatusDescription(String statusDescription) {
-		this.statusDescription = statusDescription;
-	}
+    public String getStatusDescription() {
+        return statusDescription;
+    }
 
-	public List<Inventory> getInventoryList() {
-		return inventoryList;
-	}
+    public void setStatusDescription(String statusDescription) {
+        this.statusDescription = statusDescription;
+    }
 
-	public void setInventoryList(List<Inventory> inventoryList) {
-		this.inventoryList = inventoryList;
-	}
+    public List<Inventory> getInventoryList() {
+        return inventoryList;
+    }
+
+    public void setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = inventoryList;
+    }
 
 }

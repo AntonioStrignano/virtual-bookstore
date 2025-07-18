@@ -15,60 +15,68 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "formats")
 public class Format {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// name
-	@NotBlank(message = "Format name empty.")
-	@Column(name = "format_name", nullable = false, unique = true, columnDefinition = "varchar(20)")
-	private String name;
+    // name
+    @NotBlank(message = "Format name empty.")
+    @Column(name = "format_name", nullable = false, unique = true, columnDefinition = "varchar(20)")
+    private String name;
 
-	// is digital
-	@Column(name = "is_digital", columnDefinition = "bool")
-	private Boolean isDigital;
+    // is digital
+    @Column(name = "is_digital", columnDefinition = "bool")
+    private Boolean isDigital;
 
-	// FKs
+    // FKs
+    // books
+    // OtM
+    @OneToMany(mappedBy = "format")
+    private List<Book> books;
 
-	// books
-	// OtM
-	@OneToMany(mappedBy = "format")
-	private List<Book> books;
+    // CONSTRUCTORS 
+    public Format() {
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
-	public Integer getId() {
-		return id;
-	}
+    public Format(String name, Boolean isDigital) {
+        this.name = name;
+        this.isDigital = isDigital;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Boolean getIsDigital() {
-		return isDigital;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setIsDigital(Boolean isDigital) {
-		this.isDigital = isDigital;
-	}
+    public Boolean getIsDigital() {
+        return isDigital;
+    }
 
-	public List<Book> getBooks() {
-		return books;
-	}
+    public void setIsDigital(Boolean isDigital) {
+        this.isDigital = isDigital;
+    }
 
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 
 }

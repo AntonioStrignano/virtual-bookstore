@@ -75,3 +75,4 @@ public class NotificationTypeController {
         return "redirect:/notification-types";
 
     }
+}

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import it.books.app.model.Book;
 import it.books.app.model.Review;
 import it.books.app.repository.BookRepository;
 import it.books.app.repository.CustomerRepository;
@@ -82,3 +81,4 @@ public class ReviewController {
         revRepo.deleteById(id);
         return "redirect:/books" + bookId + "/detail";
     }
+}

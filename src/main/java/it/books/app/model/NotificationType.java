@@ -15,62 +15,69 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "notification_types")
 public class NotificationType {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// name
-	@NotBlank(message = "Notification name missing.")
-	@Column(name = "notification_name", nullable = false, unique = true, columnDefinition = "VARCHAR(20)")
-	private String notificationName;
+    // name
+    @NotBlank(message = "Notification name missing.")
+    @Column(name = "notification_name", nullable = false, unique = true, columnDefinition = "VARCHAR(20)")
+    private String notificationName;
 
-	// template
-	@NotBlank(message = "Notification template missing.")
-	@Column(name = "notif_template", nullable = true, columnDefinition = "tinytext")
-	private String notificationTemplate;
+    // template
+    @NotBlank(message = "Notification template missing.")
+    @Column(name = "notif_template", nullable = true, columnDefinition = "tinytext")
+    private String notificationTemplate;
 
-	// FKs
+    // FKs
+    // notifications
+    // OtM
+    @OneToMany(mappedBy = "notificationType")
+    private List<Notification> notifications;
 
-	// notifications
-	// OtM
-	@OneToMany(mappedBy = "notificationType")
-	private List<Notification> notifications;
+    // CONSTRUCTORS 
+    public NotificationType() {
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    public NotificationType(String notificationName, String notificationTemplate) {
+        this.notificationName = notificationName;
+        this.notificationTemplate = notificationTemplate;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getNotificationName() {
-		return notificationName;
-	}
+    public String getNotificationName() {
+        return notificationName;
+    }
 
-	public void setNotificationName(String notificationName) {
-		this.notificationName = notificationName;
-	}
+    public void setNotificationName(String notificationName) {
+        this.notificationName = notificationName;
+    }
 
-	public String getNotificationTemplate() {
-		return notificationTemplate;
-	}
+    public String getNotificationTemplate() {
+        return notificationTemplate;
+    }
 
-	public void setNotificationTemplate(String notificationTemplate) {
-		this.notificationTemplate = notificationTemplate;
-	}
+    public void setNotificationTemplate(String notificationTemplate) {
+        this.notificationTemplate = notificationTemplate;
+    }
 
-	public List<Notification> getNotifications() {
-		return notifications;
-	}
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
 
-	public void setNotifications(List<Notification> notifications) {
-		this.notifications = notifications;
-	}
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
 
 }

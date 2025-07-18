@@ -15,62 +15,68 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "warehouse_locations")
 public class WarehouseLocation {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// location
-	@NotBlank(message = "Location name missing.")
-	@Column(name = "location_name", nullable = false, unique = true, columnDefinition = "tinytext")
-	private String location;
+    // location
+    @NotBlank(message = "Location name missing.")
+    @Column(name = "location_name", nullable = false, unique = true, columnDefinition = "tinytext")
+    private String location;
 
-	// FKs
+    // FKs
+    // inventory
+    // OtM
+    @OneToMany(mappedBy = "warehouseLocation")
+    private List<Inventory> inventoryList;
 
-	// inventory
-	// OtM
-	@OneToMany(mappedBy = "warehouseLocation")
-	private List<Inventory> inventoryList;
+    // shop assistants
+    // OtM
+    @OneToMany(mappedBy = "assistantLocation")
+    private List<ShopAssistant> shopAssistants;
 
-	// shop assistants
-	// OtM
-	@OneToMany(mappedBy = "assistantLocation")
-	private List<ShopAssistant> shopAssistants;
+    // CONTSTRUCTORS
+    public WarehouseLocation() {
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    public WarehouseLocation(String location) {
+        this.location = location;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public List<Inventory> getInventoryList() {
-		return inventoryList;
-	}
+    public List<Inventory> getInventoryList() {
+        return inventoryList;
+    }
 
-	public void setInventoryList(List<Inventory> inventoryList) {
-		this.inventoryList = inventoryList;
-	}
+    public void setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = inventoryList;
+    }
 
-	public List<ShopAssistant> getShopAssistants() {
-		return shopAssistants;
-	}
+    public List<ShopAssistant> getShopAssistants() {
+        return shopAssistants;
+    }
 
-	public void setShopAssistants(List<ShopAssistant> shopAssistants) {
-		this.shopAssistants = shopAssistants;
-	}
+    public void setShopAssistants(List<ShopAssistant> shopAssistants) {
+        this.shopAssistants = shopAssistants;
+    }
 
 }

@@ -16,73 +16,85 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "genres")
 public class Genre {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// name
-	@NotBlank(message = "Genre name empty.")
-	@Column(name = "genre_name", nullable = false, unique = true, columnDefinition = "varchar(30)")
-	private String name;
+    // name
+    @NotBlank(message = "Genre name empty.")
+    @Column(name = "genre_name", nullable = false, unique = true, columnDefinition = "varchar(30)")
+    private String name;
 
-	// description
-	@Column(name = "description", columnDefinition = "varchar(100)")
-	private String description;
+    // description
+    @Column(name = "description", columnDefinition = "varchar(100)")
+    private String description;
 
-	// FKs
+    // FKs
+    // books
+    // MtM
+    @ManyToMany(mappedBy = "genres")
+    private List<Book> books;
 
-	// books
-	// MtM
-	@ManyToMany(mappedBy = "genres")
-	private List<Book> books;
+    // authors
+    // OtM
+    @OneToMany(mappedBy = "mainGenre")
+    private List<Author> authors;
 
-	// authors
-	// OtM
-	@OneToMany(mappedBy = "mainGenre")
-	private List<Author> authors;
+// CONSTRUCTORS 
+    public Genre() {
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
-	public Integer getId() {
-		return id;
-	}
+    public Genre(String name) {
+        this.name = name;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Genre(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
-	public String getName() {
-		return name;
-	}
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public List<Book> getBooks() {
-		return books;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public List<Author> getAuthors() {
-		return authors;
-	}
+    public List<Book> getBooks() {
+        return books;
+    }
 
-	public void setAuthors(List<Author> authors) {
-		this.authors = authors;
-	}
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
 
 }

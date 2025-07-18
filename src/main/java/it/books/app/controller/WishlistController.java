@@ -28,7 +28,7 @@ public class WishlistController {
 // ---- READ ----
     @GetMapping("{userId}")
     public String wishPage(Model model, @PathVariable("userId") Integer userId) {
-        model.addAttribute("wishlist", wishlistRepo.findByUserId(userId));
+        model.addAttribute("wishlist", custRepo.getReferenceById(userId).getWishlistId());
         return "/wishlist/wish-home";
     }
 

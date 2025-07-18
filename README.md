@@ -21,7 +21,6 @@ book collections still to implements
 
 USER LOGIC
 controllers to do:
-analytic type
 analytics
 
 

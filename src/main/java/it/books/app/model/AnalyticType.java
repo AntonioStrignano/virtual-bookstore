@@ -36,6 +36,19 @@ public class AnalyticType {
     @OneToMany(mappedBy = "analyticType")
     private List<Analytic> analyticId;
 
+    // CONSTRUCTORS
+    public AnalyticType() {
+    }
+
+    public AnalyticType(String name) {
+        this.name = name;
+    }
+
+    public AnalyticType(String name, String textTemplate) {
+        this.name = name;
+        this.textTemplate = textTemplate;
+    }
+
     // ----------------------------
     // ----- GETTERS & SETTERS ----
     // ----------------------------

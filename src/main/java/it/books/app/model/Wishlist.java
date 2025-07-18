@@ -2,11 +2,6 @@ package it.books.app.model;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import it.books.app.repository.BookRepository;
-import it.books.app.repository.CustomerRepository;
-import it.books.app.repository.WishlistRepository;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

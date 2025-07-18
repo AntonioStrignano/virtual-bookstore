@@ -74,3 +74,4 @@ public class NotificationController {
         notifTypeRepo.delete(notifType);
         return "redirect:/notifications";
     }
+}
