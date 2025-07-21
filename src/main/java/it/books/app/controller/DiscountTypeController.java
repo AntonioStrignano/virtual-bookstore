@@ -18,64 +18,64 @@ import jakarta.validation.Valid;
 @RequestMapping("/discount-types")
 public class DiscountTypeController {
 
-	@Autowired
-	private DiscountTypeRepository discTypeRepo;
+    @Autowired
+    private DiscountTypeRepository discTypeRepo;
 
-	// ---- READ ----
-	// GET
-	@GetMapping("")
-	public String discTypePage(Model model) {
+    // ---- READ ----
+    // GET
+    @GetMapping("")
+    public String discTypePage(Model model) {
 
-		model.addAttribute("types", discTypeRepo.findAll());
-		return "disc-types/type-home";
-	}
+        model.addAttribute("types", discTypeRepo.findAll());
+        return "disc-types/type-home";
+    }
 
-	// ---- CREATE ----
-	// GET
-	@GetMapping("/create")
-	public String createType(Model model) {
+    // ---- CREATE ----
+    // GET
+    @GetMapping("/create")
+    public String createType(Model model) {
 
-		DiscountType newType = new DiscountType();
-		model.addAttribute("type", newType);
-		return "disc-types/edit";
-	}
+        DiscountType newType = new DiscountType();
+        model.addAttribute("type", newType);
+        return "disc-types/edit";
+    }
 
-	// POST
-	@PostMapping("/create")
-	public String createType(@Valid @ModelAttribute("type") DiscountType newType, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			return "/disc-types/edit";
-		}
-		discTypeRepo.save(newType);
-		return "redirect:/discount-types";
-	}
+    // POST
+    @PostMapping("/create")
+    public String createType(@Valid @ModelAttribute("type") DiscountType newType, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/disc-types/edit";
+        }
+        discTypeRepo.save(newType);
+        return "redirect:/discount-types";
+    }
 
-	// ---- UPDATE ----
-	// GET
-	@GetMapping("/edit/{id}")
-	public String editType(Model model, @PathVariable("id") Integer id) {
-		model.addAttribute("editMode", true);
-		model.addAttribute("type", discTypeRepo.getReferenceById(id));
-		return "/disc-types/edit";
-	}
+    // ---- UPDATE ----
+    // GET
+    @GetMapping("/edit/{id}")
+    public String editType(Model model, @PathVariable("id") Integer id) {
+        model.addAttribute("editMode", true);
+        model.addAttribute("type", discTypeRepo.getReferenceById(id));
+        return "/disc-types/edit";
+    }
 
-	// POST
-	@PostMapping("{id}/update")
-	public String updateType(@Valid @ModelAttribute("type") DiscountType upType, BindingResult bindingResult) {
+    // POST
+    @PostMapping("{id}/update")
+    public String updateType(@Valid @ModelAttribute("type") DiscountType upType, BindingResult bindingResult) {
 
-		if (bindingResult.hasErrors()) {
-			return "/disc-types/edit";
-		}
-		discTypeRepo.save(upType);
-		return "redirect:/discount-types";
-	}
+        if (bindingResult.hasErrors()) {
+            return "/disc-types/edit";
+        }
+        discTypeRepo.save(upType);
+        return "redirect:/discount-types";
+    }
 
-	// ---- DELETE ----
-	// POST
-	@PostMapping("/{id}/delete")
-	public String deleteType(@PathVariable("id") Integer id) {
+    // ---- DELETE ----
+    // POST
+    @PostMapping("/{id}/delete")
+    public String deleteType(@PathVariable("id") Integer id) {
 
-		discTypeRepo.deleteById(id);
-		return "redirect:/discount-types";
-	}
+        discTypeRepo.deleteById(id);
+        return "redirect:/discount-types";
+    }
 }

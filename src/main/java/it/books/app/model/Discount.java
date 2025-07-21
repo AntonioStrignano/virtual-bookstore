@@ -63,6 +63,18 @@ public class Discount {
     @JoinColumn(name = "discount_type", nullable = false)
     private DiscountType discountType;
 
+    // CONSTRUCTORS
+    public Discount() {
+    }
+
+    public Discount(String name, LocalDateTime startDate, LocalDateTime endDate, Double discountValue, DiscountType discountType) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.discountValue = discountValue;
+        this.discountType = discountType;
+    }
+
     // ----------------------------
     // ----- GETTERS & SETTERS ----
     // ----------------------------

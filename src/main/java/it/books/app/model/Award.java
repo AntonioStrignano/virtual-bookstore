@@ -45,6 +45,17 @@ public class Award {
     @ManyToMany(mappedBy = "awards")
     private List<Book> books;
 
+    // CONTRUCTORS
+    public Award() {
+    }
+
+    public Award(String title, Integer year, String description, String awardType) {
+        this.title = title;
+        this.year = year;
+        this.description = description;
+        this.awardType = awardType;
+    }
+
     // ----------------------------
     // ----- GETTERS & SETTERS ----
     // ----------------------------

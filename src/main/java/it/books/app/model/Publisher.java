@@ -2,7 +2,6 @@ package it.books.app.model;
 
 import java.util.List;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,148 +16,162 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "publisher")
 public class Publisher {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// name
-	@NotBlank(message = "Publisher name missing.")
-	@Column(name = "publisher_name", nullable = false, unique = true, columnDefinition = "varchar(50)")
-	private String publisherName;
+    // name
+    @NotBlank(message = "Publisher name missing.")
+    @Column(name = "publisher_name", nullable = false, unique = true, columnDefinition = "varchar(50)")
+    private String publisherName;
 
-	// founder year
-	@NotNull(message = "Publisher founder year missing.")
-	@Column(name = "founder_year", nullable = false, columnDefinition = "int(4)")
-	private Integer founderYear;
+    // founder year
+    @NotNull(message = "Publisher founder year missing.")
+    @Column(name = "founder_year", nullable = false, columnDefinition = "int(4)")
+    private Integer founderYear;
 
-	// country
-	@NotBlank(message = "Publisher country missing.")
-	@Column(name = "country", nullable = false, columnDefinition = "varchar(30)")
-	private String country;
+    // country
+    @NotBlank(message = "Publisher country missing.")
+    @Column(name = "country", nullable = false, columnDefinition = "varchar(30)")
+    private String country;
 
-	// city
-	@Column(name = "city", columnDefinition = "varchar(30)")
-	private String city;
+    // city
+    @Column(name = "city", columnDefinition = "varchar(30)")
+    private String city;
 
-	// website
-	@Column(name = "publisher_website", columnDefinition = "mediumtext")
-	private String publisherWebsite;
+    // website
+    @Column(name = "publisher_website", columnDefinition = "mediumtext")
+    private String publisherWebsite;
 
-	// email
-	@Column(name = "publisher_email", columnDefinition = "varchar(254)")
-	private String email;
+    // email
+    @Column(name = "publisher_email", columnDefinition = "varchar(254)")
+    private String email;
 
-	// address
-	@Column(name = "publisher_address", columnDefinition = "tinytext")
-	private String publisherAddress;
+    // address
+    @Column(name = "publisher_address", columnDefinition = "tinytext")
+    private String publisherAddress;
 
-	// bio
-	@Column(name = "publisher_bio", columnDefinition = "text(2000)")
-	private String publisherBio;
+    // bio
+    @Column(name = "publisher_bio", columnDefinition = "text(2000)")
+    private String publisherBio;
 
-	// KFs
+    // KFs
+    // books
+    // OtM
+    @OneToMany(mappedBy = "publisher")
+    private List<Book> books;
 
-	// books
-	// OtM
-	@OneToMany(mappedBy = "publisher")
-	private List<Book> books;
+    // book collections
+    // OtM
+    @OneToMany(mappedBy = "publisher")
+    private List<BookCollection> bookCollections;
 
-	// book collections
-	// OtM
-	@OneToMany(mappedBy = "publisher")
-	private List<BookCollection> bookCollections;
+    // CONSTRUCTORS
+    public Publisher() {
+    }
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    public Publisher(String publisherName, Integer founderYear, String country, String city, String publisherWebsite,
+            String email, String publisherAddress, String publisherBio) {
+        this.publisherName = publisherName;
+        this.founderYear = founderYear;
+        this.country = country;
+        this.city = city;
+        this.publisherWebsite = publisherWebsite;
+        this.email = email;
+        this.publisherAddress = publisherAddress;
+        this.publisherBio = publisherBio;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getPublisherName() {
-		return publisherName;
-	}
+    public String getPublisherName() {
+        return publisherName;
+    }
 
-	public void setPublisherName(String publisherName) {
-		this.publisherName = publisherName;
-	}
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
+    }
 
-	public Integer getFounderYear() {
-		return founderYear;
-	}
+    public Integer getFounderYear() {
+        return founderYear;
+    }
 
-	public void setFounderYear(Integer founderYear) {
-		this.founderYear = founderYear;
-	}
+    public void setFounderYear(Integer founderYear) {
+        this.founderYear = founderYear;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getPublisherWebsite() {
-		return publisherWebsite;
-	}
+    public String getPublisherWebsite() {
+        return publisherWebsite;
+    }
 
-	public void setPublisherWebsite(String publisherWebsite) {
-		this.publisherWebsite = publisherWebsite;
-	}
+    public void setPublisherWebsite(String publisherWebsite) {
+        this.publisherWebsite = publisherWebsite;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getPublisherAddress() {
-		return publisherAddress;
-	}
+    public String getPublisherAddress() {
+        return publisherAddress;
+    }
 
-	public void setPublisherAddress(String publisherAddress) {
-		this.publisherAddress = publisherAddress;
-	}
+    public void setPublisherAddress(String publisherAddress) {
+        this.publisherAddress = publisherAddress;
+    }
 
-	public String getPublisherBio() {
-		return publisherBio;
-	}
+    public String getPublisherBio() {
+        return publisherBio;
+    }
 
-	public void setPublisherBio(String publisherBio) {
-		this.publisherBio = publisherBio;
-	}
+    public void setPublisherBio(String publisherBio) {
+        this.publisherBio = publisherBio;
+    }
 
-	public List<Book> getBooks() {
-		return books;
-	}
+    public List<Book> getBooks() {
+        return books;
+    }
 
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 
-	public List<BookCollection> getBookCollections() {
-		return bookCollections;
-	}
+    public List<BookCollection> getBookCollections() {
+        return bookCollections;
+    }
 
-	public void setBookCollections(List<BookCollection> bookCollections) {
-		this.bookCollections = bookCollections;
-	}
+    public void setBookCollections(List<BookCollection> bookCollections) {
+        this.bookCollections = bookCollections;
+    }
 
 }

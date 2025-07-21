@@ -85,6 +85,10 @@ public class Customer {
     @OneToMany(mappedBy = "customerId")
     private List<Review> reviews;
 
+    // CONSTRUCTORS
+    public Customer() {
+    }
+
     // ----------------------------
     // ----- GETTERS & SETTERS ----
     // ----------------------------

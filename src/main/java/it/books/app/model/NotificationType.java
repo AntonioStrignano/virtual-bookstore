@@ -22,7 +22,7 @@ public class NotificationType {
 
     // name
     @NotBlank(message = "Notification name missing.")
-    @Column(name = "notification_name", nullable = false, unique = true, columnDefinition = "VARCHAR(20)")
+    @Column(name = "notification_name", nullable = false, unique = true, columnDefinition = "VARCHAR(50)")
     private String notificationName;
 
     // template

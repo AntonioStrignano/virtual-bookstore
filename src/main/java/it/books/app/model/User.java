@@ -38,6 +38,7 @@ public class User {
 
     // second ID
     @Column(name = "second_id", nullable = true, columnDefinition = "INT")
+    private Integer secondId;
 
     // FKs
     // roles
@@ -47,7 +48,21 @@ public class User {
     @JsonManagedReference
     private List<Role> roles;
 
-    private Integer secondId;
+// CONSTRUCTORS
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String password, List<Role> roles, Integer secondId) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.secondId = secondId;
+    }
 
     // ----------------------------
     // ----- GETTERS & SETTERS ----

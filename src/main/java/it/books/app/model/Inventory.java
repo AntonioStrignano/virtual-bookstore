@@ -79,6 +79,21 @@ public class Inventory {
     @ManyToMany(mappedBy = "inventoryOrdered")
     private List<Order> orders;
 
+//CONSTRUCTORS
+    public Inventory() {
+    }
+
+    public Inventory(Double price, Integer quantity, String notes, WarehouseLocation warehouseLocation,
+            InventoryStatus inventoryStatus, List<Discount> discountList, Book book) {
+        this.price = price;
+        this.quantity = quantity;
+        this.notes = notes;
+        this.warehouseLocation = warehouseLocation;
+        this.inventoryStatus = inventoryStatus;
+        this.discountList = discountList;
+        this.book = book;
+    }
+
     // ----------------------------
     // ----- GETTERS & SETTERS ----
     // ----------------------------

@@ -78,12 +78,26 @@ public class ShopAssistant {
     @JoinColumn(name = "assistant_location")
     private WarehouseLocation assistantLocation;
 
+//COSTRUCTORS
+    public ShopAssistant() {
+
+    }
+
+    public ShopAssistant(String firstName, String lastName, String personalEmail, String internalEmail, String phoneNumber, String address, String city, Boolean isRemote, WarehouseLocation warehouseLocation) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personalEmail = personalEmail;
+        this.internalEmail = internalEmail;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.isRemote = isRemote;
+        this.assistantLocation = warehouseLocation;
+    }
+
     // ----------------------------
     // ----- GETTERS & SETTERS ----
     // ----------------------------
-    public ShopAssistant() {
-    }
-
     public Integer getId() {
         return id;
     }
