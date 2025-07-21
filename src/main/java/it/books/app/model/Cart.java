@@ -41,6 +41,15 @@ public class Cart {
     @JoinTable(name = "carts_inventories", joinColumns = @JoinColumn(name = "id_cart"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
     private List<Inventory> inventoryList;
 
+    // CONSTRUCTORS
+    public Cart() {
+    }
+
+    public Cart(List<Inventory> products) {
+        this.lastUpdateDate = LocalDateTime.now();
+        this.inventoryList = products;
+    }
+
     // ----------------------------
     // ----- GETTERS & SETTERS ----
     // ----------------------------

@@ -14,6 +14,9 @@ import it.books.app.model.Author;
 import it.books.app.model.Award;
 import it.books.app.model.Book;
 import it.books.app.model.BookCollection;
+import it.books.app.model.BookstoreRole;
+import it.books.app.model.Cart;
+import it.books.app.model.Customer;
 import it.books.app.model.Discount;
 import it.books.app.model.DiscountType;
 import it.books.app.model.Edition;
@@ -21,18 +24,22 @@ import it.books.app.model.Format;
 import it.books.app.model.Genre;
 import it.books.app.model.Inventory;
 import it.books.app.model.InventoryStatus;
+import it.books.app.model.Notification;
 import it.books.app.model.NotificationType;
 import it.books.app.model.Publisher;
+import it.books.app.model.Review;
 import it.books.app.model.Role;
 import it.books.app.model.ShopAssistant;
 import it.books.app.model.Translator;
 import it.books.app.model.User;
 import it.books.app.model.WarehouseLocation;
+import it.books.app.model.Wishlist;
 import it.books.app.repository.AnalyticTypeRepository;
 import it.books.app.repository.AuthorRepository;
 import it.books.app.repository.AwardRepository;
 import it.books.app.repository.BookCollectionRepository;
 import it.books.app.repository.BookRepository;
+import it.books.app.repository.BookstoreRoleRepository;
 import it.books.app.repository.CartRepository;
 import it.books.app.repository.CustomerRepository;
 import it.books.app.repository.DiscountRepository;
@@ -81,6 +88,9 @@ public class DataSeeder implements CommandLineRunner {
 
     @Autowired
     private RoleRepository roleRepo;
+
+    @Autowired
+    private BookstoreRoleRepository bookRoleRepo;
 
     @Autowired
     private UserRepository userRepo;
@@ -148,14 +158,14 @@ public class DataSeeder implements CommandLineRunner {
 
         // NOTIFICATION TYPES
         if (notificationTypeRepo.count() == 0) {
-            notificationTypeRepo.save(new NotificationType("Order Confirmation", "Your order has been confirmed!"));
-            notificationTypeRepo.save(new NotificationType("Shipping Update", "Your order has been shipped!"));
-            notificationTypeRepo.save(new NotificationType("Delivery Confirmation", "Your order has been delivered!"));
-            notificationTypeRepo.save(new NotificationType("Promotional Offer", "Check out our latest offers!"));
-            notificationTypeRepo.save(new NotificationType("Feedback Request", "We value your feedback!"));
-            notificationTypeRepo.save(new NotificationType("System Maintenance", "Scheduled maintenance will occur on [date]."));
-            notificationTypeRepo.save(new NotificationType("Order Cancellation", "Your order has been cancelled."));
-            notificationTypeRepo.save(new NotificationType("Wishlist Reminder", "Items in your wishlist are on sale!"));
+            notificationTypeRepo.save(new NotificationType("Order Confirmation", "Your order has been confirmed!", "/order/{orderId}"));
+            notificationTypeRepo.save(new NotificationType("Shipping Update", "Your order has been shipped!", "/order/{orderId}"));
+            notificationTypeRepo.save(new NotificationType("Delivery Confirmation", "Your order has been delivered!", "/order/{orderId}"));
+            notificationTypeRepo.save(new NotificationType("Promotional Offer", "Check out our latest offers!", "/book/{bookId}/detail"));
+            notificationTypeRepo.save(new NotificationType("Feedback Request", "We value your feedback!", "/reviews/create/{bookId}"));
+            notificationTypeRepo.save(new NotificationType("System Maintenance", "Scheduled maintenance will occur on [date].", ""));
+            notificationTypeRepo.save(new NotificationType("Order Cancellation", "Your order has been cancelled.", "/order/{orderId}"));
+            notificationTypeRepo.save(new NotificationType("Wishlist Reminder", "Items in your wishlist are on sale!", "/book/{bookId}/detail"));
         }
 
         // INVENTORY STATUS
@@ -226,20 +236,29 @@ public class DataSeeder implements CommandLineRunner {
             discTypeRepo.save(new DiscountType("Sub Price", "A discount applied to a specific sub-price of an item"));
         }
 
-        //ROLES
+        //SECURITY ROLES
         if (roleRepo.count() == 0) {
             roleRepo.save(new Role("ADMIN"));
             roleRepo.save(new Role("SHOP_ASSISTANT"));
             roleRepo.save(new Role("CUSTOMER"));
         }
 
+        //BOOKSTORE ROLES
+        if (bookRoleRepo.count() == 0) {
+            bookRoleRepo.save(new BookstoreRole("Shop Assistant"));
+            bookRoleRepo.save(new BookstoreRole("Customer"));
+
+        }
+
         // USERS
-        if (userRepo.count() == 0) {
-            User admin = new User("admin", "admin123");
-            List<Role> adminRoles = new ArrayList<>();
-            adminRoles.add(roleRepo.getReferenceById(1));
-            admin.setRoles(adminRoles);
-            userRepo.save(admin);
+        {
+            if (userRepo.count() == 0) {
+                User admin = new User("admin", "admin123");
+                List<Role> adminRoles = new ArrayList<>();
+                adminRoles.add(roleRepo.getReferenceById(1));
+                admin.setRoles(adminRoles);
+                userRepo.save(admin);
+            }
         }
 
         // TEST RECORDS
@@ -322,7 +341,7 @@ public class DataSeeder implements CommandLineRunner {
                     publisherRepo.getReferenceById(6), "A novel about teenage angst and alienation",
                     "http://example.com/catcherintherye.jpg", formatRepo.getReferenceById(6), 277, "8 x 5.31 inches", "Copyright © 1951", editionRepo.getReferenceById(6)));
         }
-        //book collection (setted)
+        //book collection
 
         if (bookCollectionRepo.count() == 0) {
             bookCollectionRepo.save(new BookCollection("Classic Literature", "A collection of classic literary works", true, List.of(bookRepo.getReferenceById(2), bookRepo.getReferenceById(3)), publisherRepo.getReferenceById(2)));
@@ -365,16 +384,42 @@ public class DataSeeder implements CommandLineRunner {
 
         if (shopAssRepo.count() == 0) {
             shopAssRepo.save(new ShopAssistant("Jon", "Doe", "personal email", "internal email", "+39 1234567890", "washington st.", "new york", true, warehouseLocationRepo.getReferenceById(1)));
-            userRepo.save(new User("shopass1", "shopass123", List.of(roleRepo.getReferenceById(2)), 1));
+            userRepo.save(new User("shopass1", "shopass123", List.of(roleRepo.getReferenceById(2)), bookRoleRepo.getReferenceById(1), 1));
 
+        }
+        //wishlist
+        if (wishRepo.count() == 0) {
+            wishRepo.save(new Wishlist(List.of(bookRepo.getReferenceById(1), bookRepo.getReferenceById(2), bookRepo.getReferenceById(3))));
+        }
+
+        //cart
+        if (cartRepo.count() == 0) {
+            cartRepo.save(new Cart(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(2), inventoryRepo.getReferenceById(3))));
         }
 
         //customer
+        if (custRepo.count() == 0) {
+
+            custRepo.save(new Customer("Name", "Surname", " +123456789102", "address address", "{\"language\":\"en\",\"currency\":\"USD\",\"newsletterSubscribed\":true,\"preferredGenres\":[\"fiction\",\"science\",\"fantasy\"],\"darkMode\":false,\"notifications\":{\"email\":true,\"sms\":false,\"push\":true}}\r\n",
+                    cartRepo.getReferenceById(1), wishRepo.getReferenceById(1))
+            );
+            userRepo.save(new User("cust1", "cust123", List.of(roleRepo.getReferenceById(3)), bookRoleRepo.getReferenceById(2), 1));
+        }
+
         //review
-        //wishlist
+        if (reviewRepo.count() == 0) {
+            reviewRepo.save(new Review(5, "comment example", LocalDateTime.of(2025, 07, 21, 19, 20), bookRepo.getReferenceById(3), custRepo.getReferenceById(1)));
+            reviewRepo.save(new Review(5, "comment example", LocalDateTime.of(2025, 06, 21, 07, 50), bookRepo.getReferenceById(4), custRepo.getReferenceById(1)));
+        }
+
         //notification
+        if (notifiRepo.count() == 0) {
+            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 20, 20), custRepo.getReferenceById(1), notificationTypeRepo.getReferenceById(1), null, orderRepo.getReferenceById(1)));
+            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 15, 10), custRepo.getReferenceById(1), notificationTypeRepo.getReferenceById(6), null, null));
+            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 12, 10, 00), custRepo.getReferenceById(1), notificationTypeRepo.getReferenceById(8), bookRepo.getReferenceById(3), null));
+        }
+
         //search history
-        //cart
         //order
     }
 }

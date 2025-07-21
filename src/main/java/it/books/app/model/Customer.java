@@ -41,7 +41,7 @@ public class Customer {
     // address
     @NotBlank(message = "Customer address missing.")
     @Column(name = "address", nullable = false, columnDefinition = "tinytext")
-    private String addres;
+    private String address;
 
     // preferences(json)
     @Column(name = "preferences", nullable = false, columnDefinition = "JSON")
@@ -89,6 +89,17 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(String firstName, String lastName, String phone, String address, String preferences, Cart cart, Wishlist wishlist) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phone;
+        this.address = address;
+        this.preferences = preferences;
+        this.cartId = cart;
+        this.wishlistId = wishlist;
+
+    }
+
     // ----------------------------
     // ----- GETTERS & SETTERS ----
     // ----------------------------
@@ -133,11 +144,11 @@ public class Customer {
     }
 
     public String getAddres() {
-        return addres;
+        return address;
     }
 
     public void setAddres(String addres) {
-        this.addres = addres;
+        this.address = addres;
     }
 
     public String getPreferences() {

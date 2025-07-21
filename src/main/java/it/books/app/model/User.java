@@ -10,7 +10,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -41,7 +43,13 @@ public class User {
     private Integer secondId;
 
     // FKs
-    // roles
+    // bookstore roles
+    // MtO
+    @ManyToOne
+    @JoinColumn(name = "bookstore_role")
+    private BookstoreRole bookstoreRole;
+
+    // security roles
     // MtM
     @ManyToMany(fetch = FetchType.EAGER)
     @NotEmpty(message = "Seleziona almeno un ruolo.")
@@ -57,10 +65,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String password, List<Role> roles, Integer secondId) {
+    public User(String username, String password, List<Role> roles, BookstoreRole bookstoreRole, Integer secondId) {
         this.username = username;
         this.password = password;
         this.roles = roles;
+        this.bookstoreRole = bookstoreRole;
         this.secondId = secondId;
     }
 
@@ -105,6 +114,14 @@ public class User {
 
     public void setSecondId(Integer secondId) {
         this.secondId = secondId;
+    }
+
+    public BookstoreRole getBookstoreRole() {
+        return bookstoreRole;
+    }
+
+    public void setBookstoreRole(BookstoreRole bookstoreRole) {
+        this.bookstoreRole = bookstoreRole;
     }
 
 }

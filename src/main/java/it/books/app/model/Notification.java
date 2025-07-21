@@ -18,90 +18,140 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "notification")
 public class Notification {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// message
-	@NotBlank(message = "Notification message missing.")
-	@Column(name = "mnesage", nullable = false, columnDefinition = "tinytext")
-	private String message;
+    // message
+    @NotBlank(message = "Notification message missing.")
+    @Column(name = "mnesage", nullable = false, columnDefinition = "tinytext")
+    private String message;
 
-	// read status (bool)
-	@AssertFalse(message = "Notification must be unread at the creation.")
-	@Column(name = "read_status", nullable = false, columnDefinition = "bool")
-	private Boolean isRead;
+    // read status (bool)
+    @AssertFalse(message = "Notification must be unread at the creation.")
+    @Column(name = "read_status", nullable = false, columnDefinition = "bool")
+    private Boolean isRead;
 
-	// creation date
-	@NotNull(message = "Motification creation date missing.")
-	@Column(name = "creation_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-	private LocalDateTime creationDate;
+    // creation date
+    @NotNull(message = "Motification creation date missing.")
+    @Column(name = "creation_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime creationDate;
 
-	// FKs
+    @Column(name = "notification_hypertext", nullable = false, columnDefinition = "mediumtext")
+    private String hypertext;
 
-	// customer id
-	// MtO
-	@ManyToOne
-	@JoinColumn(name = "id_customer", nullable = false)
-	private Customer customerId;
+    // FKs
+    // customer id
+    // MtO
+    @ManyToOne
+    @JoinColumn(name = "id_customer", nullable = false)
+    private Customer customerId;
 
-	// notification type
-	// MtO
-	@ManyToOne
-	@JoinColumn(name = "notification_type", nullable = false)
-	private NotificationType notificationType;
+    // notification type
+    // MtO
+    @ManyToOne
+    @JoinColumn(name = "notification_type", nullable = false)
+    private NotificationType notificationType;
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    // book reference
+    @ManyToOne
+    @JoinColumn(name = "book_reference")
+    private Book bookRef;
 
-	public Integer getId() {
-		return id;
-	}
+    //order reference
+    @ManyToOne
+    @JoinColumn(name = "order_reference")
+    private Order orderRef;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    // CONSTRUCTOR
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public Notification(LocalDateTime creationDate, Customer customerId,
+            NotificationType notificationType, Book bookRef, Order orderRef) {
+        this.isRead = false;
+        this.creationDate = creationDate;
+        this.customerId = customerId;
+        this.notificationType = notificationType;
+        this.bookRef = bookRef;
+        this.message = notificationType.getNotificationTemplate() + "(" + bookRef.getTitle() + ")";
+        String hypertext = notificationType.getNotificationLink();
+        hypertext.replace("{bookId}", "" + bookRef.getId());
+        hypertext.replace("{orderId}", "" + orderRef.getId());
+        this.hypertext = hypertext;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Boolean getIsRead() {
-		return isRead;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setIsRead(Boolean isRead) {
-		this.isRead = isRead;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public LocalDateTime getCreationDate() {
-		return creationDate;
-	}
+    public Boolean getIsRead() {
+        return isRead;
+    }
 
-	public void setCreationDate(LocalDateTime creationDate) {
-		this.creationDate = creationDate;
-	}
+    public void setIsRead(Boolean isRead) {
+        this.isRead = isRead;
+    }
 
-	public Customer getCustomerId() {
-		return customerId;
-	}
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
 
-	public void setCustomerId(Customer customerId) {
-		this.customerId = customerId;
-	}
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
 
-	public NotificationType getNotificationType() {
-		return notificationType;
-	}
+    public Customer getCustomerId() {
+        return customerId;
+    }
 
-	public void setNotificationType(NotificationType notificationType) {
-		this.notificationType = notificationType;
-	}
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
+    }
+
+    public NotificationType getNotificationType() {
+        return notificationType;
+    }
+
+    public void setNotificationType(NotificationType notificationType) {
+        this.notificationType = notificationType;
+    }
+
+    public Book getBookRef() {
+        return bookRef;
+    }
+
+    public void setBookRef(Book bookRef) {
+        this.bookRef = bookRef;
+    }
+
+    public String getHypertext() {
+        return hypertext;
+    }
+
+    public void setHypertext(String hypertext) {
+        this.hypertext = hypertext;
+    }
+
+    public Order getOrderRef() {
+        return orderRef;
+    }
+
+    public void setOrderRef(Order orderRef) {
+        this.orderRef = orderRef;
+    }
 
 }

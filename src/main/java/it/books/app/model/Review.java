@@ -17,86 +17,96 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "reviews")
 public class Review {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-	// rating
-	@NotEmpty(message = "Review rating missing.")
-	@Column(name = "rating", nullable = false, columnDefinition = "tinyint")
-	private int rating;
+    // rating
+    @NotEmpty(message = "Review rating missing.")
+    @Column(name = "rating", nullable = false, columnDefinition = "tinyint")
+    private int rating;
 
-	// comment
-	@Column(name = "comment", columnDefinition = "mediumtext")
-	private String comment;
+    // comment
+    @Column(name = "comment", columnDefinition = "mediumtext")
+    private String comment;
 
-	// review date
-	@NotNull(message = "Review timestamp missing.")
-	@Column(name = "review_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-	private LocalDateTime reviewDate;
+    // review date
+    @NotNull(message = "Review timestamp missing.")
+    @Column(name = "review_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime reviewDate;
 
-	// FKs
-	// book
-	@ManyToOne
-	@JoinColumn(name = "book_id")
-	private Book bookId;
+    // FKs
+    // book
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book bookId;
 
-	// customer
-	@ManyToOne
-	@JoinColumn(name = "customer_id")
-	private Customer customerId;
+    // customer
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customerId;
 
-	// ----------------------------
-	// ----- GETTERS & SETTERS ----
-	// ----------------------------
+    public Review() {
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Review(int rating, String comment, LocalDateTime reviewDate, Book bookId, Customer customerId) {
+        this.rating = rating;
+        this.comment = comment;
+        this.reviewDate = reviewDate;
+        this.bookId = bookId;
+        this.customerId = customerId;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
+    public Integer getId() {
+        return id;
+    }
 
-	public int getRating() {
-		return rating;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
+    public int getRating() {
+        return rating;
+    }
 
-	public String getComment() {
-		return comment;
-	}
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+    public String getComment() {
+        return comment;
+    }
 
-	public LocalDateTime getReviewDate() {
-		return reviewDate;
-	}
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
-	public void setReviewDate(LocalDateTime reviewDate) {
-		this.reviewDate = reviewDate;
-	}
+    public LocalDateTime getReviewDate() {
+        return reviewDate;
+    }
 
-	public Book getBookId() {
-		return bookId;
-	}
+    public void setReviewDate(LocalDateTime reviewDate) {
+        this.reviewDate = reviewDate;
+    }
 
-	public void setBookId(Book bookId) {
-		this.bookId = bookId;
-	}
+    public Book getBookId() {
+        return bookId;
+    }
 
-	public Customer getCustomerId() {
-		return customerId;
-	}
+    public void setBookId(Book bookId) {
+        this.bookId = bookId;
+    }
 
-	public void setCustomerId(Customer customerId) {
-		this.customerId = customerId;
-	}
+    public Customer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
+    }
 
 }

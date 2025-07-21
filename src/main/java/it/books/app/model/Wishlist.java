@@ -34,16 +34,16 @@ public class Wishlist {
     @JoinTable(name = "wishlists_books", joinColumns = @JoinColumn(name = "id_whishlist"), inverseJoinColumns = @JoinColumn(name = "id_book"))
     private List<Book> wishlistedBooks;
 
-    public void removeFromWishlist(Integer custId, Integer bookId) {
-
-    }
-
     // ---- CONSTRUCTORS ----
     public Wishlist() {
     }
 
     public Wishlist(Customer customer) {
         this.customerId = customer;
+    }
+
+    public Wishlist(List<Book> books) {
+        this.wishlistedBooks = books;
     }
 
 // ----------------------------

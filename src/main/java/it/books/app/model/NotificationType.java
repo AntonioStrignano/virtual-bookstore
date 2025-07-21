@@ -30,6 +30,11 @@ public class NotificationType {
     @Column(name = "notif_template", nullable = true, columnDefinition = "tinytext")
     private String notificationTemplate;
 
+    // link generator
+    @NotBlank(message = "Notification link missing.")
+    @Column(name = "notif_link", nullable = true, columnDefinition = "tinytext")
+    private String notificationLink;
+
     // FKs
     // notifications
     // OtM
@@ -40,9 +45,10 @@ public class NotificationType {
     public NotificationType() {
     }
 
-    public NotificationType(String notificationName, String notificationTemplate) {
+    public NotificationType(String notificationName, String notificationTemplate, String notificationLink) {
         this.notificationName = notificationName;
         this.notificationTemplate = notificationTemplate;
+        this.notificationLink = notificationLink;
     }
 
     // ----------------------------
@@ -78,6 +84,14 @@ public class NotificationType {
 
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public String getNotificationLink() {
+        return notificationLink;
+    }
+
+    public void setNotificationLink(String notificationLink) {
+        this.notificationLink = notificationLink;
     }
 
 }

@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "book_collections")
@@ -33,7 +32,6 @@ public class BookCollection {
     private String description;
 
     // is numerated
-    @NotEmpty(message = "Numeration flag missing.")
     @Column(name = "is_numerated", nullable = false, columnDefinition = "bool")
     private Boolean isNumerated;
 

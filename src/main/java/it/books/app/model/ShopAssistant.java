@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "shop_assistants")
@@ -59,7 +58,6 @@ public class ShopAssistant {
     private String city;
 
     // is remote
-    @NotEmpty(message = "Shop assistant remote flag missing.")
     @Column(name = "is_remote", nullable = false, columnDefinition = "BOOL")
     private Boolean isRemote;
 
