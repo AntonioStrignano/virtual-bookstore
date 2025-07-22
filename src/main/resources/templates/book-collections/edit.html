@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<title th:unless=${editMode} th:text="|Create new book|"></title>
+	<title th:if="${editMode}" th:text="|Edit book: ${book.title}|"></title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<h1 th:unless=${editMode} th:text="|Create new book|"></h1>
+		<h1 th:if=${editMode} th:text="|Edit book: ${book.title}|"></h1>
+
+		<!-- ///////FORM//////// -->
+		<form th:object="${book}" method="post" id="form-book"
+			th:action="${editMode} ? @{|/books/${book.id}/update|} : @{/books/create}">
+			<input type="hidden" th:field="*{id}" id="id">
+
+			<!--	TITLE	-->
+			<label for="book-title" class="form-label">Title</label>
+			<input type="text" th:field="*{title}" placeholder="Book's title" id="book-title" class="form-control">
+
+			<!-- ISBN -->
+			<label for="book-isbn" class="form-label">isbn</label>
+			<input type="text" th:field="*{isbn}" placeholder="Book's isbn" id="book-isbn" class="form-control">
+
+			<!-- LANGUAGE -->
+			<label for="book-language" class="form-label">language</label>
+			<input type="text" th:field="*{language}" placeholder="Book's language" id="book-language"
+				class="form-control">
+
+			<!-- PUBLISH DATE -->
+			<label for="book-publish-date" class="form-label">publish date</label>
+			<input type="date" th:field="*{publishDate}" id="book-publish-date" class="form-control">
+
+			<!-- DESCRIPTION -->
+			<label for="book-description" class="form-label">description</label>
+			<input type="text" th:field="*{description}" placeholder="Book's description" id="book-description"
+				class="form-control">
+
+			<!-- COVER -->
+			<label for="book-cover" class="form-label">cover</label>
+			<input type="text" th:field="*{cover}" placeholder="Book's cover" id="book-cover" class="form-control">
+
+			<!-- PAGE NUMBER -->
+			<label for="book-page-number" class="form-label">page number</label>
+			<input type="number" th:field="*{pageNumber}" placeholder="Book's page number" id="book-page-number"
+				class="form-control">
+
+			<!-- DIMENSION -->
+			<label for="book-dimension" class="form-label">dimension</label>
+			<input type="text" th:field="*{dimension}" placeholder="Book's dimension" id="book-dimension"
+				class="form-control">
+
+			<!-- COPYRIGHT -->
+			<label for="book-copyright" class="form-label">copyright</label>
+			<input type="text" th:field="*{copyright}" placeholder="Book's copyright" id="book-copyright"
+				class="form-control">
+
+			<!-- EDITION -->
+			<DIV>
+
+				<label for="book-edition" class="form-label">Edition</label>
+				<select name="book-edition" id="book-edition" th:field="*{edition}">
+					<option th:each="edition : ${editions}" th:value="${edition.id}" th:text="${edition.name}"></option>
+				</select>
+			</DIV>
+			<div>
+				<!-- AUTHOR -->
+				<label for="book-author" class="form-label">author</label>
+				<select name="book-author" id="book-author" th:field="*{author}">
+					<option th:each="author : ${authors}" th:value="${author.id}"
+						th:text="|${author.firstName} ${author.lastName}, ${author.birthDate}, ${author.nationality}|">
+					</option>
+				</select>
+			</div>
+			<div>
+
+				<!-- AWARDS -->
+				<label for="book-awards" class="form-label">Awards</label>
+				<input type="checkbox" name="book-awards" th:each="award : ${allAwards}" th:text="${award.title}"
+					th:value="${award.id}" th:field="*{awards}">
+			</div>
+			<div>
+
+				<!-- GENRES -->
+				<label for="book-genres" class="form-label">Genres</label>
+				<input type="checkbox" name="book-genres" th:each="genre : ${allGenres}" th:text="${genre.name}"
+					th:value="${genre.id}" th:field="*{genres}">
+			</div>
+			<div>
+
+				<!-- PUBLISHER -->
+				<label for="book-publisher" class="form-label">Publisher</label>
+				<select name="book-publisher" id="book-publisher" th:field="*{publisher}">
+					<option th:each="publisher : ${publishers}" th:value="${publisher.id}"
+						th:text="|${publisher.publisherName}, ${publisher.city} (${publisher.country})|"></option>
+				</select>
+			</div>
+			<div>
+
+				<!-- FORMAT -->
+				<label for="book-format" class="form-label">format </label>
+				<select name="book-format" id="book-format" th:field="*{format}">
+					<option th:each="format : ${formats}" th:value="${format.id}" th:text="${format.name}"></option>
+				</select>
+			</div>
+			<div>
+
+				<!-- TRANSLATOR -->
+				<label for="book-translator" class="form-label">translator</label>
+				<select name="book-transl" id="book-transl" th:field="*{translator}">
+					<option value="">None</option>
+					<option th:each="transl : ${translators}" th:value="${transl.id}"
+						th:text="|${transl.firstName} ${transl.lastName}, ${transl.birthDate}|"></option>
+				</select>
+			</div>
+
+			<!-- BOOK COLLECTIONS -->
+			<SPAN>book collections still to implements</SPAN>
+
+
+			</select>
+			<div th:if="${#fields.hasAnyErrors()}">
+				<ul class="list-group">
+					<il th:each="err : ${#fields.allErrors}" th:text="${err}"
+						class="alert alert-primary list-group-item">
+
+					</il>
+				</ul>
+			</div>
+			<br>
+			<button type="submit" class="btn btn-primary mb-3">Save</button>
+
+
+		</form>
+
+
+	</div>
+	<!-- SCRIPT BOOTSTRAP-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

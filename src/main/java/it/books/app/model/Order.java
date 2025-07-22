@@ -30,11 +30,11 @@ public class Order {
     private LocalDateTime confirmationDate;
 
     // payment date
-    @Column(name = "payment_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "payment_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime paymentDate;
 
     // shipping date
-    @Column(name = "shipping_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "shipping_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime shippingDate;
 
     // FKs
@@ -55,6 +55,20 @@ public class Order {
     @ManyToMany
     @JoinTable(name = "orders_inventories", joinColumns = @JoinColumn(name = "id_order"), inverseJoinColumns = @JoinColumn(name = "id_inventory"))
     private List<Inventory> inventoryOrdered;
+
+    // CONSTRUCTORS
+    public Order() {
+    }
+
+    public Order(LocalDateTime confirmationDate, LocalDateTime paymentDate, LocalDateTime shippingDate,
+            Customer customerId, ShopAssistant shopAssistantId, List<Inventory> inventoryOrdered) {
+        this.confirmationDate = confirmationDate;
+        this.paymentDate = paymentDate;
+        this.shippingDate = shippingDate;
+        this.customerId = customerId;
+        this.shopAssistantId = shopAssistantId;
+        this.inventoryOrdered = inventoryOrdered;
+    }
 
     // ----------------------------
     // ----- GETTERS & SETTERS ----

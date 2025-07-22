@@ -26,9 +26,11 @@ import it.books.app.model.Inventory;
 import it.books.app.model.InventoryStatus;
 import it.books.app.model.Notification;
 import it.books.app.model.NotificationType;
+import it.books.app.model.Order;
 import it.books.app.model.Publisher;
 import it.books.app.model.Review;
 import it.books.app.model.Role;
+import it.books.app.model.SearchHistory;
 import it.books.app.model.ShopAssistant;
 import it.books.app.model.Translator;
 import it.books.app.model.User;
@@ -163,7 +165,6 @@ public class DataSeeder implements CommandLineRunner {
             notificationTypeRepo.save(new NotificationType("Delivery Confirmation", "Your order has been delivered!", "/order/{orderId}"));
             notificationTypeRepo.save(new NotificationType("Promotional Offer", "Check out our latest offers!", "/book/{bookId}/detail"));
             notificationTypeRepo.save(new NotificationType("Feedback Request", "We value your feedback!", "/reviews/create/{bookId}"));
-            notificationTypeRepo.save(new NotificationType("System Maintenance", "Scheduled maintenance will occur on [date].", ""));
             notificationTypeRepo.save(new NotificationType("Order Cancellation", "Your order has been cancelled.", "/order/{orderId}"));
             notificationTypeRepo.save(new NotificationType("Wishlist Reminder", "Items in your wishlist are on sale!", "/book/{bookId}/detail"));
         }
@@ -420,6 +421,22 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         //search history
+        if (searchRepo.count() == 0) {
+            searchRepo.save(new SearchHistory("gatsby", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+            searchRepo.save(new SearchHistory("to kill", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+            searchRepo.save(new SearchHistory("pride", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+            searchRepo.save(new SearchHistory("1984", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+        }
+
         //order
+        if (orderRepo.count() == 0) {
+
+            orderRepo.save(new Order(LocalDateTime.of(2025, 07, 07, 15, 20), LocalDateTime.of(2025, 07, 07, 16, 00), LocalDateTime.of(2025, 07, 10, 10, 00),
+                    custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(2)))));
+            orderRepo.save(new Order(LocalDateTime.of(2025, 07, 8, 10, 00), null, null,
+                    custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(3), inventoryRepo.getReferenceById(4)))));
+            orderRepo.save(new Order(LocalDateTime.of(2025, 07, 9, 12, 30), LocalDateTime.of(2025, 07, 9, 13, 00), null,
+                    custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(3)))));
+        }
     }
 }
