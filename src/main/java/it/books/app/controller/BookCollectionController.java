@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import it.books.app.model.BookCollection;
 import it.books.app.repository.BookCollectionRepository;
 import it.books.app.repository.BookRepository;
+import it.books.app.repository.PublisherRepository;
 import jakarta.validation.Valid;
 
 @Controller
@@ -24,12 +25,15 @@ public class BookCollectionController {
     @Autowired
     private BookRepository bookRepo;
 
+    @Autowired
+    private PublisherRepository publisherRepo;
+
     // ---- READ ----
     //get
     @GetMapping("")
     public String bookCollectionHome(Model model) {
         model.addAttribute("collections", bookCollRepo.findAll());
-        return "/collections/collec-home";
+        return "/collections/collection-home";
 
     }
     // ---- CREATE ----
@@ -39,6 +43,7 @@ public class BookCollectionController {
     public String newBookCollection(Model model) {
         model.addAttribute("bookCollection", new BookCollection());
         model.addAttribute("books", bookRepo.findAll());
+        model.addAttribute("publishers", publisherRepo.findAll());
 
         return "/collections/edit";
     }

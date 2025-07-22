@@ -29,6 +29,12 @@ public class CartController {
     @GetMapping("{customerId}")
     public String cartPage(Model model, @PathVariable("customerId") Integer customerId) {
         model.addAttribute("cart", custRepo.getReferenceById(customerId).getCartId());
+        return "/cart/cart-detail";
+    }
+
+    @GetMapping("")
+    public String cartList(Model model) {
+        model.addAttribute("carts", cartRepo.findAll());
         return "/cart/cart-home";
     }
 
@@ -53,6 +59,13 @@ public class CartController {
     public String clearCart(@PathVariable("custId") Integer custId) {
         cartRepo.getReferenceById(custRepo.getReferenceById(custId).getCartId().getId()).getInventoryList().clear();
         return "/carts/" + custId;
+    }
+
+    // ---- DELETE ----
+    @PostMapping("{custId}/delete-cart")
+    public String deleteCart(@PathVariable("custId") Integer custId) {
+        cartRepo.deleteById(custRepo.getReferenceById(custId).getCartId().getId());
+        return "/carts";
     }
 
 }

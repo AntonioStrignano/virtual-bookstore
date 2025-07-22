@@ -50,9 +50,6 @@ public class Cart {
         this.inventoryList = products;
     }
 
-    // ----------------------------
-    // ----- GETTERS & SETTERS ----
-    // ----------------------------
     public Double getTotalPrice() {
         Double totalPrice = 0.0;
         for (Inventory inventory : inventoryList) {
@@ -61,6 +58,9 @@ public class Cart {
         return totalPrice;
     }
 
+    // ----------------------------
+    // ----- GETTERS & SETTERS ----
+    // ----------------------------
     public Integer getId() {
         return id;
     }
