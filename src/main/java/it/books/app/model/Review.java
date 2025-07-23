@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -23,7 +22,7 @@ public class Review {
     private Integer id;
 
     // rating
-    @NotEmpty(message = "Review rating missing.")
+    @NotNull(message = "Review rating missing.")
     @Column(name = "rating", nullable = false, columnDefinition = "tinyint")
     private int rating;
 

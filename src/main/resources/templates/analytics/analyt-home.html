@@ -28,19 +28,24 @@
 				<thead>
 					<tr>
 						<th scope="col">ID</th>
+						<th scope="col">Analytic Type</th>
 						<th scope="col">Event Timestamp</th>
 						<th scope="col">Book</th>
 						<th scope="col">Customer</th>
-						<th scope="col">Analytic Type</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="analytic : ${analytics}" scope="row">
 						<td th:text="${analytic.id}"></td>
+						<td th:text="|${analytic.analyticType.getName()}: ${analytic.analyticType.getTextTemplate()}|">
+						</td>
 						<td th:text="${analytic.eventTimestamp}"></td>
-						<td th:text="${analytic.bookId.title}"></td>
-						<td th:text="${analytic.customerId.name}"></td>
-						<td th:text="${analytic.analyticType.name}"></td>
+						<td
+							th:text="|${analytic.bookId.getTitle()}, ${analytic.bookId.getPublishDate()}, ISBN: ${analytic.bookId.getIsbn()}|">
+						</td>
+						<td
+							th:text="|${analytic.customerId.getId()} - ${analytic.customerId.getFirstName()} ${analytic.customerId.getLastName()}|">
+						</td>
 					</tr>
 				</tbody>
 			</table>

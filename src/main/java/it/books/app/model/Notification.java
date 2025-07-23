@@ -79,10 +79,21 @@ public class Notification {
         this.customerId = customerId;
         this.notificationType = notificationType;
         this.bookRef = bookRef;
-        this.message = notificationType.getNotificationTemplate() + "(" + bookRef.getTitle() + ")";
+        this.message = notificationType.getNotificationTemplate();
+        if (bookRef != null) {
+            this.message += " (" + bookRef.getTitle() + ")";
+        }
         String hypertext = notificationType.getNotificationLink();
-        hypertext.replace("{bookId}", "" + bookRef.getId());
-        hypertext.replace("{orderId}", "" + orderRef.getId());
+        if (bookRef != null) {
+            hypertext = hypertext.replace("{bookId}", "" + bookRef.getId());
+        } else {
+            hypertext = hypertext.replace("{bookId}", "null");
+        }
+        if (orderRef != null) {
+            hypertext = hypertext.replace("{orderId}", "" + orderRef.getId());
+        } else {
+            hypertext = hypertext.replace("{orderId}", "null");
+        }
         this.hypertext = hypertext;
     }
 

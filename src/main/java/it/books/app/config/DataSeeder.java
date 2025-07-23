@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import it.books.app.model.AnalyticType;
+import it.books.app.model.Analytic;
 import it.books.app.model.Author;
 import it.books.app.model.Award;
 import it.books.app.model.Book;
@@ -63,6 +64,7 @@ import it.books.app.repository.TranslatorRepository;
 import it.books.app.repository.UserRepository;
 import it.books.app.repository.WarehouseLocationRepository;
 import it.books.app.repository.WishlistRepository;
+import it.books.app.repository.AnalyticRepository;
 
 @Component
 public class DataSeeder implements CommandLineRunner {
@@ -148,6 +150,9 @@ public class DataSeeder implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepo;
 
+    @Autowired
+    private AnalyticRepository analytRepo;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -209,7 +214,7 @@ public class DataSeeder implements CommandLineRunner {
 
         // ANALYTIC TYPES
         if (analyticTypeRepo.count() == 0) {
-            analyticTypeRepo.save(new AnalyticType("Book Views", "searched for book)"));
+            analyticTypeRepo.save(new AnalyticType("Book Views", "searched for book"));
             analyticTypeRepo.save(new AnalyticType("Book Purchases", "purchased book"));
             analyticTypeRepo.save(new AnalyticType("User Registrations", "registered on the platform"));
             analyticTypeRepo.save(new AnalyticType("User Logins", "logged into the platform"));
@@ -413,21 +418,6 @@ public class DataSeeder implements CommandLineRunner {
             reviewRepo.save(new Review(5, "comment example", LocalDateTime.of(2025, 06, 21, 07, 50), bookRepo.getReferenceById(4), custRepo.getReferenceById(1)));
         }
 
-        //notification
-        if (notifiRepo.count() == 0) {
-            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 20, 20), custRepo.getReferenceById(1), notificationTypeRepo.getReferenceById(1), null, orderRepo.getReferenceById(1)));
-            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 15, 10), custRepo.getReferenceById(1), notificationTypeRepo.getReferenceById(6), null, null));
-            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 12, 10, 00), custRepo.getReferenceById(1), notificationTypeRepo.getReferenceById(8), bookRepo.getReferenceById(3), null));
-        }
-
-        //search history
-        if (searchRepo.count() == 0) {
-            searchRepo.save(new SearchHistory("gatsby", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
-            searchRepo.save(new SearchHistory("to kill", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
-            searchRepo.save(new SearchHistory("pride", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
-            searchRepo.save(new SearchHistory("1984", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
-        }
-
         //order
         if (orderRepo.count() == 0) {
 
@@ -438,5 +428,31 @@ public class DataSeeder implements CommandLineRunner {
             orderRepo.save(new Order(LocalDateTime.of(2025, 07, 9, 12, 30), LocalDateTime.of(2025, 07, 9, 13, 00), null,
                     custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(3)))));
         }
+
+        //notification
+        if (notifiRepo.count() == 0) {
+            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 20, 20), custRepo.getReferenceById(1), notificationTypeRepo.findById(1).get(), null, orderRepo.findById(1).get()));
+            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 15, 10), custRepo.getReferenceById(1), notificationTypeRepo.findById(6).get(), null, null));
+            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 12, 10, 00), custRepo.getReferenceById(1), notificationTypeRepo.findById(7).get(), bookRepo.findById(3).get(), null));
+        }
+
+        //search history
+        if (searchRepo.count() == 0) {
+            searchRepo.save(new SearchHistory("gatsby", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+            searchRepo.save(new SearchHistory("to kill", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+            searchRepo.save(new SearchHistory("pride", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+            searchRepo.save(new SearchHistory("1984", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+        }
+
+        // analytics
+        if (analytRepo.count() == 0) {
+            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(1).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(1).get()));
+            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(2).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(2).get()));
+            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(3).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(3).get()));
+            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(4).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(4).get()));
+            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(5).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(5).get()));
+        }
+
     }
+
 }
