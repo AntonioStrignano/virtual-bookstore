@@ -29,13 +29,13 @@ public class CartController {
     @GetMapping("{customerId}")
     public String cartPage(Model model, @PathVariable("customerId") Integer customerId) {
         model.addAttribute("cart", custRepo.getReferenceById(customerId).getCartId());
-        return "/cart/cart-detail";
+        return "/carts/cart-detail";
     }
 
     @GetMapping("")
     public String cartList(Model model) {
         model.addAttribute("carts", cartRepo.findAll());
-        return "/cart/cart-home";
+        return "/carts/cart-home";
     }
 
     // ---- UPDATE ----
@@ -44,7 +44,7 @@ public class CartController {
             @PathVariable("invId") Integer invId,
             @PathVariable("custId") Integer custId) {
         cartRepo.getReferenceById(custRepo.getReferenceById(custId).getCartId().getId()).getInventoryList().add(invRepo.getReferenceById(invId));
-        return "/inventory/" + invId;
+        return "redirect:/inventory/" + invId;
     }
 
     @PostMapping("{invId}/remove-cart/{custId}")
@@ -52,20 +52,20 @@ public class CartController {
             @PathVariable("invId") Integer invId,
             @PathVariable("custId") Integer custId) {
         cartRepo.getReferenceById(custRepo.getReferenceById(custId).getCartId().getId()).getInventoryList().remove(invRepo.getReferenceById(invId));
-        return "/inventory/" + invId;
+        return "redirect:/inventory/" + invId;
     }
 
     @PostMapping("{custId}/clear-cart")
     public String clearCart(@PathVariable("custId") Integer custId) {
         cartRepo.getReferenceById(custRepo.getReferenceById(custId).getCartId().getId()).getInventoryList().clear();
-        return "/carts/" + custId;
+        return "redirect:/carts/" + custId;
     }
 
     // ---- DELETE ----
     @PostMapping("{custId}/delete-cart")
     public String deleteCart(@PathVariable("custId") Integer custId) {
         cartRepo.deleteById(custRepo.getReferenceById(custId).getCartId().getId());
-        return "/carts";
+        return "redirect:/carts";
     }
 
 }
