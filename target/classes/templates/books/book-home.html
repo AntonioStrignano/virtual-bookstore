@@ -32,18 +32,11 @@
 					<th scope="col">ISBN</th>
 					<th scope="col">Lang</th>
 					<th scope="col">Publish date</th>
-					<th scope="col">Description</th>
 					<th scope="col">Cover</th>
-					<th scope="col">Page n.</th>
-					<th scope="col">Dimension</th>
-					<th scope="col">Copyright</th>
 					<th scope="col">Edition</th>
 					<th scope="col">Author</th>
-					<th scope="col">Awards</th>
-					<th scope="col">Genres</th>
 					<th scope="col">Publisher</th>
 					<th scope="col">Format</th>
-					<th scope="col">Translator</th>
 					<th scope="col">Book collection</th>
 					<th scope="col"></th>
 				</tr>
@@ -51,31 +44,22 @@
 			<tbody>
 				<tr th:each="book : ${books}" scope="row">
 					<td th:text="${book.id}"></td>
-					<td th:text="${book.title}"></td>
+					<td> <a th:href="@{|books/${book.id}|}"> <span th:text="${book.title}"></span> </a></td>
 					<td th:text="${book.isbn}"></td>
 					<td th:text="${book.language}"></td>
 					<td th:text="${book.publishDate}"></td>
-					<td th:text="${book.description}"></td>
 					<td><img th:src="${book.cover}" height="100px"></td>
-					<td th:text="${book.pageNumber}"></td>
-					<td th:text="${book.dimension}"></td>
-					<td th:text="${book.copyright}"></td>
 					<td th:text="${book.edition.name}"></td>
-					<td th:text="|${book.author.firstName} ${book.author.lastName}, ${book.author.birthDate}|"></td>
-					<td><span th:each="award : ${book.awards}" class="badge badge-secondary"
-							th:text="${award.title}"></span>
+					<td><a th:href="@{|authors/${book.author.id}|}"
+							th:text="|${book.author.firstName} ${book.author.lastName}, ${book.author.birthDate}|"></a>
 					</td>
-					<td><span th:each="genre : ${book.genres}" class="badge badge-secondary"
-							th:text="${genre.name}"></span>
-					</td>
-					<td
-						th:text="|${book.publisher.publisherName}, ${book.publisher.founderYear}, ${book.publisher.country} (${book.publisher.city})|">
+					<td>
+						<a th:href="@{|publishers/${book.publisher.id}|}"
+							th:text="|${book.publisher.publisherName}, ${book.publisher.founderYear}, ${book.publisher.country} (${book.publisher.city})|"></a>
 					</td>
 					<td th:text="${book.format.name}"></td>
-					<td
-						th:text="${book.translator}? |${book.translator.firstName} ${book.translator.lastName}, ${book.translator.birthDate} ${book.translator.nationality}|">
-					</td>
-					<td>book collections still to implement</td>
+					<td><a th:if="${book.bookCollection}" th:href="|collections/${book.bookCollection.id}|"
+							th:text="${book.bookCollection.title}"></a></td>
 					<td>
 						<button class="btn">
 							<a th:href="@{|books/edit/${book.id}|}">

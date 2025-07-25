@@ -36,6 +36,16 @@ public class BookCollectionController {
         return "/collections/collection-home";
 
     }
+
+    @GetMapping("{id}")
+    public String bookCollectionDetails(@ModelAttribute("id") Integer id, Model model) {
+        BookCollection bookCollection = bookCollRepo.findById(id).orElse(null);
+        if (bookCollection == null) {
+            return "redirect:/collections";
+        }
+        model.addAttribute("bookCollection", bookCollection);
+        return "/collections/collection-details";
+    }
     // ---- CREATE ----
 //get
 

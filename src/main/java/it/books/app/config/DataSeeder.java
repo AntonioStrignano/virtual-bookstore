@@ -277,6 +277,11 @@ public class DataSeeder implements CommandLineRunner {
             authorRepo.save(new Author("Bob", "Brown", LocalDate.of(1985, 5, 5), LocalDate.of(2015, 6, 6), "Australian", "Author bio", "http://bobbrown.com", "http://bobbrown.com/profile.jpg", "http://bobbrown.com/social", false, genreRepo.getReferenceById(4)));
             authorRepo.save(new Author("Charlie", "Davis", LocalDate.of(2000, 7, 7), "Indian", "Author bio", "http://charliedavis.com", "http://charliedavis.com/profile.jpg", "http://charliedavis.com/social", true, genreRepo.getReferenceById(5)));
 
+            authorRepo.save(new Author("Emily", "Wilson", LocalDate.of(1995, 8, 8), LocalDate.of(2021, 9, 9), "Mexican", "Author bio", "http://emilywilson.com", "http://emilywilson.com/profile.jpg", "http://emilywilson.com/social", true, genreRepo.getReferenceById(6)));
+            authorRepo.save(new Author("David", "Garcia", LocalDate.of(1988, 10, 10), "Spanish", "Author bio", "http://davidgarcia.com", "http://davidgarcia.com/profile.jpg", "http://davidgarcia.com/social", false, genreRepo.getReferenceById(1)));
+            authorRepo.save(new Author("Sophia", "Martinez", LocalDate.of(1992, 11, 11), LocalDate.of(2022, 12, 12), "Argentinian", "Author bio", "http://sophiamartinez.com", "http://sophiamartinez.com/profile.jpg", "http://sophiamartinez.com/social", true, genreRepo.getReferenceById(2)));
+            authorRepo.save(new Author("Michael", "Lopez", LocalDate.of(1983, 1, 1), "Colombian", "Author bio", "http://michaellopez.com", "http://michaellopez.com/profile.jpg", "http://michaellopez.com/social", false, genreRepo.getReferenceById(3)));
+
         }
         //award
         if (awardRepo.count() == 0) {
@@ -303,6 +308,10 @@ public class DataSeeder implements CommandLineRunner {
             publisherRepo.save(new Publisher("Macmillan", 1843, "UK", "London", "http://macmillan.com", "generic email", "789 Macmillan St, London", "Publisher known for quality literature"));
             publisherRepo.save(new Publisher("Simon & Schuster", 1924, "USA", "New York", "http://simonandschuster.com", "generic email", "101 Simon St, NY", "Publisher with a wide range of genres"));
             publisherRepo.save(new Publisher("Hachette Livre", 1826, "France", "Paris", "http://hachette.com", "generic email", "202 Hachette St, Paris", "Leading French publisher with global reach"));
+            publisherRepo.save(new Publisher("Scholastic", 1920, "USA", "New York", "http://scholastic.com", "generic email", "303 Scholastic St, NY", "Publisher specializing in children's books"));
+            publisherRepo.save(new Publisher("Oxford University Press", 1478, "UK", "Oxford", "http://oup.com", "generic email", "404 Oxford St, Oxford", "Publisher of academic and educational materials"));
+            publisherRepo.save(new Publisher("Cambridge University Press", 1534, "UK", "Cambridge", "http://cambridge.org", "generic email", "505 Cambridge St, Cambridge", "Publisher of scholarly books and journals"));
+            publisherRepo.save(new Publisher("Bloomsbury Publishing", 1986, "UK", "London", "http://bloomsbury.com", "generic email", "606 Bloomsbury St, London", "Publisher known for literary fiction and non-fiction"));
         }
 
         //edition
@@ -317,142 +326,156 @@ public class DataSeeder implements CommandLineRunner {
             editionRepo.save(new Edition("Special Edition"));
         }
 
+        //book collection 
+        if (bookCollectionRepo.count() == 0) {
+            bookCollectionRepo.save(new BookCollection("Classic Literature", "A collection of classic literary works", true, publisherRepo.getReferenceById(1)));
+            bookCollectionRepo.save(new BookCollection("Fantasy Series", "A collection of popular fantasy series", true, publisherRepo.getReferenceById(2)));
+            bookCollectionRepo.save(new BookCollection("Mystery Thrillers", "A collection of gripping mystery thrillers", false, publisherRepo.getReferenceById(3)));
+        }
+
         //book
         if (bookRepo.count() == 0) {
             bookRepo.save(new Book("Unknown Book", authorRepo.getReferenceById(1), "0000000000000",
                     List.of(genreRepo.getReferenceById(1)), "Unknown", LocalDate.of(1900, 1, 1),
                     publisherRepo.getReferenceById(1), "No description available", "none",
-                    formatRepo.getReferenceById(1), 100, "none", "All rights reserved", editionRepo.getReferenceById(1)));
+                    formatRepo.getReferenceById(1), 100, "none", "All rights reserved", editionRepo.getReferenceById(1), null, null));
             bookRepo.save(new Book("The Great Gatsby", authorRepo.getReferenceById(2), "9780743273565",
                     List.of(genreRepo.getReferenceById(2)), "English", LocalDate.of(1925, 4, 10),
                     publisherRepo.getReferenceById(2), "A classic novel set in the Jazz Age",
-                    "http://example.com/greatgatsby.jpg", formatRepo.getReferenceById(2), 180, "8.5 x 5.5 inches", "Copyright © 1925", editionRepo.getReferenceById(2)));
+                    "http://example.com/greatgatsby.jpg", formatRepo.getReferenceById(2), 180, "8.5 x 5.5 inches", "Copyright © 1925", editionRepo.getReferenceById(2), null, null));
             bookRepo.save(new Book("To Kill a Mockingbird", authorRepo.getReferenceById(3), "9780061120084",
                     List.of(genreRepo.getReferenceById(3)), "English", LocalDate.of(1960, 7, 11),
                     publisherRepo.getReferenceById(3), "A novel about racial injustice in the Deep South",
-                    "http://example.com/tokillamockingbird.jpg", formatRepo.getReferenceById(3), 281, "8 x 5.25 inches", "Copyright © 1960", editionRepo.getReferenceById(3)));
+                    "http://example.com/tokillamockingbird.jpg", formatRepo.getReferenceById(3), 281, "8 x 5.25 inches", "Copyright © 1960",
+                    editionRepo.getReferenceById(3), translatorRepo.getReferenceById(2), bookCollectionRepo.getReferenceById(1)));
             bookRepo.save(new Book("1984", authorRepo.getReferenceById(4), "9780451524935",
                     List.of(genreRepo.getReferenceById(4)), "English", LocalDate.of(1949, 6, 8),
                     publisherRepo.getReferenceById(4), "A dystopian novel about totalitarianism",
-                    "http://example.com/1984.jpg", formatRepo.getReferenceById(4), 328, "8 x 5.31 inches", "Copyright © 1949", editionRepo.getReferenceById(4)));
-            bookRepo.save(new Book("Pride and Prejudice", authorRepo.getReferenceById(5), "9780141040349", List.of(awardRepo.getReferenceById(1)),
-                    List.of(genreRepo.getReferenceById(5)),
-                    "English", LocalDate.of(1813, 1, 28), publisherRepo.getReferenceById(5),
+                    "http://example.com/1984.jpg", formatRepo.getReferenceById(4), 328, "7.5 x 4.2 inches", "Copyright © 1949", editionRepo.getReferenceById(4), translatorRepo.getReferenceById(1), null));
+            bookRepo.save(new Book("Pride and Prejudice", authorRepo.getReferenceById(5), "9780141040349",
+                    List.of(genreRepo.getReferenceById(1)), "English", LocalDate.of(1813, 1, 28), publisherRepo.getReferenceById(5),
                     "A romantic novel about manners and marriage", "http://example.com/prideandprejudice.jpg",
-                    formatRepo.getReferenceById(5), 279, "7.8 x 5.1 inches", "Copyright © 1813", translatorRepo.getReferenceById(3), editionRepo.getReferenceById(5)));
+                    formatRepo.getReferenceById(5), 279, "7.8 x 5.1 inches", "Copyright © 1813", editionRepo.getReferenceById(2), translatorRepo.getReferenceById(3), null));
 
             bookRepo.save(new Book("The Catcher in the Rye", authorRepo.getReferenceById(6), "9780316769488",
-                    List.of(awardRepo.getReferenceById(2)),
-                    List.of(genreRepo.getReferenceById(6)), "English", LocalDate.of(1951, 7, 16),
+                    List.of(genreRepo.getReferenceById(2)), "English", LocalDate.of(1951, 7, 16),
                     publisherRepo.getReferenceById(6), "A novel about teenage angst and alienation",
-                    "http://example.com/catcherintherye.jpg", formatRepo.getReferenceById(6), 277, "8 x 5.31 inches", "Copyright © 1951", editionRepo.getReferenceById(6)));
-        }
-        //book collection
+                    "http://example.com/catcherintherye.jpg", formatRepo.getReferenceById(6), 277, "8 x 5.31 inches", "Copyright © 1951", editionRepo.getReferenceById(3), null, null));
+            bookRepo.save(new Book("The Hobbit", authorRepo.getReferenceById(7), "9780547928227",
+                    List.of(genreRepo.getReferenceById(3)), "English", LocalDate.of(1937, 9, 21),
+                    publisherRepo.getReferenceById(7), "A fantasy novel about a hobbit's adventure",
+                    "http://example.com/thehobbit.jpg", formatRepo.getReferenceById(7), 310, "8.5 x 5.5 inches", "Copyright © 1937", editionRepo.getReferenceById(2), translatorRepo.getReferenceById(4), bookCollectionRepo.getReferenceById(2)));
+            bookRepo.save(new Book("The Lord of the Rings", authorRepo.getReferenceById(8), "9780544003415",
+                    List.of(genreRepo.getReferenceById(4)), "English", LocalDate.of(1954, 7, 29),
+                    publisherRepo.getReferenceById(8), "An epic fantasy novel about the struggle to destroy a powerful ring",
+                    "http://example.com/thelordoftherings.jpg", formatRepo.getReferenceById(8), 1216, "10.2 x 6.1 inches", "Copyright © 1954", editionRepo.getReferenceById(3), translatorRepo.getReferenceById(5), bookCollectionRepo.getReferenceById(2)));
+            bookRepo.save(new Book("The Da Vinci Code", authorRepo.getReferenceById(9), "9780307474278",
+                    List.of(genreRepo.getReferenceById(1)), "English", LocalDate.of(2003, 3, 18),
+                    publisherRepo.getReferenceById(9), "A mystery thriller novel about a symbologist's quest to uncover a hidden truth",
+                    "http://example.com/thedavincicode.jpg", formatRepo.getReferenceById(9), 489, "6.1 x 9.2 inches", "Copyright © 2003", editionRepo.getReferenceById(2), translatorRepo.getReferenceById(5), bookCollectionRepo.getReferenceById(3)));
+            bookRepo.save(new Book("The Alchemist", authorRepo.getReferenceById(10), "9780062315007",
+                    List.of(genreRepo.getReferenceById(2)), "English", LocalDate.of(1988, 4, 15),
+                    publisherRepo.getReferenceById(10), "A philosophical novel about a shepherd's journey to find his personal legend",
+                    "http://example.com/thealchemist.jpg", formatRepo.getReferenceById(10), 208, "5.5 x 8.2 inches", "Copyright © 1988", editionRepo.getReferenceById(5), translatorRepo.getReferenceById(6), bookCollectionRepo.getReferenceById(3)));
+            //discount
 
-        if (bookCollectionRepo.count() == 0) {
-            bookCollectionRepo.save(new BookCollection("Classic Literature", "A collection of classic literary works", true, List.of(bookRepo.getReferenceById(2), bookRepo.getReferenceById(3)), publisherRepo.getReferenceById(2)));
-            bookCollectionRepo.save(new BookCollection("Science Fiction Classics", "A collection of classic science fiction novels", false, List.of(bookRepo.getReferenceById(4), bookRepo.getReferenceById(5)), publisherRepo.getReferenceById(3)));
-            bookCollectionRepo.save(new BookCollection("Mystery and Thriller Collection", "A collection of mystery and thriller novels", true, List.of(bookRepo.getReferenceById(6)), publisherRepo.getReferenceById(4)));
-            bookCollectionRepo.save(new BookCollection("Fantasy Favorites", "A collection of popular fantasy novels", false, List.of(bookRepo.getReferenceById(1)), publisherRepo.getReferenceById(5)));
-        }
-        //discount
+            if (discountRepo.count() == 0) {
+                discountRepo.save(new Discount("Spring Sale", LocalDateTime.of(2023, 3, 1, 0, 0), LocalDateTime.of(2023, 5, 31, 23, 59), 20.0, discTypeRepo.getReferenceById(1)));
+                discountRepo.save(new Discount("Summer Clearance", LocalDateTime.of(2023, 6, 1, 0, 0), LocalDateTime.of(2023, 8, 31, 23, 59), 15.0, discTypeRepo.getReferenceById(2)));
+                discountRepo.save(new Discount("Black Friday Deal", LocalDateTime.of(2023, 11, 24, 0, 0), LocalDateTime.of(2023, 11, 30, 23, 59), 30.0, discTypeRepo.getReferenceById(3)));
 
-        if (discountRepo.count() == 0) {
-            discountRepo.save(new Discount("Spring Sale", LocalDateTime.of(2023, 3, 1, 0, 0), LocalDateTime.of(2023, 5, 31, 23, 59), 20.0, discTypeRepo.getReferenceById(1)));
-            discountRepo.save(new Discount("Summer Clearance", LocalDateTime.of(2023, 6, 1, 0, 0), LocalDateTime.of(2023, 8, 31, 23, 59), 15.0, discTypeRepo.getReferenceById(2)));
-            discountRepo.save(new Discount("Black Friday Deal", LocalDateTime.of(2023, 11, 24, 0, 0), LocalDateTime.of(2023, 11, 30, 23, 59), 30.0, discTypeRepo.getReferenceById(3)));
+            }
+            //inventory
 
-        }
-        //inventory
+            if (inventoryRepo.count() == 0) {
+                inventoryRepo.save(new Inventory(
+                        19.99, 100, "First edition in mint condition",
+                        warehouseLocationRepo.getReferenceById(1),
+                        inventoryStatusRepo.getReferenceById(1),
+                        List.of(discountRepo.getReferenceById(1)),
+                        bookRepo.getReferenceById(1)));
 
-        if (inventoryRepo.count() == 0) {
-            inventoryRepo.save(new Inventory(
-                    19.99, 100, "First edition in mint condition",
-                    warehouseLocationRepo.getReferenceById(1),
-                    inventoryStatusRepo.getReferenceById(1),
-                    List.of(discountRepo.getReferenceById(1)),
-                    bookRepo.getReferenceById(1)));
+                inventoryRepo.save(new Inventory(
+                        15.99, 50, "Paperback edition with minor wear", warehouseLocationRepo.getReferenceById(2),
+                        inventoryStatusRepo.getReferenceById(1), List.of(), bookRepo.getReferenceById(2)));
+                inventoryRepo.save(new Inventory(
+                        12.99, 75, "Ebook edition available for download", warehouseLocationRepo.getReferenceById(1),
+                        inventoryStatusRepo.getReferenceById(1), List.of(discountRepo.getReferenceById(2)),
+                        bookRepo.getReferenceById(3)));
+                inventoryRepo.save(new Inventory(
+                        9.99, 200, "Audiobook edition narrated by a famous actor", warehouseLocationRepo.getReferenceById(2),
+                        inventoryStatusRepo.getReferenceById(1), List.of(discountRepo.getReferenceById(3)),
+                        bookRepo.getReferenceById(4)));
 
-            inventoryRepo.save(new Inventory(
-                    15.99, 50, "Paperback edition with minor wear", warehouseLocationRepo.getReferenceById(2),
-                    inventoryStatusRepo.getReferenceById(1), List.of(), bookRepo.getReferenceById(2)));
-            inventoryRepo.save(new Inventory(
-                    12.99, 75, "Ebook edition available for download", warehouseLocationRepo.getReferenceById(1),
-                    inventoryStatusRepo.getReferenceById(1), List.of(discountRepo.getReferenceById(2)),
-                    bookRepo.getReferenceById(3)));
-            inventoryRepo.save(new Inventory(
-                    9.99, 200, "Audiobook edition narrated by a famous actor", warehouseLocationRepo.getReferenceById(2),
-                    inventoryStatusRepo.getReferenceById(1), List.of(discountRepo.getReferenceById(3)),
-                    bookRepo.getReferenceById(4)));
+            }
+            //shop assistant
 
-        }
-        //shop assistant
+            if (shopAssRepo.count() == 0) {
+                shopAssRepo.save(new ShopAssistant("Jon", "Doe", "personal email", "internal email", "+39 1234567890", "washington st.", "new york", true, warehouseLocationRepo.getReferenceById(1)));
+                userRepo.save(new User("shopass1", "shopass123", List.of(roleRepo.getReferenceById(2)), bookRoleRepo.getReferenceById(1), 1));
 
-        if (shopAssRepo.count() == 0) {
-            shopAssRepo.save(new ShopAssistant("Jon", "Doe", "personal email", "internal email", "+39 1234567890", "washington st.", "new york", true, warehouseLocationRepo.getReferenceById(1)));
-            userRepo.save(new User("shopass1", "shopass123", List.of(roleRepo.getReferenceById(2)), bookRoleRepo.getReferenceById(1), 1));
+            }
+            //wishlist
+            if (wishRepo.count() == 0) {
+                wishRepo.save(new Wishlist(List.of(bookRepo.getReferenceById(1), bookRepo.getReferenceById(2), bookRepo.getReferenceById(3))));
+            }
 
-        }
-        //wishlist
-        if (wishRepo.count() == 0) {
-            wishRepo.save(new Wishlist(List.of(bookRepo.getReferenceById(1), bookRepo.getReferenceById(2), bookRepo.getReferenceById(3))));
-        }
+            //cart
+            if (cartRepo.count() == 0) {
+                cartRepo.save(new Cart(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(2), inventoryRepo.getReferenceById(3))));
+            }
 
-        //cart
-        if (cartRepo.count() == 0) {
-            cartRepo.save(new Cart(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(2), inventoryRepo.getReferenceById(3))));
-        }
+            //customer
+            if (custRepo.count() == 0) {
 
-        //customer
-        if (custRepo.count() == 0) {
+                custRepo.save(new Customer("Name", "Surname", " +123456789102", "address address", "{\"language\":\"en\",\"currency\":\"USD\",\"newsletterSubscribed\":true,\"preferredGenres\":[\"fiction\",\"science\",\"fantasy\"],\"darkMode\":false,\"notifications\":{\"email\":true,\"sms\":false,\"push\":true}}\r\n",
+                        cartRepo.getReferenceById(1), wishRepo.getReferenceById(1))
+                );
+                userRepo.save(new User("cust1", "cust123", List.of(roleRepo.getReferenceById(3)), bookRoleRepo.getReferenceById(2), 1));
+            }
 
-            custRepo.save(new Customer("Name", "Surname", " +123456789102", "address address", "{\"language\":\"en\",\"currency\":\"USD\",\"newsletterSubscribed\":true,\"preferredGenres\":[\"fiction\",\"science\",\"fantasy\"],\"darkMode\":false,\"notifications\":{\"email\":true,\"sms\":false,\"push\":true}}\r\n",
-                    cartRepo.getReferenceById(1), wishRepo.getReferenceById(1))
-            );
-            userRepo.save(new User("cust1", "cust123", List.of(roleRepo.getReferenceById(3)), bookRoleRepo.getReferenceById(2), 1));
-        }
+            //review
+            if (reviewRepo.count() == 0) {
+                reviewRepo.save(new Review(5, "comment example", LocalDateTime.of(2025, 07, 21, 19, 20), bookRepo.getReferenceById(3), custRepo.getReferenceById(1)));
+                reviewRepo.save(new Review(5, "comment example", LocalDateTime.of(2025, 06, 21, 07, 50), bookRepo.getReferenceById(4), custRepo.getReferenceById(1)));
+            }
 
-        //review
-        if (reviewRepo.count() == 0) {
-            reviewRepo.save(new Review(5, "comment example", LocalDateTime.of(2025, 07, 21, 19, 20), bookRepo.getReferenceById(3), custRepo.getReferenceById(1)));
-            reviewRepo.save(new Review(5, "comment example", LocalDateTime.of(2025, 06, 21, 07, 50), bookRepo.getReferenceById(4), custRepo.getReferenceById(1)));
-        }
+            //order
+            if (orderRepo.count() == 0) {
 
-        //order
-        if (orderRepo.count() == 0) {
+                orderRepo.save(new Order(LocalDateTime.of(2025, 07, 07, 15, 20), LocalDateTime.of(2025, 07, 07, 16, 00), LocalDateTime.of(2025, 07, 10, 10, 00),
+                        custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(2)))));
+                orderRepo.save(new Order(LocalDateTime.of(2025, 07, 8, 10, 00), null, null,
+                        custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(3), inventoryRepo.getReferenceById(4)))));
+                orderRepo.save(new Order(LocalDateTime.of(2025, 07, 9, 12, 30), LocalDateTime.of(2025, 07, 9, 13, 00), null,
+                        custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(3)))));
+            }
 
-            orderRepo.save(new Order(LocalDateTime.of(2025, 07, 07, 15, 20), LocalDateTime.of(2025, 07, 07, 16, 00), LocalDateTime.of(2025, 07, 10, 10, 00),
-                    custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(2)))));
-            orderRepo.save(new Order(LocalDateTime.of(2025, 07, 8, 10, 00), null, null,
-                    custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(3), inventoryRepo.getReferenceById(4)))));
-            orderRepo.save(new Order(LocalDateTime.of(2025, 07, 9, 12, 30), LocalDateTime.of(2025, 07, 9, 13, 00), null,
-                    custRepo.getReferenceById(1), shopAssRepo.getReferenceById(1), new ArrayList<>(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(3)))));
-        }
+            //notification
+            if (notifiRepo.count() == 0) {
+                notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 20, 20), custRepo.getReferenceById(1), notificationTypeRepo.findById(1).get(), null, orderRepo.findById(1).get()));
+                notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 15, 10), custRepo.getReferenceById(1), notificationTypeRepo.findById(6).get(), null, null));
+                notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 12, 10, 00), custRepo.getReferenceById(1), notificationTypeRepo.findById(7).get(), bookRepo.findById(3).get(), null));
+            }
 
-        //notification
-        if (notifiRepo.count() == 0) {
-            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 20, 20), custRepo.getReferenceById(1), notificationTypeRepo.findById(1).get(), null, orderRepo.findById(1).get()));
-            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 07, 15, 10), custRepo.getReferenceById(1), notificationTypeRepo.findById(6).get(), null, null));
-            notifiRepo.save(new Notification(LocalDateTime.of(2025, 07, 12, 10, 00), custRepo.getReferenceById(1), notificationTypeRepo.findById(7).get(), bookRepo.findById(3).get(), null));
-        }
+            //search history
+            if (searchRepo.count() == 0) {
+                searchRepo.save(new SearchHistory("gatsby", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+                searchRepo.save(new SearchHistory("to kill", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+                searchRepo.save(new SearchHistory("pride", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+                searchRepo.save(new SearchHistory("1984", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
+            }
 
-        //search history
-        if (searchRepo.count() == 0) {
-            searchRepo.save(new SearchHistory("gatsby", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
-            searchRepo.save(new SearchHistory("to kill", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
-            searchRepo.save(new SearchHistory("pride", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
-            searchRepo.save(new SearchHistory("1984", LocalDateTime.of(2025, 07, 07, 15, 20), custRepo.getReferenceById(1)));
-        }
+            // analytics
+            if (analytRepo.count() == 0) {
+                analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(1).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(1).get()));
+                analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(2).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(2).get()));
+                analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(3).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(3).get()));
+                analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(4).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(4).get()));
+                analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(5).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(5).get()));
+            }
 
-        // analytics
-        if (analytRepo.count() == 0) {
-            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(1).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(1).get()));
-            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(2).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(2).get()));
-            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(3).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(3).get()));
-            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(4).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(4).get()));
-            analytRepo.save(new Analytic(LocalDateTime.of(2025, 07, 07, 15, 20), bookRepo.findById(5).get(), custRepo.findById(1).get(), analyticTypeRepo.findById(5).get()));
         }
 
     }
-
 }

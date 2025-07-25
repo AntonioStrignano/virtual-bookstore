@@ -51,11 +51,10 @@ public class BookCollection {
     public BookCollection() {
     }
 
-    public BookCollection(String title, String description, Boolean isNumerated, List<Book> books, Publisher publisher) {
+    public BookCollection(String title, String description, Boolean isNumerated, Publisher publisher) {
         this.title = title;
         this.description = description;
         this.isNumerated = isNumerated;
-        this.books = books;
         this.publisher = publisher;
     }
 

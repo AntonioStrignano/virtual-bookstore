@@ -140,14 +140,12 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, Author author, String isbn, List<Award> awards, List<Genre> genres,
-            String language, LocalDate publishDate, Publisher publisher, String description, String cover,
-            Format format, int pageNumber, String dimension, String copyright, Translator translator,
-            Edition edition) {
+    public Book(String title, Author author, String isbn, List<Genre> genres, String language, LocalDate publishDate,
+            Publisher publisher, String description, String cover, Format format, Integer pageNumber,
+            String dimension, String copyright, Edition edition, Translator translator, BookCollection bookCollection) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
-        this.awards = awards;
         this.genres = genres;
         this.language = language;
         this.publishDate = publishDate;
@@ -158,47 +156,9 @@ public class Book {
         this.pageNumber = pageNumber;
         this.dimension = dimension;
         this.copyright = copyright;
+        this.edition = edition;
         this.translator = translator;
-        this.edition = edition;
-    }
-
-    public Book(String title, Author author, String isbn, List<Award> awards, List<Genre> genres,
-            String language, LocalDate publishDate, Publisher publisher, String description, String cover,
-            Format format, int pageNumber, String dimension, String copyright, Edition edition) {
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
-        this.awards = awards;
-        this.genres = genres;
-        this.language = language;
-        this.publishDate = publishDate;
-        this.publisher = publisher;
-        this.description = description;
-        this.cover = cover;
-        this.format = format;
-        this.pageNumber = pageNumber;
-        this.dimension = dimension;
-        this.copyright = copyright;
-        this.edition = edition;
-    }
-
-    public Book(String title, Author author, String isbn, List<Genre> genres,
-            String language, LocalDate publishDate, Publisher publisher, String description, String cover,
-            Format format, Integer pageNumber, String dimension, String copyright, Edition edition) {
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
-        this.genres = genres;
-        this.language = language;
-        this.publishDate = publishDate;
-        this.publisher = publisher;
-        this.description = description;
-        this.cover = cover;
-        this.format = format;
-        this.pageNumber = pageNumber;
-        this.dimension = dimension;
-        this.copyright = copyright;
-        this.edition = edition;
+        this.bookCollection = bookCollection;
     }
 
     // ----------------------------
