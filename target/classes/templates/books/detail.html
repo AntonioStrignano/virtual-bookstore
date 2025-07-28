@@ -33,6 +33,13 @@
 				<li>Format: <span th:text="${book.format.name}"></span></li>
 			</ul>
 
+			<h2>Awards</h2>
+			<ul>
+				<li th:each="award : ${book.awards}">
+					<a th:href="@{/awards/{id}(id=${award.id})}" th:text="${award.title}"></a>
+				</li>
+			</ul>
+
 			<h2>Buy it</h2>
 			<ul>
 				<li th:each="product : ${products}">

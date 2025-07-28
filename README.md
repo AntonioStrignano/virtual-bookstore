@@ -44,11 +44,3 @@ test:
 delete users and go around
 
 manage search history as analytics
-
-
-customer side:
-read book list
-read book details
-
-admin side:
-see analytics

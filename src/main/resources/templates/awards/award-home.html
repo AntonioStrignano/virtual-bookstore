@@ -33,16 +33,25 @@
 						<th scope="col">Year</th>
 						<th scope="col">Description</th>
 						<th scope="col">Type</th>
+						<th scope="col">Books</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="award : ${awards}" scope="row">
 						<td th:text="${award.id}"></td>
-						<td th:text="${award.title}"></td>
+						<td> <a th:href="@{/awards/{id}(id=${award.id})}" th:text="${award.title}"></a></td>
 						<td th:text="${award.year}"></td>
 						<td th:text="${award.description}"></td>
 						<td th:text="${award.awardType}"></td>
+						<td>
+							<ul>
+								<li th:each="book : ${award.books}">
+									<a th:href="@{/books/{id}(id=${book.id})}"
+										th:text="|${book.title} - ${book.publishDate}, ${book.publisher.publisherName}|"></a>
+								</li>
+							</ul>
+						</td>
 						<td>
 							<button class="btn">
 								<a th:href="@{|awards/edit/${award.id}|}">

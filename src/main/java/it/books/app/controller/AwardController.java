@@ -18,68 +18,73 @@ import jakarta.validation.Valid;
 @RequestMapping("/awards")
 public class AwardController {
 
-	@Autowired
-	private AwardRepository awardRepo;
+    @Autowired
+    private AwardRepository awardRepo;
 
-	// ---- READ ----
-	@GetMapping("")
-	public String awardPage(Model model) {
-		model.addAttribute("awards", awardRepo.findAll());
-		return "/awards/award-home";
-	}
+    // ---- READ ----
+    @GetMapping("")
+    public String awardList(Model model) {
+        model.addAttribute("awards", awardRepo.findAll());
+        return "/awards/award-home";
+    }
 
-	// ---- CREATE ----
+    @GetMapping("{id}")
+    public String awardDetail(Model model, @PathVariable("id") Integer id) {
+        model.addAttribute("award", awardRepo.getReferenceById(id));
 
-	// GET
-	@GetMapping("/create")
-	public String createNewAward(Model model) {
-		Award newAward = new Award();
-		model.addAttribute("award", newAward);
-		return "/awards/edit";
-	}
+        return "awards/detail";
+    }
 
-	// POST
-	@PostMapping("/create")
-	public String storeNewAward(@Valid @ModelAttribute("award") Award newAward, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			return "/awards/edit";
-		}
+    // ---- CREATE ----
+    // GET
+    @GetMapping("/create")
+    public String createNewAward(Model model) {
+        Award newAward = new Award();
+        model.addAttribute("award", newAward);
+        return "/awards/edit";
+    }
 
-		awardRepo.save(newAward);
-		return "redirect:/awards";
-	}
+    // POST
+    @PostMapping("/create")
+    public String storeNewAward(@Valid @ModelAttribute("award") Award newAward, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/awards/edit";
+        }
 
-	// ---- UPDATE ----
+        awardRepo.save(newAward);
+        return "redirect:/awards";
+    }
 
-	// GET
-	@GetMapping("/edit/{id}")
-	public String editAward(@PathVariable("id") Integer id, Model model) {
+    // ---- UPDATE ----
+    // GET
+    @GetMapping("/edit/{id}")
+    public String editAward(@PathVariable("id") Integer id, Model model) {
 
-		model.addAttribute("editMode", true);
-		model.addAttribute("award", awardRepo.getReferenceById(id));
+        model.addAttribute("editMode", true);
+        model.addAttribute("award", awardRepo.getReferenceById(id));
 
-		return "/awards/edit";
-	}
+        return "/awards/edit";
+    }
 
-	// POST
-	@PostMapping("{id}/update")
-	public String storeUpdateAward(@Valid @ModelAttribute("award") Award upAward, BindingResult bindingResult) {
+    // POST
+    @PostMapping("{id}/update")
+    public String storeUpdateAward(@Valid @ModelAttribute("award") Award upAward, BindingResult bindingResult) {
 
-		if (bindingResult.hasErrors()) {
-			return "/awards/edit";
-		}
+        if (bindingResult.hasErrors()) {
+            return "/awards/edit";
+        }
 
-		awardRepo.save(upAward);
+        awardRepo.save(upAward);
 
-		return "redirect:/awards";
-	}
+        return "redirect:/awards";
+    }
 
-	// ---- DELETE ----
-	@PostMapping("/{id}/delete")
-	public String deleteAward(@PathVariable("id") Integer id) {
+    // ---- DELETE ----
+    @PostMapping("/{id}/delete")
+    public String deleteAward(@PathVariable("id") Integer id) {
 
-		awardRepo.deleteById(id);
-		return "redirect:/awards";
-	}
+        awardRepo.deleteById(id);
+        return "redirect:/awards";
+    }
 
 }
