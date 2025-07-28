@@ -65,7 +65,7 @@ public class BookController {
 
         model.addAttribute("book", bookRepo.getReferenceById(id));
 
-        return "/detail";
+        return "books/detail";
     }
 
     // ---- CREATE ----

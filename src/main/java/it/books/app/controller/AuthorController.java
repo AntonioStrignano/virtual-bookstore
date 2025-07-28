@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.books.app.model.Author;
 import it.books.app.repository.AuthorRepository;
+import it.books.app.repository.BookRepository;
 import it.books.app.repository.GenreRepository;
 import jakarta.validation.Valid;
 
@@ -19,81 +20,91 @@ import jakarta.validation.Valid;
 @RequestMapping("/authors")
 public class AuthorController {
 
-	@Autowired
-	private AuthorRepository authorRepo;
+    @Autowired
+    private AuthorRepository authorRepo;
 
-	@Autowired
-	private GenreRepository genreRepo;
+    @Autowired
+    private BookRepository bookRepo;
+
+    @Autowired
+    private GenreRepository genreRepo;
 
 // -------- READ ---------
-	@GetMapping("")
-	public String authorPage(Model model) {
-		model.addAttribute("authors", authorRepo.findAll());
-		model.addAttribute("genres", genreRepo.findAll());
-		return "authors/author-home";
-	}
+    @GetMapping("")
+    public String authorList(Model model) {
+        model.addAttribute("authors", authorRepo.findAll());
+        return "authors/author-home";
+    }
+
+    @GetMapping("{id}")
+    public String authorDetail(@PathVariable("id") Integer id, Model model) {
+
+        model.addAttribute("author", authorRepo.getReferenceById(id));
+        model.addAttribute("books", bookRepo.findByAuthorId(id));
+
+        return "/authors/detail";
+    }
 
 // -------- CREATE --------	
-	// GET
-	@GetMapping("/create")
-	public String newAuthor(Model model) {
+    // GET
+    @GetMapping("/create")
+    public String newAuthor(Model model) {
 
-		Author newAuthor = new Author();
-		model.addAttribute("author", newAuthor);
-		model.addAttribute("genres", genreRepo.findAll());
+        Author newAuthor = new Author();
+        model.addAttribute("author", newAuthor);
+        model.addAttribute("genres", genreRepo.findAll());
 
-		return "/authors/edit";
-	}
+        return "/authors/edit";
+    }
 
-	// POST
-	@PostMapping("/create")
-	public String storeNewAuthor(@Valid @ModelAttribute("author") Author newAuthor, BindingResult bindingResult,
-			Model model) {
+    // POST
+    @PostMapping("/create")
+    public String storeNewAuthor(@Valid @ModelAttribute("author") Author newAuthor, BindingResult bindingResult,
+            Model model) {
 
-		model.addAttribute("genres", genreRepo.findAll());
+        model.addAttribute("genres", genreRepo.findAll());
 
-		if (bindingResult.hasErrors()) {
-			return "/authors/edit";
-		}
-		authorRepo.save(newAuthor);
+        if (bindingResult.hasErrors()) {
+            return "/authors/edit";
+        }
+        authorRepo.save(newAuthor);
 
-		return "redirect:/authors";
-	}
+        return "redirect:/authors";
+    }
 
 //	-------- UPDATE	--------
-	// GET
-	@GetMapping("/edit/{id}")
-	public String editAuthor(@PathVariable("id") Integer id, Model model) {
+    // GET
+    @GetMapping("/edit/{id}")
+    public String editAuthor(@PathVariable("id") Integer id, Model model) {
 
-		model.addAttribute("author", authorRepo.getReferenceById(id));
-		model.addAttribute("genres", genreRepo.findAll());
+        model.addAttribute("author", authorRepo.getReferenceById(id));
+        model.addAttribute("genres", genreRepo.findAll());
 
-		return "authors/edit";
-	}
+        return "authors/edit";
+    }
 
-	// POST
-	@PostMapping("/{id}/update")
-	public String updateAuthor(@Valid @ModelAttribute("author") Author upAuthor, @PathVariable("id") Integer id,
-			BindingResult bindingResult) {
+    // POST
+    @PostMapping("/{id}/update")
+    public String updateAuthor(@Valid @ModelAttribute("author") Author upAuthor, @PathVariable("id") Integer id,
+            BindingResult bindingResult) {
 
-		if (bindingResult.hasErrors()) {
-			return "authors/edit";
-		}
+        if (bindingResult.hasErrors()) {
+            return "authors/edit";
+        }
 
-		authorRepo.save(upAuthor);
+        authorRepo.save(upAuthor);
 
-		return "redirect:/authors";
-	}
+        return "redirect:/authors";
+    }
 
 //	--------	DELETE	--------
+    // POST
+    @PostMapping("/{id}/delete")
+    public String deleteAuthor(@PathVariable("id") Integer id) {
 
-	// POST
-	@PostMapping("/{id}/delete")
-	public String deleteAuthor(@PathVariable("id") Integer id) {
+        authorRepo.deleteById(id);
 
-		authorRepo.deleteById(id);
-
-		return "redirect:/authors";
-	}
+        return "redirect:/authors";
+    }
 
 }

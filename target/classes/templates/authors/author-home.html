@@ -61,6 +61,12 @@
 						<td><a th:href="${author.website}" target="_blank">Link</a></td>
 						<td>
 							<button class="btn">
+								<a th:href="@{|/authors/${author.id}}">
+									Details
+								</a>
+							</button>
+
+							<button class="btn">
 								<a th:href="@{|authors/edit/${author.id}|}">
 									<i class="bi bi-pencil-square"></i>
 								</a>

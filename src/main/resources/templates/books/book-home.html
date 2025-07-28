@@ -50,11 +50,11 @@
 					<td th:text="${book.publishDate}"></td>
 					<td><img th:src="${book.cover}" height="100px"></td>
 					<td th:text="${book.edition.name}"></td>
-					<td><a th:href="@{|authors/${book.author.id}|}"
+					<td><a th:href="@{|/authors/${book.author.id}|}"
 							th:text="|${book.author.firstName} ${book.author.lastName}, ${book.author.birthDate}|"></a>
 					</td>
 					<td>
-						<a th:href="@{|publishers/${book.publisher.id}|}"
+						<a th:href="@{|/publishers/${book.publisher.id}|}"
 							th:text="|${book.publisher.publisherName}, ${book.publisher.founderYear}, ${book.publisher.country} (${book.publisher.city})|"></a>
 					</td>
 					<td th:text="${book.format.name}"></td>

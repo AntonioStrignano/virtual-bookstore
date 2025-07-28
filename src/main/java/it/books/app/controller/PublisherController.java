@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.books.app.model.Publisher;
+import it.books.app.repository.BookCollectionRepository;
+import it.books.app.repository.BookRepository;
 import it.books.app.repository.PublisherRepository;
 import jakarta.validation.Valid;
 
@@ -18,69 +20,84 @@ import jakarta.validation.Valid;
 @RequestMapping("/publishers")
 public class PublisherController {
 
-	@Autowired
-	private PublisherRepository publRepo;
+    @Autowired
+    private PublisherRepository publRepo;
+
+    @Autowired
+    private BookCollectionRepository bookCollRepo;
+
+    @Autowired
+    private BookRepository bookRepo;
 
 // -------- READ --------
-	@GetMapping("")
-	public String publishersPage(Model model) {
+    @GetMapping("")
+    public String publishersPage(Model model) {
 
-		model.addAttribute("publishers", publRepo.findAll());
-		return "/publishers/publ-home";
-	}
+        model.addAttribute("publishers", publRepo.findAll());
+        return "/publishers/publ-home";
+    }
+
+    @GetMapping("/{id}")
+    public String publisherDetails(Model model, @PathVariable("id") Integer id) {
+
+        model.addAttribute("publisher", publRepo.getReferenceById(id));
+        model.addAttribute("bookCollections", bookCollRepo.findByPublisherId(id));
+        model.addAttribute("books", bookRepo.findByPublisherId(id));
+
+        return "/publishers/publ-details";
+    }
 
 // -------- CREATE --------
-	// GET
-	@GetMapping("/create")
-	public String newPubl(Model model) {
+    // GET
+    @GetMapping("/create")
+    public String newPubl(Model model) {
 
-		Publisher newPubl = new Publisher();
-		model.addAttribute("publ", newPubl);
-		return "/publishers/edit";
-	}
+        Publisher newPubl = new Publisher();
+        model.addAttribute("publ", newPubl);
+        return "/publishers/edit";
+    }
 
-	// POST
-	@PostMapping("/create")
-	public String storeNewPubl(@Valid @ModelAttribute("publ") Publisher newPubl, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			return "/publishers/edit";
-		}
-		publRepo.save(newPubl);
-		return "redirect:/publishers";
-	}
+    // POST
+    @PostMapping("/create")
+    public String storeNewPubl(@Valid @ModelAttribute("publ") Publisher newPubl, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/publishers/edit";
+        }
+        publRepo.save(newPubl);
+        return "redirect:/publishers";
+    }
 
 // -------- UPDATE --------
-	// GET
-	@GetMapping("/edit/{id}")
-	public String editPubl(Model model, @PathVariable("id") Integer id) {
+    // GET
+    @GetMapping("/edit/{id}")
+    public String editPubl(Model model, @PathVariable("id") Integer id) {
 
-		model.addAttribute("publ", publRepo.getReferenceById(id));
-		model.addAttribute("editMode", true);
+        model.addAttribute("publ", publRepo.getReferenceById(id));
+        model.addAttribute("editMode", true);
 
-		return "/publishers/edit";
-	}
+        return "/publishers/edit";
+    }
 
-	// POST
-	@PostMapping("/{id}/update")
-	public String updatePubl(@Valid @ModelAttribute("publ") Publisher upPubl, @PathVariable("id") Integer id,
-			BindingResult bindingResult) {
+    // POST
+    @PostMapping("/{id}/update")
+    public String updatePubl(@Valid @ModelAttribute("publ") Publisher upPubl, @PathVariable("id") Integer id,
+            BindingResult bindingResult) {
 
-		if (bindingResult.hasErrors()) {
-			return "publishers/edit";
-		}
+        if (bindingResult.hasErrors()) {
+            return "publishers/edit";
+        }
 
-		publRepo.save(upPubl);
-		return "redirect:/publishers";
-	}
+        publRepo.save(upPubl);
+        return "redirect:/publishers";
+    }
 
 // -------- DELETE --------
+    @PostMapping("/{id}/delete")
+    public String deletePubl(@PathVariable("id") Integer id) {
 
-	@PostMapping("/{id}/delete")
-	public String deletePubl(@PathVariable("id") Integer id) {
+        publRepo.deleteById(id);
 
-		publRepo.deleteById(id);
-
-		return "redirect:/publishers";
-	}
+        return "redirect:/publishers";
+    }
 
 }

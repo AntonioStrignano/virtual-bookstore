@@ -28,8 +28,9 @@ todo:
 if delete customer
 set customer reviews/orders as "delete user" name
 
-set bookstore role in user
+set review logic linked to users
 
+set bookstore role in user
 
 inventory detail page
 
