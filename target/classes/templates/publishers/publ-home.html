@@ -42,7 +42,7 @@
 				<tbody>
 					<tr th:each="publ : ${publishers}">
 						<td th:text="${publ.id}"></td>
-						<td th:text="${publ.publisherName}"></td>
+						<td><a th:href="@{|/publishers/${publ.id}|}" th:text="${publ.publisherName}"></a></td>
 						<td th:text="${publ.founderYear}"></td>
 						<td th:text="${publ.country}"></td>
 						<td th:text="${publ.city}"></td>
