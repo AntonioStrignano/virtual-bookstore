@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<title>Translator Detail</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+	<div class="container">
+		<h1 th:text="|${translator.firstName} ${translator.lastName}|"></h1>
+		<div>
+			<span>Translator Details</span>
+			<ul>
+				<li>First Name: <span th:text="${translator.firstName}"></span></li>
+				<li>Last Name: <span th:text="${translator.lastName}"></span></li>
+				<li>Birth Date: <span th:text="${translator.birthDate}"></span></li>
+				<li th:if="${translator.deathDate}">Death Date: <span th:text="${translator.deathDate}"></span></li>
+				<li>Nationality: <span th:text="${translator.nationality}"></span></li>
+				<li>Bio: <span th:text="${translator.bio}"></span></li>
+				<li>Website: <span th:text="${translator.website}"></span></li>
+				<li>Profile Picture: <img th:src="${translator.profilePicture}" alt="Profile Picture" /></li>
+				<li>Social Media: <span th:text="${translator.socialMedia}"></span></li>
+				<li>Is Active?: <span th:text="${translator.isActive? 'Yes' : 'No'}"></span></li>
+			</ul>
+
+			<div>
+				<h2>Translated books</h2>
+				<ul>
+					<li th:each="book : ${books}">
+						<a th:href="@{/books/{id}(id=${book.id})}" th:text="|${book.title}, ${book.publishDate}|"></a>
+				</ul>
+
+			</div>
+
+
+			<div>
+				</ul>
+
+
+				<a href="/translators" class="btn btn-primary">Back to Translators List</a>
+
+
+
+
+
+
+
+
+			</div>
+			<!-- SCRIPT BOOTSTRAP-->
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+				integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+				crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+				integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+				crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+				integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+				crossorigin="anonymous"></script>
+</body>
+
+</html>

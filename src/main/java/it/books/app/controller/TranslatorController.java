@@ -12,76 +12,88 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.books.app.model.Translator;
 import it.books.app.repository.TranslatorRepository;
+import it.books.app.repository.BookRepository;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/translators")
 public class TranslatorController {
 
-	@Autowired
-	private TranslatorRepository translRepo;
+    @Autowired
+    private TranslatorRepository translRepo;
 
-	// ---- READ ----
-	@GetMapping("")
-	public String translPage(Model model) {
+    @Autowired
+    private BookRepository bookRepo;
 
-		model.addAttribute("translators", translRepo.findAll());
+    // ---- READ ----
+    @GetMapping("")
+    public String translList(Model model) {
 
-		return "/translators/transl-home";
-	}
+        model.addAttribute("translators", translRepo.findAll());
 
-	// ---- CREATE ----
-	// GET
-	@GetMapping("/create")
-	public String newTransl(Model model) {
+        return "/translators/transl-home";
+    }
 
-		Translator newTransl = new Translator();
-		model.addAttribute("transl", newTransl);
+    @GetMapping("/{id}")
+    public String translDetails(Model model, @PathVariable("id") Integer id) {
 
-		return "/translators/edit";
-	}
+        model.addAttribute("translator", translRepo.getReferenceById(id));
+        model.addAttribute("books", bookRepo.findByTranslator_Id(id));
 
-	// POST
-	@PostMapping("/create")
-	public String createNewTransl(@Valid @ModelAttribute("transl") Translator newTransl, BindingResult bindingResult) {
+        return "/translators/detail";
+    }
 
-		if (bindingResult.hasErrors()) {
-			return "/translator/edit";
-		}
-		translRepo.save(newTransl);
-		return "redirect:/translators";
-	}
+    // ---- CREATE ----
+    // GET
+    @GetMapping("/create")
+    public String newTransl(Model model) {
 
-	// ---- UPDATE ----
+        Translator newTransl = new Translator();
+        model.addAttribute("transl", newTransl);
 
-	// GET
-	@GetMapping("/edit/{id}")
-	public String editTransl(@PathVariable("id") Integer id, Model model) {
+        return "/translators/edit";
+    }
 
-		model.addAttribute("editMode", true);
-		model.addAttribute("transl", translRepo.getReferenceById(id));
+    // POST
+    @PostMapping("/create")
+    public String createNewTransl(@Valid @ModelAttribute("transl") Translator newTransl, BindingResult bindingResult) {
 
-		return "translators/edit";
-	}
+        if (bindingResult.hasErrors()) {
+            return "/translator/edit";
+        }
+        translRepo.save(newTransl);
+        return "redirect:/translators";
+    }
 
-	// POST
-	@PostMapping("{id}/update")
-	public String updateTransl(@Valid @ModelAttribute("transl") Translator upTransl, BindingResult bindingResult) {
+    // ---- UPDATE ----
+    // GET
+    @GetMapping("/edit/{id}")
+    public String editTransl(@PathVariable("id") Integer id, Model model) {
 
-		if (bindingResult.hasErrors()) {
-			return "/translator/edit";
-		}
-		translRepo.save(upTransl);
+        model.addAttribute("editMode", true);
+        model.addAttribute("transl", translRepo.getReferenceById(id));
 
-		return "redirect:/translators";
+        return "translators/edit";
+    }
 
-	}
+    // POST
+    @PostMapping("{id}/update")
+    public String updateTransl(@Valid @ModelAttribute("transl") Translator upTransl, BindingResult bindingResult) {
 
-	// ---- DELETE ----
-	@PostMapping("{id}/delete")
-	public String deleteTransl(@PathVariable("id") Integer id) {
+        if (bindingResult.hasErrors()) {
+            return "/translator/edit";
+        }
+        translRepo.save(upTransl);
 
-		translRepo.deleteById(id);
-		return "redirect:/translators";
-	}
+        return "redirect:/translators";
+
+    }
+
+    // ---- DELETE ----
+    @PostMapping("{id}/delete")
+    public String deleteTransl(@PathVariable("id") Integer id) {
+
+        translRepo.deleteById(id);
+        return "redirect:/translators";
+    }
 }

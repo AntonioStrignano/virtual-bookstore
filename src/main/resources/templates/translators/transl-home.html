@@ -58,6 +58,12 @@
 						<td th:text="${translator.isActive}?'active':'unactive'"></td>
 						<td>
 							<button class="btn">
+								<a th:href="@{|/translators/${translator.id}}">
+									Details
+								</a>
+							</button>
+
+							<button class="btn">
 								<a th:href="@{|translators/edit/${translator.id}|}">
 									<i class="bi bi-pencil-square"></i>
 								</a>

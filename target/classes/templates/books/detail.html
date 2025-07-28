@@ -24,6 +24,8 @@
 				<li>Edition: <span th:text="${book.edition.name}"></span></li>
 				<li>Author: <a th:href="@{|/authors/${book.author.id}|}"
 						th:text="|${book.author.firstName} ${book.author.lastName}, ${book.author.birthDate}|"></a></li>
+				<li th:if="${book.translator != null}">Translator: <a th:href="@{|/translators/${book.translator.id}|}"
+						th:text="|${book.translator.firstName} ${book.translator.lastName}|"></a></li>
 				<li>Publisher: <a th:href="@{|/publishers/${book.publisher.id}|}"
 						th:text="|${book.publisher.publisherName}, ${book.publisher.founderYear}, ${book.publisher.country} (${book.publisher.city})|"></a>
 				</li>
