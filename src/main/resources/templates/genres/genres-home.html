@@ -30,15 +30,16 @@
 					<tr>
 						<th scope="col">ID</th>
 						<th scope="col">Name</th>
-						<th scope="col">Description</th>
+						<th scope="col">Books n.</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="genre : ${genres}" scope="row">
 						<td th:text="${genre.id}"></td>
-						<td th:text="${genre.name}"></td>
-						<td th:text="${genre.description}"></td>
+						<td><a th:href="@{/genres/{id}(id=${genre.id})}" th:text="${genre.name}"></a></td>
+
+						<td th:text="${genre.books.size()}"></td>
 						<td>
 							<button class="btn">
 								<a th:href="@{|genres/edit/${genre.id}|}">

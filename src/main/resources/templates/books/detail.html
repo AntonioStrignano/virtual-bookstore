@@ -19,7 +19,8 @@
 				<li>Language: <span th:text="${book.language}"></span></li>
 				<li>Publish Date: <span th:text="${book.publishDate}"></span></li>
 				<li>Cover: <img th:src="${book.cover}" height="100px"></li>
-				<li>Genres: <span th:each="genre : ${book.genres}" th:text="${genre.name}"></span></li>
+				<li>Genres: <a th:href="@{|/genres/${genre.id}|}" th:each="genre : ${book.genres}"
+						th:text="${genre.name}"></a></li>
 				<li>Edition: <span th:text="${book.edition.name}"></span></li>
 				<li>Author: <a th:href="@{|/authors/${book.author.id}|}"
 						th:text="|${book.author.firstName} ${book.author.lastName}, ${book.author.birthDate}|"></a></li>

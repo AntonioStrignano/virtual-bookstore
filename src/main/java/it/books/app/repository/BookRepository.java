@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import it.books.app.model.Book;
+import it.books.app.model.Genre;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
@@ -16,4 +17,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findByPublisherId(Integer publisherId);
 
     List<Book> findByBookCollectionId(Integer bookCollectionId);
+
+    List<Book> findByGenres_Id(Integer genreId);
 }
