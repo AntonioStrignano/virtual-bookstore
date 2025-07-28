@@ -38,6 +38,8 @@ cart checkout
 
 notification logics in corrispectives controllers
 
+implement "add to cart" in book details
+
 test:
 delete users and go around
 

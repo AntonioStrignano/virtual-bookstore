@@ -38,7 +38,7 @@
 				<h2>Book Collections</h2>
 				<ul>
 					<li th:each="collection : ${bookCollections}">
-						<a th:href="@{/book-collections/{id}(id=${collection.id})}" th:text="|${collection.title}|"></a>
+						<a th:href="@{/collections/{id}(id=${collection.id})}" th:text="|${collection.title}|"></a>
 					</li>
 				</ul>
 			</div>

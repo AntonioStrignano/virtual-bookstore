@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -38,12 +39,12 @@ public class BookCollectionController {
     }
 
     @GetMapping("{id}")
-    public String bookCollectionDetails(@ModelAttribute("id") Integer id, Model model) {
+    public String bookCollectionDetails(@PathVariable("id") Integer id, Model model) {
         BookCollection bookCollection = bookCollRepo.findById(id).orElse(null);
         if (bookCollection == null) {
             return "redirect:/collections";
         }
-        model.addAttribute("bookCollection", bookCollection);
+        model.addAttribute("collection", bookCollection);
         return "/collections/collection-details";
     }
     // ---- CREATE ----

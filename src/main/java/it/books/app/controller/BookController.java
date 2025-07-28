@@ -17,6 +17,7 @@ import it.books.app.repository.BookRepository;
 import it.books.app.repository.EditionRepository;
 import it.books.app.repository.FormatRepository;
 import it.books.app.repository.GenreRepository;
+import it.books.app.repository.InventoryRepository;
 import it.books.app.repository.PublisherRepository;
 import it.books.app.repository.TranslatorRepository;
 import jakarta.validation.Valid;
@@ -49,6 +50,9 @@ public class BookController {
     @Autowired
     private TranslatorRepository translRepo;
 
+    @Autowired
+    private InventoryRepository invRepo;
+
     // ---- READ ----
     // CATALOG
     @GetMapping("")
@@ -64,6 +68,7 @@ public class BookController {
     public String bookDetail(@PathVariable("id") Integer id, Model model) {
 
         model.addAttribute("book", bookRepo.getReferenceById(id));
+        model.addAttribute("products", invRepo.findByBookId(id));
 
         return "books/detail";
     }
