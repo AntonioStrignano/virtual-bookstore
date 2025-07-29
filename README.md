@@ -40,6 +40,8 @@ notification logics in corrispectives controllers
 
 implement "add to cart" in book details
 
+implement article analytics in inventory page
+
 test:
 delete users and go around
 

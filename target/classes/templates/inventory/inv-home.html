@@ -43,16 +43,21 @@
 				<tbody>
 					<tr th:each="article : ${stock}" scope="row">
 						<td th:text="${article.id}"></td>
-						<td th:text="${article.book.title}"></td>
-						<td>$ <span th:text="${#numbers.formatDecimal(article.price, 0, 'COMMA', 2, 'POINT')}"></span>
+						<td><a th:href="@{|/books/${article.book.id}|}" th:text="${article.book.title}"></a></td>
+						<td><span
+								th:text="|&#36; ${#numbers.formatDecimal(article.price, 0, 'COMMA', 2, 'POINT')}|"></span>
 						</td>
 						<td th:text="${article.quantity}"></td>
 						<td th:text="${article.book.isbn}"></td>
 						<td th:text="${article.notes}"></td>
 						<td th:text="${article.warehouseLocation.location}"></td>
 						<td th:text="${article.inventoryStatus.statusName}"></td>
-						<td><span th:each="disc : ${article.discounts}" th:text="${disc.discountType.typeName}"
-								class="badge"></span></td>
+						<td>
+							<div th:each="disc : ${article.discounts}"><span th:text="|${disc.name} - ${disc.discountType.typeName}, (${disc.discountValue}
+									${disc.discountType.typeName == 'Percentage' ? '%' : '$'})|"></span><br>
+								<span th:text="|${disc.startDate} - ${disc.endDate}|"></span>
+							</div>
+						</td>
 						<td>
 							<button class="btn">
 								<a th:href="@{|inventory/edit/${article.id}|}">
