@@ -1,0 +1,37 @@
+<div class="container" th:fragment="navbar">
+
+    <nav
+        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between px-5 py-2 mb-4 border-bottom">
+        <div>
+            <span th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" class="me-2">Admin</span>
+            <span th:if="${#authorization.expression('hasAuthority(''SHOP_ASSISTANT'')')}" class="me-2">Shop
+                Assistant</span>
+            <span th:if="${#authorization.expression('hasAuthority(''CUSTOMER'')')}" class="me-2">Customer</span>
+            <span th:if="${#authorization.expression('isAnonymous()')}" class="me-2">Guest</span>
+        </div>
+        <div class="btn-group">
+            <a href="/" class="btn btn-light">Home</a>
+            <a href="/books" class="btn btn-light">Libri</a>
+            <a href="/cart" th:if="${#authorization.expression('hasAuthority(''CUSTOMER'')')}"
+                class="btn btn-light">Carrello</a>
+            <a href="/admin" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" class="btn btn-light">Admin
+                Panel</a>
+            <a href="/warehouse" th:if="${#authorization.expression('hasAuthority(''SHOP_ASSISTANT'')')}"
+                class="btn btn-light">Magazzino</a>
+            <a href="/logout" th:if="${#authorization.expression('isAuthenticated()')}" class="btn btn-light">Logout</a>
+            <a href="/login" th:if="${#authorization.expression('isAnonymous()')}" class="btn btn-light">Login</a>
+        </div>
+    </nav>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUrl = window.location.pathname;
+            document.querySelectorAll('.btn-group a').forEach(function (link) {
+                if (link.getAttribute('href') === currentUrl) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</div>

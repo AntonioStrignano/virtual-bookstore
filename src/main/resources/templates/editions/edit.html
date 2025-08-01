@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+	<div th:replace="fragments/header :: navbar"></div>
 	<div class="container">
 		<h1 th:unless=${editMode} th:text="|Create new edition|"></h1>
 		<h1 th:if=${editMode} th:text="|Edit edition: ${edition.name}|"></h1>
