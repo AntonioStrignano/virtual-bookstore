@@ -2,6 +2,9 @@ package it.books.app.dto;
 
 import java.util.List;
 
+import it.books.app.model.Customer;
+import it.books.app.model.User;
+
 public class UserCustomerDto {
 
     // --- User fields ---
@@ -18,6 +21,25 @@ public class UserCustomerDto {
     private String preferences;           // JSON string
     private Integer cartId;               // id del Cart
     private Integer wishlistId;           // id della Wishlist
+
+    // --- Constructors ---
+    public UserCustomerDto() {
+    }
+
+    public UserCustomerDto(User user, Customer customer) {
+
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.bookstoreRole = user.getBookstoreRole().getId();
+        this.roles = user.getRoleIds();
+        this.firstName = customer.getFirstName();
+        this.lastName = customer.getLastName();
+        this.phoneNumber = customer.getPhoneNumber();
+        this.address = customer.getAddress();
+        this.preferences = customer.getPreferences();
+        this.cartId = customer.getCartId().getId();
+        this.wishlistId = customer.getWishlistId().getId();
+    }
 
     // --- Getters & Setters ---
     public String getUsername() {

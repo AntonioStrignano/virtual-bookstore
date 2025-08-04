@@ -44,6 +44,14 @@ public class Customer {
     @Column(name = "address", nullable = false, columnDefinition = "tinytext")
     private String address;
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     // preferences(json)
     @Column(name = "preferences", nullable = false, columnDefinition = "JSON")
     private String preferences;

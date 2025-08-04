@@ -6,4 +6,6 @@ import it.books.app.model.Cart;
 
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 
+    public void deleteByCustomerId(Integer customerId);
+
 }

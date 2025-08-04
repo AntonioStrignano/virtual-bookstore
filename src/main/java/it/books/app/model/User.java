@@ -1,16 +1,12 @@
 package it.books.app.model;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import it.books.app.dto.UserCustomerDto;
 import it.books.app.dto.UserShopAssistantDto;
-import it.books.app.repository.BookstoreRoleRepository;
-import it.books.app.repository.RoleRepository;
-import org.springframework.stereotype.Component;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -62,14 +58,7 @@ public class User {
     @NotEmpty(message = "Seleziona almeno un ruolo.")
     @JsonManagedReference
     private List<Role> roles;
-// REPOSITORIES
-    @Autowired
-    private RoleRepository roleRepo;
 
-    @Autowired
-    private BookstoreRoleRepository bookstoreRoleRepo;
-
-// CONSTRUCTORS
 // CONSTRUCTORS
     public User() {
     }
@@ -154,6 +143,26 @@ public class User {
 
     public void setBookstoreRole(BookstoreRole bookstoreRole) {
         this.bookstoreRole = bookstoreRole;
+    }
+
+    public List<Integer> getRoleIds() {
+        if (roles == null || roles.isEmpty()) {
+            return List.of();
+        }
+        List<Integer> roleIds = new ArrayList<>();
+        for (Role role : roles) {
+            roleIds.add(role.getId());
+        }
+        return roleIds;
+    }
+
+    public Integer getBookstoreRoleId() {
+        return bookstoreRole != null ? bookstoreRole.getId() : null;
+    }
+
+    public void updateFromDto(UserShopAssistantDto shopAssDto) {
+        this.username = shopAssDto.getUsername();
+        this.password = shopAssDto.getPassword();
     }
 
 }

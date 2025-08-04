@@ -2,6 +2,9 @@ package it.books.app.dto;
 
 import java.util.List;
 
+import it.books.app.model.ShopAssistant;
+import it.books.app.model.User;
+
 public class UserShopAssistantDto {
 
     // --- User fields ---
@@ -20,6 +23,26 @@ public class UserShopAssistantDto {
     private String city;
     private Boolean isRemote;
     private Integer warehouseLocationId;  // id del WarehouseLocation
+
+    // --- Constructors ---
+    public UserShopAssistantDto() {
+    }
+
+    public UserShopAssistantDto(User user, ShopAssistant shopAssistant) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.bookstoreRoleId = user.getBookstoreRole().getId();
+        this.roles = user.getRoleIds();
+        this.firstName = shopAssistant.getFirstName();
+        this.lastName = shopAssistant.getLastName();
+        this.personalEmail = shopAssistant.getPersonalEmail();
+        this.internalEmail = shopAssistant.getInternalEmail();
+        this.phoneNumber = shopAssistant.getPhoneNumber();
+        this.address = shopAssistant.getAddress();
+        this.city = shopAssistant.getCity();
+        this.isRemote = shopAssistant.getIsRemote();
+        this.warehouseLocationId = shopAssistant.getAssistantLocation().getId();
+    }
 
     // --- Getters & Setters ---
     public String getUsername() {

@@ -6,4 +6,6 @@ import it.books.app.model.SearchHistory;
 
 public interface SearchHistoryRepository extends JpaRepository<SearchHistory, Integer> {
 
+    public void deleteByCustomerId(Integer id);
+
 }

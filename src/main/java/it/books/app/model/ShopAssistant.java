@@ -205,4 +205,15 @@ public class ShopAssistant {
         this.isFired = isFired;
     }
 
+    public void updateFromDto(UserShopAssistantDto shopAssDto) {
+        this.firstName = shopAssDto.getFirstName();
+        this.lastName = shopAssDto.getLastName();
+        this.personalEmail = shopAssDto.getPersonalEmail();
+        this.internalEmail = shopAssDto.getInternalEmail();
+        this.phoneNumber = shopAssDto.getPhoneNumber();
+        this.address = shopAssDto.getAddress();
+        this.city = shopAssDto.getCity();
+        this.isRemote = shopAssDto.getIsRemote();
+    }
+
 }
