@@ -1,22 +1,24 @@
 package it.books.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import it.books.app.model.Analytic;
+import it.books.app.dto.UserCustomerDto;
+import it.books.app.dto.UserShopAssistantDto;
+import it.books.app.model.BookstoreRole;
 import it.books.app.model.Customer;
-import it.books.app.model.Notification;
-import it.books.app.model.Order;
-import it.books.app.model.Review;
-import it.books.app.model.SearchHistory;
+import it.books.app.model.Role;
+import it.books.app.model.ShopAssistant;
 import it.books.app.model.User;
+import it.books.app.model.WarehouseLocation;
+import it.books.app.repository.BookstoreRoleRepository;
 import it.books.app.repository.CartRepository;
 import it.books.app.repository.CustomerRepository;
 import it.books.app.repository.NotificationRepository;
@@ -24,8 +26,8 @@ import it.books.app.repository.RoleRepository;
 import it.books.app.repository.SearchHistoryRepository;
 import it.books.app.repository.ShopAssistantRepository;
 import it.books.app.repository.UserRepository;
+import it.books.app.repository.WarehouseLocationRepository;
 import it.books.app.repository.WishlistRepository;
-import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -55,115 +57,69 @@ public class UserController {
     @Autowired
     private SearchHistoryRepository searchRepo;
 
+    @Autowired
+    private BookstoreRoleRepository bookstoreRoleRepo;
+
+    @Autowired
+    private WarehouseLocationRepository warehouseLocationRepo;
+
     // ---- READ  ----
     public String adminUsersView(Model model) {
-
         model.addAttribute("users", userRepo.findAll());
         return "/users/admin";
     }
 
-    // ---- CREATE ----
-    // GET
-    @GetMapping("/new/shop-assistant")
-    public String newUser(Model model) {
-        User newUser = new User();
-        newUser.getRoles().add(roleRepo.getReferenceById(2));
-        model.addAttribute("user", newUser);
-        return "/users/edit";
+    // ---- CREATE SHOP ASSISTANT ----
+    @GetMapping("/new-shop-assistant")
+    public String newShopAssistant(Model model) {
+        model.addAttribute("user", new UserShopAssistantDto());
+        model.addAttribute("editMode", false);
+        model.addAttribute("shopass", true);
+        return "users/edit";
     }
 
-    //  NEW CUSTOMER
-    @GetMapping("/new/customer")
+    @PostMapping("/new-shop-assistant")
+    public String createShopAssistant(@ModelAttribute UserShopAssistantDto shopAssDto) {
+        // Recupera oggetti necessari dai repository
+        List<Role> roles = roleRepo.findAllById(shopAssDto.getRoleIds());
+        BookstoreRole bookstoreRole = bookstoreRoleRepo.findById(shopAssDto.getBookstoreRoleId()).orElse(null);;
+        WarehouseLocation warehouseLocation = warehouseLocationRepo.findById(shopAssDto.getWarehouseLocationId()).orElse(null);
+
+        // Crea ShopAssistant direttamente dal DTO e warehouseLocation
+        ShopAssistant shopAssistant = new ShopAssistant(shopAssDto, warehouseLocation);
+        shopAssRepo.save(shopAssistant);
+
+        // Crea User direttamente dal DTO
+        User user = new User(shopAssDto, roles, bookstoreRole, shopAssistant.getId());
+        userRepo.save(user);
+
+        return "redirect:/users/admin";
+    }
+
+    // ---- CREATE CUSTOMER ----
+    @GetMapping("/new-customer")
     public String newCustomer(Model model) {
-        User newUser = new User();
-        newUser.getRoles().add(roleRepo.getReferenceById(3));
-        model.addAttribute("user", newUser);
-        return "/users/edit";
+        model.addAttribute("user", new UserCustomerDto());
+        model.addAttribute("editMode", false);
+        model.addAttribute("customer", true);
+        return "users/edit";
     }
 
-    // POST
-    @PostMapping("/create")
-    public String createUser(Model model, @Valid @ModelAttribute("user") User newUser, BindingResult bindingResult) {
+    @PostMapping("/new-customer")
+    public String createCustomer(@ModelAttribute UserCustomerDto customerDto) {
+        // Recupera ruoli e bookstoreRole
+        List<Role> roles = roleRepo.findAllById(customerDto.getRoles());
+        BookstoreRole bookstoreRole = bookstoreRoleRepo.findById(customerDto.getBookstoreRole()).orElse(null);
 
-        if (bindingResult.hasErrors()) {
-            return "/users/edit";
-        }
+        // Crea Customer direttamente dal DTO (crea anche Cart e Wishlist internamente)
+        Customer customer = new Customer(customerDto);
+        custRepo.save(customer);
 
-        userRepo.save(newUser);
-        if (newUser.getRoles().contains(roleRepo.getReferenceById(2))) {
-            // SHOP ASSISTANT
-            return "redirect:/shop-assistants/new/" + newUser.getId();
+        // Crea User direttamente dal DTO
+        User user = new User(customerDto, roles, bookstoreRole, customer.getId());
+        userRepo.save(user);
 
-        } else if (newUser.getRoles().contains(roleRepo.getReferenceById(3))) {
-            // CUSTOMER
-            return "redirect:/customers/new/" + newUser.getId();
-        }
-
-        return "redirect:/users";
-    }
-
-    // ---- UPDATE ----
-    @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable("id") Integer id, Model model) {
-        User editUser = userRepo.getReferenceById(id);
-        model.addAttribute("user", editUser);
-        model.addAttribute("editMode", true);
-        return "/users/edit";
-    }
-
-    @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid @ModelAttribute("user") User upUser, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "/users/edit";
-        }
-        userRepo.save(upUser);
-
-        if (upUser.getRoles().contains(roleRepo.getReferenceById(2))) {
-            // SHOP ASSISTANT
-            return "redirect:/shop-assistants/edit/" + upUser.getId();
-
-        } else if (upUser.getRoles().contains(roleRepo.getReferenceById(3))) {
-            // CUSTOMER
-            return "redirect:/customers/edit/" + upUser.getId();
-        }
-
-        return "redirect:/users";
-    }
-
-    // ---- DELETE ----
-    @PostMapping("delete/user/{id}")
-    public String deleteUser(@PathVariable("id") Integer id) {
-        User delUser = userRepo.getReferenceById(id);
-        if (delUser.getRoles().contains(roleRepo.getReferenceById(2))) {
-            // SHOP ASSISTANT
-            shopAssRepo.getReferenceById(delUser.getSecondId()).setIsFired(true);
-            userRepo.delete(delUser);
-        } else if (delUser.getRoles().contains(roleRepo.getReferenceById(3))) {
-            // CUSTOMER
-            Customer delCustomer = custRepo.getReferenceById(delUser.getSecondId());
-            for (SearchHistory record : delCustomer.getSearchHistory()) {
-                searchRepo.delete(record);
-            }
-            wishRepo.delete(delCustomer.getWishlistId());
-            for (Analytic analytic : delCustomer.getAnalytics()) {
-                analytic.setCustomerId(null);
-            }
-            for (Notification notification : delCustomer.getNotifications()) {
-                notifiRepo.delete(notification);
-            }
-            cartRepo.delete(delCustomer.getCartId());
-            for (Review review : delCustomer.getReviews()) {
-                review.setCustomerId(null);
-            }
-            for (Order order : delCustomer.getOrders()) {
-                order.setCustomerId(null);
-            }
-            custRepo.delete(delCustomer);
-            userRepo.delete(delUser);
-        }
-
-        return "redirect:/users";
+        return "redirect:/users/admin";
     }
 
 }

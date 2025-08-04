@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import it.books.app.model.AnalyticType;
 import it.books.app.model.Analytic;
+import it.books.app.model.AnalyticType;
 import it.books.app.model.Author;
 import it.books.app.model.Award;
 import it.books.app.model.Book;
@@ -37,6 +37,7 @@ import it.books.app.model.Translator;
 import it.books.app.model.User;
 import it.books.app.model.WarehouseLocation;
 import it.books.app.model.Wishlist;
+import it.books.app.repository.AnalyticRepository;
 import it.books.app.repository.AnalyticTypeRepository;
 import it.books.app.repository.AuthorRepository;
 import it.books.app.repository.AwardRepository;
@@ -64,7 +65,6 @@ import it.books.app.repository.TranslatorRepository;
 import it.books.app.repository.UserRepository;
 import it.books.app.repository.WarehouseLocationRepository;
 import it.books.app.repository.WishlistRepository;
-import it.books.app.repository.AnalyticRepository;
 
 @Component
 public class DataSeeder implements CommandLineRunner {
@@ -413,16 +413,27 @@ public class DataSeeder implements CommandLineRunner {
             if (shopAssRepo.count() == 0) {
                 shopAssRepo.save(new ShopAssistant("Jon", "Doe", "personal email", "internal email", "+39 1234567890", "washington st.", "new york", true, warehouseLocationRepo.getReferenceById(1)));
                 userRepo.save(new User("shopass1", "shopass123", List.of(roleRepo.getReferenceById(2)), bookRoleRepo.getReferenceById(1), 1));
+                shopAssRepo.save(new ShopAssistant("Jane", "Smith", "personal email2", "internal email2", "+39 0987654321", "broadway st.", "new york", true, warehouseLocationRepo.getReferenceById(2)));
+                userRepo.save(new User("shopass2", "shopass123", List.of(roleRepo.getReferenceById(2)), bookRoleRepo.getReferenceById(1), 2));
+                shopAssRepo.save(new ShopAssistant("Alice", "Johnson", "personal email3", "internal email3", "+39 1122334455", "5th avenue", "new york", true, warehouseLocationRepo.getReferenceById(1)));
+                userRepo.save(new User("shopass3", "shopass123", List.of(roleRepo.getReferenceById(2)), bookRoleRepo.getReferenceById(1), 3));
 
             }
             //wishlist
             if (wishRepo.count() == 0) {
                 wishRepo.save(new Wishlist(List.of(bookRepo.getReferenceById(1), bookRepo.getReferenceById(2), bookRepo.getReferenceById(3))));
+                wishRepo.save(new Wishlist(List.of(bookRepo.getReferenceById(4))));
+                wishRepo.save(new Wishlist(List.of(bookRepo.getReferenceById(1), bookRepo.getReferenceById(3))));
+                wishRepo.save(new Wishlist(List.of(bookRepo.getReferenceById(2), bookRepo.getReferenceById(4))));
             }
 
             //cart
             if (cartRepo.count() == 0) {
                 cartRepo.save(new Cart(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(2), inventoryRepo.getReferenceById(3))));
+                cartRepo.save(new Cart(List.of(inventoryRepo.getReferenceById(4))));
+                cartRepo.save(new Cart(List.of(inventoryRepo.getReferenceById(1), inventoryRepo.getReferenceById(3))));
+                cartRepo.save(new Cart(List.of(inventoryRepo.getReferenceById(2), inventoryRepo.getReferenceById(4))));
+
             }
 
             //customer
@@ -432,6 +443,15 @@ public class DataSeeder implements CommandLineRunner {
                         cartRepo.getReferenceById(1), wishRepo.getReferenceById(1))
                 );
                 userRepo.save(new User("cust1", "cust123", List.of(roleRepo.getReferenceById(3)), bookRoleRepo.getReferenceById(2), 1));
+                custRepo.save(new Customer("John", "Doe", "+1234567490", "123 Main St, City, Country", "{\"language\":\"en\",\"currency\":\"USD\",\"newsletterSubscribed\":true,\"preferredGenres\":[\"fiction\",\"mystery\"],\"darkMode\":false,\"notifications\":{\"email\":true,\"sms\":false,\"push\":true}}\r\n",
+                        cartRepo.getReferenceById(2), wishRepo.getReferenceById(2)));
+                userRepo.save(new User("cust2", "cust123", List.of(roleRepo.getReferenceById(3)), bookRoleRepo.getReferenceById(2), 2));
+                custRepo.save(new Customer("Jane", "Smith", "+1254567890", "456 Elm St, City, Country", "{\"language\":\"en\",\"currency\":\"USD\",\"newsletterSubscribed\":true,\"preferredGenres\":[\"non-fiction\",\"biography\"],\"darkMode\":false,\"notifications\":{\"email\":true,\"sms\":false,\"push\":true}}\r\n",
+                        cartRepo.getReferenceById(3), wishRepo.getReferenceById(3)));
+                userRepo.save(new User("cust3", "cust123", List.of(roleRepo.getReferenceById(3)), bookRoleRepo.getReferenceById(2), 3));
+                custRepo.save(new Customer("Alice", "Johnson", "+1234561890", "789 Oak St, City, Country", "{\"language\":\"en\",\"currency\":\"USD\",\"newsletterSubscribed\":true,\"preferredGenres\":[\"science fiction\",\"fantasy\"],\"darkMode\":false,\"notifications\":{\"email\":true,\"sms\":false,\"push\":true}}\r\n",
+                        cartRepo.getReferenceById(4), wishRepo.getReferenceById(4)));
+                userRepo.save(new User("cust4", "cust123", List.of(roleRepo.getReferenceById(3)), bookRoleRepo.getReferenceById(2), 4));
             }
 
             //review

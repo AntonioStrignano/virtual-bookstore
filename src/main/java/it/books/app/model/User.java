@@ -2,8 +2,15 @@ package it.books.app.model;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import it.books.app.dto.UserCustomerDto;
+import it.books.app.dto.UserShopAssistantDto;
+import it.books.app.repository.BookstoreRoleRepository;
+import it.books.app.repository.RoleRepository;
+import org.springframework.stereotype.Component;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -55,7 +62,14 @@ public class User {
     @NotEmpty(message = "Seleziona almeno un ruolo.")
     @JsonManagedReference
     private List<Role> roles;
+// REPOSITORIES
+    @Autowired
+    private RoleRepository roleRepo;
 
+    @Autowired
+    private BookstoreRoleRepository bookstoreRoleRepo;
+
+// CONSTRUCTORS
 // CONSTRUCTORS
     public User() {
     }
@@ -68,6 +82,24 @@ public class User {
     public User(String username, String password, List<Role> roles, BookstoreRole bookstoreRole, Integer secondId) {
         this.username = username;
         this.password = password;
+        this.roles = roles;
+        this.bookstoreRole = bookstoreRole;
+        this.secondId = secondId;
+    }
+
+    // Costruttore da DTO per Customer
+    public User(UserCustomerDto dto, List<Role> roles, BookstoreRole bookstoreRole, Integer secondId) {
+        this.username = dto.getUsername();
+        this.password = dto.getPassword();
+        this.roles = roles;
+        this.bookstoreRole = bookstoreRole;
+        this.secondId = secondId;
+    }
+
+    // Costruttore da DTO per ShopAssistant
+    public User(UserShopAssistantDto dto, List<Role> roles, BookstoreRole bookstoreRole, Integer secondId) {
+        this.username = dto.getUsername();
+        this.password = dto.getPassword();
         this.roles = roles;
         this.bookstoreRole = bookstoreRole;
         this.secondId = secondId;

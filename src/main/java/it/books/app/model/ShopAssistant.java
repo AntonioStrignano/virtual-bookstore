@@ -2,6 +2,7 @@ package it.books.app.model;
 
 import java.util.List;
 
+import it.books.app.dto.UserShopAssistantDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -90,6 +91,18 @@ public class ShopAssistant {
         this.address = address;
         this.city = city;
         this.isRemote = isRemote;
+        this.assistantLocation = warehouseLocation;
+    }
+
+    public ShopAssistant(UserShopAssistantDto dto, WarehouseLocation warehouseLocation) {
+        this.firstName = dto.getFirstName();
+        this.lastName = dto.getLastName();
+        this.personalEmail = dto.getPersonalEmail();
+        this.internalEmail = dto.getInternalEmail();
+        this.phoneNumber = dto.getPhoneNumber();
+        this.address = dto.getAddress();
+        this.city = dto.getCity();
+        this.isRemote = dto.getIsRemote();
         this.assistantLocation = warehouseLocation;
     }
 

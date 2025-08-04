@@ -2,6 +2,7 @@ package it.books.app.model;
 
 import java.util.List;
 
+import it.books.app.dto.UserCustomerDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -98,6 +99,16 @@ public class Customer {
         this.cartId = cart;
         this.wishlistId = wishlist;
 
+    }
+
+    public Customer(UserCustomerDto dto) {
+        this.firstName = dto.getFirstName();
+        this.lastName = dto.getLastName();
+        this.phoneNumber = dto.getPhoneNumber();
+        this.address = dto.getAddress();
+        this.preferences = dto.getPreferences();
+        this.cartId = new Cart();
+        this.wishlistId = new Wishlist();
     }
 
     // ----------------------------
