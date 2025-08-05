@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import it.books.app.model.Analytic;
+import it.books.app.repository.AnalyticRepository;
+import it.books.app.repository.AnalyticTypeRepository;
 import it.books.app.repository.BookRepository;
 import it.books.app.repository.CustomerRepository;
 import it.books.app.repository.WishlistRepository;
@@ -25,6 +28,12 @@ public class WishlistController {
     @Autowired
     private CustomerRepository custRepo;
 
+    @Autowired
+    private AnalyticRepository analyticRepo;
+
+    @Autowired
+    private AnalyticTypeRepository analyticTypeRepo;
+
 // ---- READ ----
     @GetMapping("{userId}")
     public String wishPage(Model model, @PathVariable("userId") Integer userId) {
@@ -38,6 +47,7 @@ public class WishlistController {
             @PathVariable("bookId") Integer bookId,
             @PathVariable("custId") Integer custId) {
         wishlistRepo.getReferenceById(custRepo.getReferenceById(custId).getWishlistId().getId()).getWishlistedBooks().add(bookRepo.getReferenceById(bookId));
+        analyticRepo.save(new Analytic(bookRepo.getReferenceById(bookId), custRepo.getReferenceById(custId), analyticTypeRepo.getReferenceById(6)));
         return "/books/" + bookId;
     }
 
@@ -46,6 +56,7 @@ public class WishlistController {
             @PathVariable("bookId") Integer bookId,
             @PathVariable("custId") Integer custId) {
         wishlistRepo.getReferenceById(custRepo.getReferenceById(custId).getWishlistId().getId()).getWishlistedBooks().remove(bookRepo.getReferenceById(bookId));
+        analyticRepo.save(new Analytic(bookRepo.getReferenceById(bookId), custRepo.getReferenceById(custId), analyticTypeRepo.getReferenceById(17)));
         return "/books/" + bookId;
     }
 }

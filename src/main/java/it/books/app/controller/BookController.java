@@ -1,5 +1,7 @@
 package it.books.app.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,16 +12,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import it.books.app.model.Analytic;
 import it.books.app.model.Book;
+import it.books.app.model.Customer;
+import it.books.app.repository.AnalyticRepository;
+import it.books.app.repository.AnalyticTypeRepository;
 import it.books.app.repository.AuthorRepository;
 import it.books.app.repository.AwardRepository;
 import it.books.app.repository.BookRepository;
+import it.books.app.repository.CustomerRepository;
 import it.books.app.repository.EditionRepository;
 import it.books.app.repository.FormatRepository;
 import it.books.app.repository.GenreRepository;
 import it.books.app.repository.InventoryRepository;
 import it.books.app.repository.PublisherRepository;
 import it.books.app.repository.TranslatorRepository;
+import it.books.app.repository.UserRepository;
 import jakarta.validation.Valid;
 
 @Controller
@@ -53,6 +61,18 @@ public class BookController {
     @Autowired
     private InventoryRepository invRepo;
 
+    @Autowired
+    private AnalyticRepository analyticRepo;
+
+    @Autowired
+    private AnalyticTypeRepository analyticTypeRepo;
+
+    @Autowired
+    private CustomerRepository customerRepo;
+
+    @Autowired
+    private UserRepository userRepo;
+
     // ---- READ ----
     // CATALOG
     @GetMapping("")
@@ -65,10 +85,11 @@ public class BookController {
 
     // BOOK DETAIL
     @GetMapping("{id}")
-    public String bookDetail(@PathVariable("id") Integer id, Model model) {
-
+    public String bookDetail(@PathVariable("id") Integer id, Model model, Principal principal) {
+        Customer customer = customerRepo.findById(userRepo.findByUsername(principal.getName()).orElse(null).getSecondId()).orElse(null);
         model.addAttribute("book", bookRepo.getReferenceById(id));
         model.addAttribute("products", invRepo.findByBookId(id));
+        analyticRepo.save(new Analytic(bookRepo.getReferenceById(id), customer, analyticTypeRepo.getReferenceById(1)));
 
         return "books/detail";
     }

@@ -48,12 +48,19 @@ public class Analytic {
     @JoinColumn(name = "event_type", nullable = false)
     private AnalyticType analyticType;
 
-    // constructors
+    // ---- CONSTRUCTORS ----
     public Analytic() {
     }
 
     public Analytic(LocalDateTime eventTimestamp, Book bookId, Customer customerId, AnalyticType analyticType) {
         this.eventTimestamp = eventTimestamp;
+        this.bookId = bookId;
+        this.customerId = customerId;
+        this.analyticType = analyticType;
+    }
+
+    public Analytic(Book bookId, Customer customerId, AnalyticType analyticType) {
+        this.eventTimestamp = LocalDateTime.now();
         this.bookId = bookId;
         this.customerId = customerId;
         this.analyticType = analyticType;
